@@ -1,0 +1,4 @@
+C:\Users\walter\Desktop\Physarealm\Physarealm\bin\Physarealm.dll
+C:\Users\walter\Desktop\Physarealm\Physarealm\bin\Physarealm.pdb
+C:\Users\walter\Desktop\Physarealm\Physarealm\obj\Debug64\Physarealm.dll
+C:\Users\walter\Desktop\Physarealm\Physarealm\obj\Debug64\Physarealm.pdb
