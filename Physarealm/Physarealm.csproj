@@ -62,17 +62,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractComponent.cs" />
+    <Compile Include="Emitter\AbstractEmitterComponent.cs" />
+    <Compile Include="Emitter\AbstractEmitterType.cs" />
+    <Compile Include="Emitter\CurveEmitterComponent.cs" />
+    <Compile Include="Emitter\CurveEmitterType.cs" />
+    <Compile Include="Emitter\PointEmitterComponent.cs" />
+    <Compile Include="Emitter\PointEmitterType.cs" />
+    <Compile Include="Emitter\SurfaceEmitterComponent.cs" />
+    <Compile Include="Emitter\SurfaceEmitterType.cs" />
+    <Compile Include="Environment\AbstractEnvironmentComponent.cs" />
+    <Compile Include="Environment\AbstractEnvironmentType.cs" />
+    <Compile Include="Environment\BoxEnvironmentComponent.cs" />
+    <Compile Include="Environment\BoxEnvironmentType.cs" />
+    <Compile Include="Environment\MeshEnvironmentComponent.cs" />
+    <Compile Include="Environment\MeshEnvironmentType.cs" />
+    <Compile Include="Environment\SurfaceEnvironmentComponent.cs" />
+    <Compile Include="Environment\SurfaceEnvironmentType.cs" />
+    <Compile Include="Food\AbstractFoodComponent.cs" />
+    <Compile Include="Food\AbstractFoodType.cs" />
+    <Compile Include="Food\PointFoodComponent.cs" />
+    <Compile Include="Food\PointFoodType.cs" />
+    <Compile Include="Food\SurfaceFoodComponent.cs" />
+    <Compile Include="Food\SurfaceFoodType.cs" />
     <Compile Include="PhysarealmComponent.cs" />
     <Compile Include="PhysarealmInfo.cs" />
+    <Compile Include="PhysarumLib\Amoeba.cs" />
+    <Compile Include="PhysarumLib\Grid3d.cs" />
+    <Compile Include="PhysarumLib\Physarum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting\AbstractSettingComponent.cs" />
+    <Compile Include="Setting\AbstractSettingType.cs" />
+    <Compile Include="Setting\AgentSettingComponent.cs" />
+    <Compile Include="Setting\AgentSettingType.cs" />
+    <Compile Include="Util\Libutility.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Emitter\" />
-    <Folder Include="Environment\" />
-    <Folder Include="Food\" />
-    <Folder Include="Physarum\" />
-    <Folder Include="Setting\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
