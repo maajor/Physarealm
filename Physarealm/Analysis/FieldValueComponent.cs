@@ -3,18 +3,20 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-
-namespace Physarealm.Environment
+using Physarealm.Environment;
+namespace Physarealm.Analysis
 {
-    public class MeshEnvironmentComponent:AbstractEnvironmentComponent
+    public class FieldValueComponent :AbstractFieldAnalysisComponent
     {
+        private AbstractEnvironmentType env;
+        private float[] value;
         /// <summary>
-        /// Initializes a new instance of the MeshEnvironmentComponent class.
+        /// Initializes a new instance of the FieldValueComponent class.
         /// </summary>
-        public MeshEnvironmentComponent()
-            : base("Mesh Environment", "MeshEnv",
+        public FieldValueComponent()
+            : base("Field Value", "FV",
                 "Description",
-                null, "9DF75EEA-0064-4A3B-A242-1A3CEDC6A794")
+                null, "7963C564-60CC-4E2D-94F5-D48D8CBBD428")
         {
         }
 
@@ -23,7 +25,7 @@ namespace Physarealm.Environment
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddMeshParameter("Mesh", "M", "Mesh", GH_ParamAccess.item);
+            base.RegisterInputParams(pManager);
         }
 
         /// <summary>
@@ -31,22 +33,29 @@ namespace Physarealm.Environment
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            base.RegisterOutputParams(pManager);
+            pManager.AddNumberParameter("Values", "V", "Values", GH_ParamAccess.list);
         }
 
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-        }
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref env)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
+            da.SetDataList(0, value);
+        }
+        protected override void SolveInstance(IGH_DataAccess da)
+        {
+            if (!GetInputs(da)) return;
+
+            value = env.getTrailV();
+
+            SetOutputs(da);
         }
 
     }

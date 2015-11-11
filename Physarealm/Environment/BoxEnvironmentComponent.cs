@@ -5,7 +5,7 @@ using System.Drawing;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace Physarealm
+namespace Physarealm.Environment
 {
     public class BoxEnvironmentComponent : AbstractEnvironmentComponent
     {
@@ -17,7 +17,7 @@ namespace Physarealm
         /// Initializes a new instance of the BoxEnvironmentComponent class.
         /// </summary>
         public BoxEnvironmentComponent()
-            : base("BoxEnvironmentComponent", "BoxEnvir",
+            : base("Box Environment", "BoxEnvir",
                 "Description",null
                 , "CBE2B1BA-1C6E-473E-8D4A-F724290A9BED")
         {

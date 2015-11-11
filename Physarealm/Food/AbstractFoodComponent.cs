@@ -14,8 +14,8 @@ namespace Physarealm.Food
         /// </summary>
         public AbstractFoodComponent(string name, string nickname, string description,
                                     Bitmap icon, string componentGuid)
-            : base("AbstractFoodComponent", "Nickname",
-                "Description",
+            : base(name, nickname,
+                description,
                 "Physarealm", "Food", icon, componentGuid)
         {
         }
@@ -26,7 +26,7 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Food", "F", "Food for agent to search", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Food", "F", "Food for agent to search", GH_ParamAccess.item);
         }
 
 

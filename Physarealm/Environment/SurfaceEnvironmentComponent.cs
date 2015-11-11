@@ -6,15 +6,15 @@ using Rhino.Geometry;
 
 namespace Physarealm.Environment
 {
-    public class SurfaceEnvironmentComponent : GH_Component
+    public class SurfaceEnvironmentComponent :AbstractEnvironmentComponent
     {
         /// <summary>
         /// Initializes a new instance of the SurfaceEnvironmentComponent class.
         /// </summary>
         public SurfaceEnvironmentComponent()
-            : base("SurfaceEnvironmentComponent", "Nickname",
-                "Description",
-                "Category", "Subcategory")
+            : base("Surface Environment", "SurfEnv",
+                "Description"
+                , null, "68B8A101-5678-4406-AAE0-6D702C9930BA")
         {
         }
 
@@ -23,6 +23,7 @@ namespace Physarealm.Environment
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddSurfaceParameter("Surface", "srf", "Surface", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -30,35 +31,14 @@ namespace Physarealm.Environment
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            base.RegisterOutputParams(pManager);
         }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            return true;
         }
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{d97215c1-738e-4834-9934-d75f68a3d96f}"); }
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Drawing;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace Physarealm
+namespace Physarealm.Environment
 {
     public abstract class AbstractEnvironmentComponent : AbstractComponent
     {

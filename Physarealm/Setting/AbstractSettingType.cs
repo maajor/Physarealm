@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Grasshopper.Kernel.Types;
+using Physarealm;
 
 namespace Physarealm.Setting
 {
@@ -12,10 +13,11 @@ namespace Physarealm.Setting
         {
             get { return true; }
         }
+        public abstract void setParameter(Physarum p);
 
         public override string ToString()
         {
-            return TypeName;
+            return this.TypeName;
         }
 
         public override string TypeDescription

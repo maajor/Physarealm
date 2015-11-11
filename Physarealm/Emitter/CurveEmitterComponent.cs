@@ -13,7 +13,7 @@ namespace Physarealm.Emitter
         /// Initializes a new instance of the CurveEmitterComponent class.
         /// </summary>
         public CurveEmitterComponent()
-            : base("CurveEmitterComponent", "CrvEmi",
+            : base("Curve Emitter", "CrvEmi",
                 "Description",
                 null, "63B3C8C7-B14B-4D7A-9BC3-FBF408F0D8ED")
         {
@@ -33,14 +33,6 @@ namespace Physarealm.Emitter
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-        }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
         }
         protected override bool GetInputs(IGH_DataAccess da)
         {

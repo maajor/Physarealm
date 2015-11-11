@@ -6,15 +6,15 @@ using Rhino.Geometry;
 
 namespace Physarealm.Emitter
 {
-    public class SurfaceEmitterComponent : GH_Component
+    public class SurfaceEmitterComponent :AbstractEmitterComponent
     {
         /// <summary>
         /// Initializes a new instance of the SurfaceEmitterComponent class.
         /// </summary>
         public SurfaceEmitterComponent()
-            : base("SurfaceEmitterComponent", "Nickname",
+            : base("Surface Emitter", "SrfEmi",
                 "Description",
-                "Category", "Subcategory")
+                null, "47075063-D9D7-4F6E-9A0C-1173884F9376")
         {
         }
 
@@ -23,6 +23,7 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddSurfaceParameter("Surface", "srf", "Surface", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -30,35 +31,14 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            base.RegisterOutputParams(pManager);
         }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            return true;
         }
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{6e50920e-0298-40ab-924f-c96faa5e47f9}"); }
-        }
+        }
     }
 }

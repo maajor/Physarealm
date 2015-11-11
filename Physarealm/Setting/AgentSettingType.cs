@@ -49,7 +49,17 @@ namespace Physarealm.Setting
         }
         public AgentSettingType(AgentSettingType a)
             : this(a.sensor_angle, a.rotate_angle, a.sensor_offset,
-                a.death_distance, a.death_distance, a.max_speed, a.depT) { }
+                a.detect_dir, a.death_distance, a.max_speed, a.depT) { }
+        public override void setParameter(Physarum p) 
+        {
+            p._sense_angle = sensor_angle;
+            p._rotate_angle = rotate_angle;
+            p._sense_offset = sensor_offset;
+            p._death_distance = death_distance;
+            p._detectDir = detect_dir;
+            p._speed = max_speed;
+            p._depT = depT;
+        }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()
         {

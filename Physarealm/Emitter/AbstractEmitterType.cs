@@ -13,6 +13,8 @@ namespace Physarealm.Emitter
 
         abstract public override IGH_Goo Duplicate();
 
+        public abstract List<Point3d> getEmitPts();
+
         public override bool IsValid
         {
             get { return true; }

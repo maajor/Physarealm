@@ -12,7 +12,10 @@ namespace Physarealm.Food
         public PointFoodType() { positions = new List<Point3d>(); }
         public PointFoodType(List<Point3d> l){ positions = l;}
         public PointFoodType(PointFoodType p) : this(p.positions) { }
-
+        public override List<Point3d> getFoodPts() 
+        {
+            return positions;
+        }
         public override string TypeName
         {
             get

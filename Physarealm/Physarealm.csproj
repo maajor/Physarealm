@@ -63,6 +63,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractComponent.cs" />
+    <Compile Include="Analysis\AbstractFieldAnalysisComponent.cs" />
+    <Compile Include="Analysis\AbstractPopulationAnalysisComponent.cs" />
+    <Compile Include="Analysis\FieldAnalysisMeshComponent.cs" />
+    <Compile Include="Analysis\FieldInterconnectComponent.cs" />
+    <Compile Include="Analysis\FieldValueComponent.cs" />
+    <Compile Include="Analysis\PopulationInterconnectComponent.cs" />
+    <Compile Include="Analysis\PopulationPositionComponent.cs" />
+    <Compile Include="Analysis\PopulationTrailComponent.cs" />
+    <Compile Include="Analysis\PopulationVelocityComponent.cs" />
     <Compile Include="Emitter\AbstractEmitterComponent.cs" />
     <Compile Include="Emitter\AbstractEmitterType.cs" />
     <Compile Include="Emitter\CurveEmitterComponent.cs" />

@@ -8,7 +8,7 @@ namespace Physarealm.Setting
 {
     public class EnvironmentSettingComponent : AbstractSettingComponent
     {
-        private float pcd;
+        private double pcd;
         private int div_radius;
         private int die_radius;
         private int div_max;
@@ -20,7 +20,7 @@ namespace Physarealm.Setting
         /// Initializes a new instance of the DivAndDieSetting class.
         /// </summary>
         public EnvironmentSettingComponent()
-            : base("DivAndDieSetting", "Nickname",
+            : base("Environment Setting", "EnvSetting",
                 "Description",
                 null, "2F3156E2-F636-43D2-B06F-00A7D495CA9D")
         {
@@ -35,7 +35,7 @@ namespace Physarealm.Setting
             pManager.AddNumberParameter("verticle guide factor", "vgf", "verticle guide factor", GH_ParamAccess.item, 0);
             pManager.AddIntegerParameter("division detect radius", "dvr", "division detect radius", GH_ParamAccess.item, 3);
             pManager.AddIntegerParameter("division min", "dvmin", "division if neighborhood agents count above", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("division max", "dvmax", "division if neighborhood agents count below", GH_ParamAccess.list, 10);
+            pManager.AddIntegerParameter("division max", "dvmax", "division if neighborhood agents count below", GH_ParamAccess.item, 10);
             pManager.AddIntegerParameter("death detect radius", "der", "death detect radius", GH_ParamAccess.item, 2);
             pManager.AddIntegerParameter("death min", "demin", "death if neighborhood agents count below", GH_ParamAccess.item, 0);
             pManager.AddIntegerParameter("death max", "demax", "death if neighborhood agents count above", GH_ParamAccess.item, 123);
@@ -48,30 +48,22 @@ namespace Physarealm.Setting
         {
             pManager.AddGenericParameter("EnvSetting", "ES", "Environment Setting", GH_ParamAccess.item);
         }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-        }
         protected override bool GetInputs(IGH_DataAccess da)
         {
-            if (!da.GetData(nextInputIndex++, ref pcd)) return false;
-            if (!da.GetData(nextInputIndex++, ref guide_factor)) return false;
-            if (!da.GetData(nextInputIndex++, ref div_radius)) return false;
-            if (!da.GetData(nextInputIndex++, ref div_min)) return false;
-            if (!da.GetData(nextInputIndex++, ref div_max)) return false;
-            if (!da.GetData(nextInputIndex++, ref die_radius)) return false;
-            if (!da.GetData(nextInputIndex++, ref die_min)) return false;
-            if (!da.GetData(nextInputIndex++, ref die_max)) return false;
+            if (!da.GetData(0, ref pcd)) return false;
+            if (!da.GetData(1, ref guide_factor)) return false;
+            if (!da.GetData(2, ref div_radius)) return false;
+            if (!da.GetData(3, ref div_min)) return false;
+            if (!da.GetData(4, ref div_max)) return false;
+            if (!da.GetData(5, ref die_radius)) return false;
+            if (!da.GetData(6, ref die_min)) return false;
+            if (!da.GetData(7, ref die_max)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            EnvironmentSettingType env = new EnvironmentSettingType(pcd, div_radius, die_radius, div_max, div_min, die_max, die_min, guide_factor);
-            da.SetData(nextOutputIndex++, env);
+            EnvironmentSettingType env = new EnvironmentSettingType((float)pcd, div_radius, die_radius, div_max, div_min, die_max, die_min, guide_factor);
+            da.SetData(0, env);
         }
     }
 }

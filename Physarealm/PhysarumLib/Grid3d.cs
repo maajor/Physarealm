@@ -28,7 +28,7 @@ namespace Physarealm
         private List<Point3d> _origins;
         private int grid_age;
         public bool age_flag { get; set; }
-        bool disposed = false;
+        //bool disposed = false;
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
         public Grid3d(int x, int y, int z) //initialize data

@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using Rhino.Geometry;
 
-namespace Physarealm
+namespace Physarealm.Environment
 {
     public class BoxEnvironmentType:AbstractEnvironmentType, IDisposable
     {
-        public int _x { private set; get; }
-        public int _y { private set; get; }
-        public int _z { private set; get; }
         public float[, ,] trail { get; set; }
         private float[, ,] temptrail;
         private int[, ,] particle_ids;
@@ -21,22 +18,22 @@ namespace Physarealm
         private List<Point3d> _origins;
         private int grid_age;
         public bool age_flag { get; set; }
-        bool disposed = false;
+        //bool disposed = false;
 
-        public BoxEnvironmentType(int x, int y, int z) //initialize data
+        public BoxEnvironmentType(int x, int y, int z):base(x, y, z) //initialize data
         {
-            _x = x; _y = y; _z = z;
-            trail = new float[_x, _y, _z];
-            temptrail = new float[_x, _y, _z];
-            particle_ids = new int[_x, _y, _z];
-            griddata = new int[_x, _y, _z];
-            agedata = new int[_x, _y, _z];
+            //_x = x; _y = y; _z = z;
+            trail = new float[u, v, w];
+            temptrail = new float[u, v, w];
+            particle_ids = new int[u, v, w];
+            griddata = new int[u, v, w];
+            agedata = new int[u, v, w];
             grid_age = 0;
-            for (int i = 0; i < _x; i++)
+            for (int i = 0; i < u; i++)
             {
-                for (int j = 0; j < _y; j++)
+                for (int j = 0; j < v; j++)
                 {
-                    for (int k = 0; k < _z; k++)
+                    for (int k = 0; k < w; k++)
                     {
                         trail[i, j, k] = 0;
                         temptrail[i, j, k] = 0;
@@ -50,35 +47,39 @@ namespace Physarealm
             diffdamp = 0.1F;
             age_flag = false;
         }
-        public BoxEnvironmentType(BoxEnvironmentType boxenv) : this(boxenv._x, boxenv._y, boxenv._z) { }
-        public bool isOccupidByParticle(int x, int y, int z)
+        public BoxEnvironmentType(BoxEnvironmentType boxenv) : this(boxenv.u, boxenv.v, boxenv.w) { }
+        public override bool isOccupidByParticle(int x, int y, int z)
         {
             if (particle_ids[x, y, z] == -1)
                 return false;
             return true;
         }
-        public void occupyGridCell(int x, int y, int z, int id)
+        public override void occupyGridCell(int x, int y, int z, int id)
         {
             particle_ids[x, y, z] = id;
         }
-        public void clearGridCell(int x, int y, int z)
+        public override void clearGridCell(int x, int y, int z)
         {
             particle_ids[x, y, z] = -1;
         }
-        public void increaseTrail(int x, int y, int z, float val)
+        public override void increaseTrail(int x, int y, int z, float val)
         {
             trail[x, y, z] += val;
         }
-        public void setGridCellValue(int xpos, int ypos, int zpos, int radius, int val)
+        public override int getGriddata(int u, int v, int w) 
+        {
+            return griddata[u, v, w];
+        }
+        public override void setGridCellValue(int xpos, int ypos, int zpos, int radius, int val)
         {
             if (radius < 1)
                 griddata[xpos, ypos, zpos] = val;
             int start_x = xpos - radius > 0 ? xpos - radius : 0;
             int start_y = ypos - radius > 0 ? ypos - radius : 0;
             int start_z = zpos - radius > 0 ? zpos - radius : 0;
-            int end_x = xpos + radius < _x ? xpos + radius : _x - 1;
-            int end_y = ypos + radius < _x ? ypos + radius : _y - 1;
-            int end_z = zpos + radius < _x ? zpos + radius : _z - 1;
+            int end_x = xpos + radius < u ? xpos + radius : u - 1;
+            int end_y = ypos + radius < v ? ypos + radius : v - 1;
+            int end_z = zpos + radius < w ? zpos + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
@@ -104,7 +105,7 @@ namespace Physarealm
             }*/
             return trail[x, y, z];
         }
-        public float getAverageNeighbourhood(int x, int y, int z, int radius) //return avg of 3 * 3 * 3 grid if radius = 1
+        public override float getAverageNeighbourhood(int x, int y, int z, int radius) //return avg of 3 * 3 * 3 grid if radius = 1
         {
             float total = 0;
             if (radius < 1)
@@ -112,9 +113,9 @@ namespace Physarealm
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
             int start_z = z - radius > 0 ? z - radius : 0;
-            int end_x = x + radius < _x - 1 ? x + radius : _x - 1;
-            int end_y = y + radius < _y - 1 ? y + radius : _y - 1;
-            int end_z = z + radius < _z - 1 ? z + radius : _z - 1;
+            int end_x = x + radius < u - 1 ? x + radius : u - 1;
+            int end_y = y + radius < v - 1 ? y + radius : v - 1;
+            int end_z = z + radius < w - 1 ? z + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
@@ -128,15 +129,15 @@ namespace Physarealm
             int num = (int)Math.Pow(radius * 2 + 1, 3);
             return total / num;
         }
-        public void diffuseTrails()
+        public override  void diffuseTrails()
         {
             //float ave = 0;
             grid_age++;
-            System.Threading.Tasks.Parallel.For(0, _x, (i) =>
+            System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
-                System.Threading.Tasks.Parallel.For(0, _y, (j) =>
+                System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
-                    System.Threading.Tasks.Parallel.For(0, _z, (k) =>
+                    System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     {
                         float ave = getAverageNeighbourhood(i, j, k, 1);
                         temptrail[i, j, k] = ave * (1 - diffdamp);
@@ -157,17 +158,17 @@ namespace Physarealm
               }
             }
             */
-            System.Threading.Tasks.Parallel.For(0, _x, (i) =>
+            System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
-                System.Threading.Tasks.Parallel.For(0, _y, (j) =>
+                System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
-                    System.Threading.Tasks.Parallel.For(0, _z, (k) =>
+                    System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     {
                         trail[i, j, k] = temptrail[i, j, k];
                         if (trail[i, j, k] < 0 || particle_ids[i, j, k] == -2)
                             trail[i, j, k] = 0;
-                        if (age_flag == true && agedata[i, j, k] != 0 && agedata[i, j, k] > 5)
-                            trail[i, j, k] = 0;
+                        //if (age_flag == true && agedata[i, j, k] != 0 && agedata[i, j, k] > 5)
+                         //   trail[i, j, k] = 0;
 
                     });
                 });
@@ -186,13 +187,13 @@ namespace Physarealm
               }
             }*/
         }
-        public void projectToTrail()//project food to increase trail
+        public override void projectToTrail()//project food to increase trail
         {
-            System.Threading.Tasks.Parallel.For(0, _x, (i) =>
+            System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
-                System.Threading.Tasks.Parallel.For(0, _y, (j) =>
+                System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
-                    System.Threading.Tasks.Parallel.For(0, _z, (k) =>
+                    System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     {
                         if (griddata[i, j, k] == 1)
                         {
@@ -215,7 +216,7 @@ namespace Physarealm
             }*/
 
         }
-        public int countNumberOfParticlesPresent(int x, int y, int z, int radius)
+        public override int countNumberOfParticlesPresent(int x, int y, int z, int radius)
         {
             int total = 0;
             //if (radius < 1)
@@ -224,9 +225,9 @@ namespace Physarealm
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
             int start_z = z - radius > 0 ? z - radius : 0;
-            int end_x = x + radius <= _x - 1 ? x + radius : _x - 1;
-            int end_y = y + radius <= _y - 1 ? y + radius : _y - 1;
-            int end_z = z + radius <= _z - 1 ? z + radius : _z - 1;
+            int end_x = x + radius <= u - 1 ? x + radius : u - 1;
+            int end_y = y + radius <= v - 1 ? y + radius : v - 1;
+            int end_z = z + radius <= w - 1 ? z + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
@@ -243,7 +244,7 @@ namespace Physarealm
             total += totalShouldBe - countNow;
             return total;
         }
-        public List<Point3d> findNeighborParticle(Amoeba agent, int radius)
+        public override List<Point3d> findNeighborParticle(Amoeba agent, int radius)
         {
             List<Point3d> nei = new List<Point3d>();
             int x = agent.curx;
@@ -252,9 +253,9 @@ namespace Physarealm
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
             int start_z = z - radius > 0 ? z - radius : 0;
-            int end_x = x + radius <= _x - 1 ? x + radius : _x - 1;
-            int end_y = y + radius <= _y - 1 ? y + radius : _y - 1;
-            int end_z = z + radius <= _z - 1 ? z + radius : _z - 1;
+            int end_x = x + radius <= u - 1 ? x + radius : u - 1;
+            int end_y = y + radius <= v - 1 ? y + radius : v - 1;
+            int end_z = z + radius <= w - 1 ? z + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
@@ -269,15 +270,15 @@ namespace Physarealm
 
             return nei;
         }
-        public List<Point3d> findNeighborParticle(int x, int y, int z, int radius)
+        public override List<Point3d> findNeighborParticle(int x, int y, int z, int radius)
         {
             List<Point3d> nei = new List<Point3d>();
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
             int start_z = z - radius > 0 ? z - radius : 0;
-            int end_x = x + radius <= _x - 1 ? x + radius : _x - 1;
-            int end_y = y + radius <= _y - 1 ? y + radius : _y - 1;
-            int end_z = z + radius <= _z - 1 ? z + radius : _z - 1;
+            int end_x = x + radius <= u - 1 ? x + radius : u - 1;
+            int end_y = y + radius <= v - 1 ? y + radius : v - 1;
+            int end_z = z + radius <= w - 1 ? z + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
@@ -292,14 +293,14 @@ namespace Physarealm
 
             return nei;
         }
-        public float getMaxTrailValue()
+        public override float getMaxTrailValue()
         {
             float max = 0;
-            for (int i = 0; i < _x; i++)
+            for (int i = 0; i < u; i++)
             {
-                for (int j = 0; j < _y; j++)
+                for (int j = 0; j < v; j++)
                 {
-                    for (int k = 0; k < _z; k++)
+                    for (int k = 0; k < w; k++)
                     {
                         if (trail[i, j, k] > max)
                             max = trail[i, j, k];
@@ -308,7 +309,7 @@ namespace Physarealm
             }
             return max;
         }
-        public float getOffsetTrailValue(int x, int y, int z, Vector3d orient, float viewangle, float offsetangle, float offsetsteps, Libutility util)
+        public override float getOffsetTrailValue(int x, int y, int z, Vector3d orient, float viewangle, float offsetangle, float offsetsteps, Libutility util)
         {
             Point3f origin = new Point3f(x, y, z);
             Plane oriplane = new Plane(origin, orient);
@@ -322,7 +323,7 @@ namespace Physarealm
             int tx = (int)Math.Round(target.X);
             int ty = (int)Math.Round(target.Y);
             int tz = (int)Math.Round(target.Z);
-            if (tx < 0 || tx >= _x || ty < 0 || ty >= _y || tz < 0 || tz >= _z)
+            if (tx < 0 || tx >= u || ty < 0 || ty >= v || tz < 0 || tz >= w)
                 return -1;
             return trail[tx, ty, tz];
         }
@@ -347,7 +348,7 @@ namespace Physarealm
           return newinfo;
         }*/
 
-        public Point3d getNeighbourhoodFreePos(int x, int y, int z, int radius, Libutility util)
+        public override Point3d getNeighbourhoodFreePos(int x, int y, int z, int radius, Libutility util)
         {
             Point3d retpt = new Point3d(-1, -1, -1);
             if (radius < 1)
@@ -376,9 +377,9 @@ namespace Physarealm
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
             int start_z = z - radius > 0 ? z - radius : 0;
-            int end_x = x + radius < _x ? x + radius : _x - 1;
-            int end_y = y + radius < _y ? y + radius : _y - 1;
-            int end_z = z + radius < _z ? z + radius : _z - 1;
+            int end_x = x + radius < u ? x + radius : u - 1;
+            int end_y = y + radius < v ? y + radius : v - 1;
+            int end_z = z + radius < w ? z + radius : w - 1;
             int count = (end_x - start_x + 1) * (end_y - start_y + 1) * (end_z - start_z + 1); //
             //int[] ids = new int[count];
             List<Point3d> freePos = new List<Point3d>();
@@ -413,7 +414,7 @@ namespace Physarealm
             Point3d target = oriplane.PointAt(u, v, w);
             return target;
         }
-        public void setObstacles(List<Brep> obs)
+        public override void setObstacles(List<Brep> obs)
         {
             if (obs.Count == 0)
                 return;
@@ -421,11 +422,11 @@ namespace Physarealm
             {
                 Curve[] intersectCrv;
                 Point3d[] intersectPt;
-                for (int i = 0; i < _x; i++)
+                for (int i = 0; i < u; i++)
                 {
-                    for (int j = 0; j < _y; j++)
+                    for (int j = 0; j < v; j++)
                     {
-                        Line thisCrv = new Line(new Point3d(i, j, 0), new Point3d(i, j, _z));
+                        Line thisCrv = new Line(new Point3d(i, j, 0), new Point3d(i, j, w));
                         Curve crv = thisCrv.ToNurbsCurve();
                         Rhino.Geometry.Intersect.Intersection.CurveBrep(crv, br, 1, out intersectCrv, out intersectPt);
                         if (intersectPt == null)
@@ -451,15 +452,15 @@ namespace Physarealm
             });
 
         }
-        public void setContainer(List<Brep> cont)
+        public override void setContainer(List<Brep> cont)
         {
             if (cont.Count == 0)
             {
-                for (int i = 0; i < _x; i++)
+                for (int i = 0; i < u; i++)
                 {
-                    for (int j = 0; j < _y; j++)
+                    for (int j = 0; j < v; j++)
                     {
-                        for (int k = -0; k < _z; k++)
+                        for (int k = -0; k < w; k++)
                         {
                             particle_ids[i, j, k] = -1;
                         }
@@ -471,11 +472,11 @@ namespace Physarealm
             {
                 Curve[] intersectCrv;
                 Point3d[] intersectPt;
-                for (int i = 0; i < _x; i++)
+                for (int i = 0; i < u; i++)
                 {
-                    for (int j = 0; j < _y; j++)
+                    for (int j = 0; j < v; j++)
                     {
-                        Line thisCrv = new Line(new Point3d(i, j, 0), new Point3d(i, j, _z));
+                        Line thisCrv = new Line(new Point3d(i, j, 0), new Point3d(i, j, w));
                         Curve crv = thisCrv.ToNurbsCurve();
                         Rhino.Geometry.Intersect.Intersection.CurveBrep(crv, br, 1, out intersectCrv, out intersectPt);
                         if (intersectPt == null)
@@ -500,7 +501,7 @@ namespace Physarealm
                 }
             });
         }
-        public void setFood(List<Point3d> food)
+        public override void setFood(List<Point3d> food)
         {
             foreach (Point3d pt in food)
             {
@@ -508,7 +509,7 @@ namespace Physarealm
             }
             projectToTrail();
         }
-        public void setBirthPlace(List<Point3d> origin)
+        public override void setBirthPlace(List<Point3d> origin)
         {
             _origins = origin;
             //foreach (Point3d pt in origin)
@@ -516,23 +517,23 @@ namespace Physarealm
             //  setGridCellValue((int) pt.X, (int) pt.Y, (int) pt.Z, 1, 1);
             //}
         }
-        public Point3d getRandomBirthPlace(Libutility util)
+        public override Point3d getRandomBirthPlace(Libutility util)
         {
             int length = _origins.Count;
             return _origins[util.getRand(length)];
         }
-        public Mesh getTrailEvaMesh(int z)
+        public override  Mesh getTrailEvaMesh(int z)
         {
             Mesh evaMesh = new Mesh();
             Plane worldXY = new Plane(new Point3d(0, 0, z), new Point3d(1, 0, z), new Point3d(0, 1, z));
-            evaMesh = Mesh.CreateFromPlane(worldXY, new Interval(0, _x), new Interval(0, _y), _x, _y);
+            evaMesh = Mesh.CreateFromPlane(worldXY, new Interval(0, u), new Interval(0, v), u, v);
             for (int i = 0; i < evaMesh.Vertices.Count; i++)
             {
                 Point3f vert = evaMesh.Vertices[i];
                 int x = (int)vert.X;
                 int y = (int)vert.Y;
                 float thisTrail = 0;
-                if (x < _x - 1 && y < _y - 1)
+                if (x < u - 1 && y < v - 1)
                     thisTrail = Math.Abs(trail[x, y, z]);
                 if (thisTrail > 255)
                     thisTrail = 255;
@@ -542,15 +543,15 @@ namespace Physarealm
 
         }
 
-        public float[] getTrailV()
+        public override float[] getTrailV()
         {
-            float[] ret = new float[_x * _y * _z];
+            float[] ret = new float[u * v * w];
             int item = 0;
-            for (int k = 0; k < _z; k++)
+            for (int k = 0; k < w; k++)
             {
-                for (int j = 0; j < _y; j++)
+                for (int j = 0; j < v; j++)
                 {
-                    for (int i = 0; i < _x; i++)
+                    for (int i = 0; i < u; i++)
                     {
                         ret[item] = trail[i, j, k];
                         item++;
@@ -560,13 +561,13 @@ namespace Physarealm
             return ret;
 
         }
-        public void Clear() 
+        public override void Clear() 
         {
             griddata.Initialize();
             temptrail.Initialize();
             particle_ids.Initialize();
-            griddata.Initialize();
             agedata.Initialize();
+            _origins.Clear();
         }
 
         public void Dispose()
@@ -586,7 +587,8 @@ namespace Physarealm
         {
             get
             {
-                return "Physarealm.BoxEnvironmentType";
+                string typename = "Physarealm.BoxEnvironmentType";
+                return typename;
             }
         }
     }

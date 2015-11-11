@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace Physarealm.Food
+namespace Physarealm.Analysis
 {
-    public class SurfaceFoodComponent :AbstractFoodComponent
+    public class FieldInterconnectComponent :AbstractFieldAnalysisComponent
     {
         /// <summary>
-        /// Initializes a new instance of the SurfaceFoodComponent class.
+        /// Initializes a new instance of the FieldInterconnectComponent class.
         /// </summary>
-        public SurfaceFoodComponent()
-            : base("Surface Food", "SrfF",
-                "Description",
-                null, "413990CA-FCD6-4979-8A8A-A299811EB7B4")
+        public FieldInterconnectComponent()
+            : base("Field Interconnect", "FInter",
+                "Field Interconnect",
+                null, "6833EB95-06B4-43B3-B53A-A59AAE2D8149")
         {
         }
 
@@ -23,7 +23,9 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "srf", "Surface", GH_ParamAccess.item);
+            base.RegisterInputParams(pManager);
+            pManager.AddIntegerParameter("radius", "r", "radius", GH_ParamAccess.item);
+            pManager.AddNumberParameter("possibility", "p", "possibility", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -31,16 +33,15 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            base.RegisterOutputParams(pManager);
+            pManager.AddLineParameter("Connect Line", "cL", "Connect Line", GH_ParamAccess.list);
         }
-
         protected override bool GetInputs(IGH_DataAccess da)
         {
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-        }
 
+        }
     }
 }

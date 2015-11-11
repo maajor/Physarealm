@@ -10,10 +10,15 @@ using Physarealm.Setting;
 
 namespace Physarealm
 {
-    public class PhysarealmComponent : GH_Component
+    public class PhysarealmComponent :AbstractComponent
     {
-        private Physarum popu;
+        private Physarum popu = new Physarum();
         private AbstractEnvironmentType env;
+        private List<AbstractSettingType> setList = new List<AbstractSettingType>();
+        private AbstractFoodType food;
+        private AbstractEmitterType emit;
+        private Boolean rst;
+        private int iter;
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
         /// constructor without any arguments.
@@ -24,7 +29,7 @@ namespace Physarealm
         public PhysarealmComponent()
             : base("Physarealm", "PRealm",
                 "agent-based modelling of physarum polycephalum",
-                "Physarealm", "Core")
+                "Physarealm", "Core", null, "94F0DDD9-40C6-4F07-B6A8-BB33A6B5C978")
         {
         }
 
@@ -36,9 +41,8 @@ namespace Physarealm
             pManager.AddGenericParameter("Environment", "Env", "Environment", GH_ParamAccess.item);
             pManager.AddGenericParameter("Emitter", "Emi", "Emitter", GH_ParamAccess.item);
             pManager.AddGenericParameter("Food", "F", "Food", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Environment Setting", "EnvS", "Environment Setting", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Agent Setting", "AgtS", "Agent Setting", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("reset", "r", "reset", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Settings", "Set", "Settings", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("reset", "r", "reset", GH_ParamAccess.item, true);
         }
 
         /// <summary>
@@ -58,30 +62,44 @@ namespace Physarealm
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-        }
+            if (!GetInputs(DA)) return;
 
-        /// <summary>
-        /// Provides an Icon for every component that will be visible in the User Interface.
-        /// Icons need to be 24x24 pixels.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
+            if (rst == true)
             {
-                // You can add image files to your project resources and access them like this:
-                //return Resources.IconForThisComponent;
-                return null;
+                iter = 0;
+                popu.Clear();
+                popu.initParameters();
+                env.setBirthPlace(emit.getEmitPts());
+                env.setFood(food.getFoodPts());
+                foreach (AbstractSettingType sett in setList)
+                    sett.setParameter(popu);
+                popu.initPopulation(env);
             }
+
+            else
+            {
+                popu.Update(env);
+                iter++;
+            }
+
+            SetOutputs(DA);
+        }
+        protected override bool GetInputs(IGH_DataAccess da)
+        {
+            if(! da.GetData(0, ref env)) return false;
+            if (!da.GetData(1, ref emit)) return false;
+            if (!da.GetData(2, ref food)) return false;
+            if (!da.GetDataList(3, setList)) return false;
+            if (!da.GetData(4, ref rst)) return false;
+            return true;
+
+        }
+        protected override void SetOutputs(IGH_DataAccess da)
+        {
+            da.SetData(0, env);
+            da.SetData(1, popu);
+            da.SetData(2, iter);
         }
 
-        /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
-        /// that use the old ID will partially fail during loading.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{00e8eaa0-aad5-4f38-bb1a-7ca5ef1581c4}"); }
-        }
     }
 }

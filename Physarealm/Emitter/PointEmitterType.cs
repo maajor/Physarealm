@@ -9,13 +9,16 @@ namespace Physarealm.Emitter
 {
     class PointEmitterType:AbstractEmitterType
     {
-        public List<Point3d> origins;
+        public List<Point3d> origins = new List<Point3d>();
 
         public PointEmitterType() {}
         public PointEmitterType(List<Point3d> pts){origins = pts;}
         public PointEmitterType(PointEmitterType p):this(p.origins){}
 
-
+        public override List<Point3d> getEmitPts() 
+        {
+            return origins;
+        }
         public override string ToString()
         {
             return this.TypeName;

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace Physarealm.Food
+namespace Physarealm.Analysis
 {
-    public class SurfaceFoodComponent :AbstractFoodComponent
+    public class PopulationTrailComponent :AbstractPopulationAnalysisComponent
     {
         /// <summary>
-        /// Initializes a new instance of the SurfaceFoodComponent class.
+        /// Initializes a new instance of the PopulationTrailComponent class.
         /// </summary>
-        public SurfaceFoodComponent()
-            : base("Surface Food", "SrfF",
-                "Description",
-                null, "413990CA-FCD6-4979-8A8A-A299811EB7B4")
+        public PopulationTrailComponent()
+            : base("Population Trail", "popTrail",
+                "Population Trail",
+                null, "5CD2F008-2787-4235-8712-6839AEA5BB6D")
         {
         }
 
@@ -23,7 +23,8 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "srf", "Surface", GH_ParamAccess.item);
+            base.RegisterInputParams(pManager);
+            pManager.AddIntegerParameter("History Step", "HisStp", "History Step", GH_ParamAccess.item, 10);
         }
 
         /// <summary>
@@ -31,16 +32,15 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            base.RegisterOutputParams(pManager);
+            pManager.AddPointParameter("Trail Points", "TrPts", "Trail Points", GH_ParamAccess.tree);
         }
-
         protected override bool GetInputs(IGH_DataAccess da)
         {
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-        }
 
+        }
     }
 }

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Grasshopper;
 using Rhino;
 using Rhino.Geometry;
+using Physarealm.Environment;
 
 namespace Physarealm 
 {
-    public class Amoeba : Particle
+    public class Amoeba : Particle, IDisposable
     {
         public Vector3d orientation { get; set; }
         private float tempfloatx;
@@ -48,9 +49,9 @@ namespace Physarealm
         public int _die_min { get; set; }
         public int _die_max { get; set; }
         //public int _unitized;
-        public float moveangle;
+        //public float moveangle;
         public float[] sensor_data;
-        public Vector3d moved;
+        //public Vector3d moved;
         public double _guide_factor { get; set; }
 
         public Amoeba() : base() { }
@@ -87,23 +88,23 @@ namespace Physarealm
             _moved_successfully = true;
             _guide_factor = 0.2;
         }
-        public void initializeAmoeba(Grid3d grid, Libutility util)
+        public void initializeAmoeba(AbstractEnvironmentType env, Libutility util)
         {
             do
             {
-                tempx = util.getRand(grid._x);
-                tempy = util.getRand(grid._y);
-                tempz = util.getRand(grid._z);
+                tempx = util.getRand(env.u);
+                tempy = util.getRand(env.v);
+                tempz = util.getRand(env.w);
             }
-            while (!iniSuccess(tempx, tempy, tempz, grid));
+            while (!iniSuccess(tempx, tempy, tempz, env));
             curx = tempx;
             cury = tempy;
             curz = tempz;
             Location = new Point3d(curx, cury, curz);
-            occupyCell(curx, cury, curz, grid);
+            occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
-        public void initializeAmoeba(int x, int y, int z, Grid3d grid, Libutility util)
+        public void initializeAmoeba(int x, int y, int z, AbstractEnvironmentType env, Libutility util)
         {
             tempx = x;
             tempy = y;
@@ -112,54 +113,54 @@ namespace Physarealm
             cury = tempy;
             curz = tempz;
             Location = new Point3d(curx, cury, curz);
-            occupyCell(curx, cury, curz, grid);
+            occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
-        public void initializeAmoeba(int x, int y, int z,int maxx, int maxy, int maxz, int radius, Grid3d grid, Libutility util)
+        public void initializeAmoeba(int x, int y, int z, int maxx, int maxy, int maxz, int radius, AbstractEnvironmentType env, Libutility util)
         {
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
             int start_z = z - radius > 0 ? z - radius : 0;
             int end_x = x + radius < maxx ? x + radius : maxx - 1;
             int end_y = y + radius < maxy ? y + radius : maxy - 1;
-            int end_z = z + radius < maxy ? z + radius : maxz - 1;
+            int end_z = z + radius < maxz ? z + radius : maxz - 1;
             do
             {
                 tempx = util.getRand(start_x, end_x + 1);
                 tempy = util.getRand(start_y, end_y + 1);
                 tempz = util.getRand(start_z, end_z + 1);
             }
-            while (!iniSuccess(tempx, tempy, tempz, grid));
+            while (!iniSuccess(tempx, tempy, tempz, env));
             curx = tempx;
             cury = tempy;
             curz = tempz;
             Location = new Point3d(curx, cury, curz);
-            occupyCell(curx, cury, curz, grid);
+            occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
-        public bool iniSuccess(int x, int y, int z, Grid3d grid)
+        public bool iniSuccess(int x, int y, int z, AbstractEnvironmentType env)
         {
-            if (grid.isOccupidByParticle(x, y, z) == true || grid.griddata[x, y, z] == 2)
+            if (env.isOccupidByParticle(x, y, z) == true || env.getGriddata(x, y, z) == 2)
                 return false;
             return true;
         }
-        public void occupyCell(int x, int y, int z, Grid3d grid)
+        public void occupyCell(int x, int y, int z, AbstractEnvironmentType env)
         {
-            grid.clearGridCell(curx, cury, curz);
-            grid.occupyGridCell(tempx, tempy, tempz, _id);
+            env.clearGridCell(curx, cury, curz);
+            env.occupyGridCell(tempx, tempy, tempz, _id);
             curx = tempx;
             cury = tempy;
             curz = tempz;
             resetFloatingPointPosition();
             if (_moved_successfully)
-                grid.increaseTrail(curx, cury, curz, _ca_torealease);
+                env.increaseTrail(curx, cury, curz, _ca_torealease);
         }
-        public void doMotorBehaviors(Grid3d grid, Libutility util)
+        public void doMotorBehaviors(AbstractEnvironmentType env, Libutility util)
         {
             _distance_traveled++;
             //_cur_speed = _max_speed * (1 - _distance_traveled / _deathDistance);
             _cur_speed = _max_speed;
-            if (grid.griddata[curx, cury, curz] == 1)
+            if (env.getGriddata(curx, cury, curz) == 1)
                 _distance_traveled = 0;
             _moved_successfully = false;
             //if (util.getRandDouble() < _pcd)
@@ -180,10 +181,10 @@ namespace Physarealm
                 //orientation.Transform(Transform.Mirror(Plane.WorldYZ));
                 selectRandomDirection(util);
             }
-            if (tempfloatx > grid._x - 1)
+            if (tempfloatx > env.u - 1)
             {
-                //tempfloatx = (grid._x - 1) * 2 - tempfloatx - 1;
-                tempfloatx = grid._x - 1;
+                //tempfloatx = (env.u - 1) * 2 - tempfloatx - 1;
+                tempfloatx = env.u - 1;
                 //orientation.Transform(Transform.Mirror(Plane.WorldYZ));
                 selectRandomDirection(util);
             }
@@ -193,10 +194,10 @@ namespace Physarealm
                 //orientation.Transform(Transform.Mirror(Plane.WorldZX));
                 selectRandomDirection(util);
             }
-            if (tempfloaty > grid._y - 1)
+            if (tempfloaty > env.v - 1)
             {
-                //tempfloaty = (grid._y - 1) * 2 - tempfloaty - 1;
-                tempfloaty = grid._y - 1;
+                //tempfloaty = (env.v - 1) * 2 - tempfloaty - 1;
+                tempfloaty = env.v - 1;
                 //orientation.Transform(Transform.Mirror(Plane.WorldZX));
                 selectRandomDirection(util);
             }
@@ -206,10 +207,10 @@ namespace Physarealm
                 //orientation.Transform(Transform.Mirror(Plane.WorldXY));
                 selectRandomDirection(util);
             }
-            if (tempfloatz > grid._z - 1)
+            if (tempfloatz > env.w - 1)
             {
-                //tempfloatz = (grid._z - 1) * 2 - tempfloatz - 1;
-                tempfloatz = grid._z - 1;
+                //tempfloatz = (env.w - 1) * 2 - tempfloatz - 1;
+                tempfloatz = env.w - 1;
                 //orientation.Transform(Transform.Mirror(Plane.WorldXY));
                 selectRandomDirection(util);
             }
@@ -217,7 +218,7 @@ namespace Physarealm
             tempx = (int)Math.Round(tempfloatx);
             tempy = (int)Math.Round(tempfloaty);
             tempz = (int)Math.Round(tempfloatz);
-            if (grid.isOccupidByParticle(tempx, tempy, tempz))
+            if (env.isOccupidByParticle(tempx, tempy, tempz))
             {
                 selectRandomDirection(util);
                 return;
@@ -226,18 +227,18 @@ namespace Physarealm
             {
                 _moved_successfully = true;
                 Location = new Point3d(tempfloatx, tempfloaty, tempfloatz);
-                grid.clearGridCell(curx, cury, curz);
-                grid.agedata[curx, cury, curz]++;
-                grid.occupyGridCell(tempx, tempy, tempz, _id);
+                env.clearGridCell(curx, cury, curz);
+                //env.agedata[curx, cury, curz]++;
+                env.occupyGridCell(tempx, tempy, tempz, _id);
                 curx = tempx;
                 cury = tempy;
                 curz = tempz;
                 //float trailIncrement = calculateTrailIncrement(util);
-                //grid.increaseTrail(curx, cury, curz, trailIncrement);
-                grid.increaseTrail(curx, cury, curz, _depT);
+                //env.increaseTrail(curx, cury, curz, trailIncrement);
+                env.increaseTrail(curx, cury, curz, _depT);
                 //if (_moved_successfully && !_die && _distance_traveled % division_frequency_test == 0)
                 if (_moved_successfully && !_die)
-                    doDivisionTest(grid);
+                    doDivisionTest(env);
             }
         }
         public float calculateTrailIncrement(Libutility util)
@@ -275,26 +276,26 @@ namespace Physarealm
             Location = new Point3d(curx, cury, curz);
             return;
         }
-        public void doSensortBehaviors(Grid3d grid, Libutility util)
+        public void doSensortBehaviors(AbstractEnvironmentType env, Libutility util)
         {
-            doDeathTest(grid);
+            doDeathTest(env);
             int det_count = _detectDir * (_detectDir - 3) + 1;
             int max_item = 0;
             float max_item_phy = 0;
             float max_item_theta = 0;
             sensor_data = new float[det_count];
             //List<trailInfo> infos = new List<trailInfo>();
-            //infos.Add(grid.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util));
+            //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util));
             //float maxtrail = 0;
             //Point3d tgtPos = new Point3d();
-            sensor_data[0] = grid.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util);
+            sensor_data[0] = env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util);
             int count_cur = 1;
             for (int i = 0; i < _detectDir; i++)
             {
                 for (int j = 1; j <= _detectDir - 3; j++)
                 {
-                    sensor_data[count_cur] = grid.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util);
-                    //infos.Add(grid.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util));
+                    sensor_data[count_cur] = env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util);
+                    //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util));
                     if (sensor_data[count_cur] > sensor_data[max_item])
                     {
                         max_item = count_cur;
@@ -338,59 +339,59 @@ namespace Physarealm
             double curLength = toOri.Length;
             double scaleFactor = _cur_speed / curLength;
             toOri = Vector3d.Multiply(scaleFactor, toOri);
-            moveangle = rotate_theta;
-            moved = toOri - orienOri;
+            //moveangle = rotate_theta;
+            //moved = toOri - orienOri;
             orientation = toOri;
         }
-        public void doDivisionTest(Grid3d grid)
+        public void doDivisionTest(AbstractEnvironmentType env)
         {
             _divide = false;
-            if (isOutsideLatticeBorderRange(curx, cury, curz, grid))
+            if (isOutsideLatticeBorderRange(curx, cury, curz, env))
                 return;
-            if (isWithinThresholdRange(curx, cury, curz, grid))
+            if (isWithinThresholdRange(curx, cury, curz, env))
             {
                 _divide = true;
             }
         }
-        public void doDeathTest(Grid3d grid)
+        public void doDeathTest(AbstractEnvironmentType env)
         {
             _die = false;
-            if (isOutsideLatticeBorderRange(curx, cury, curz, grid))
+            if (isOutsideLatticeBorderRange(curx, cury, curz, env))
             {
                 _die = true;
             }
-            //if (grid.griddata[curx, cury, curz] == 2)
+            //if (env.envdata[curx, cury, curz] == 2)
             //  _die = true;
             //return;
-            if (isOutsideSurvivalRange(curx, cury, curz, grid))
+            if (isOutsideSurvivalRange(curx, cury, curz, env))
                 _die = true;
         }
-        public bool isWithinThresholdRange(int x, int y, int z, Grid3d grid)
+        public bool isWithinThresholdRange(int x, int y, int z, AbstractEnvironmentType env)
         {
-            int d = grid.countNumberOfParticlesPresent(x, y, z, _div_radius);
+            int d = env.countNumberOfParticlesPresent(x, y, z, _div_radius);
             //_around = d;
             if (d >= _div_min && d <= _div_max)
                 return true;
             else return false;
         }
-        public bool isOutsideSurvivalRange(int x, int y, int z, Grid3d grid)
+        public bool isOutsideSurvivalRange(int x, int y, int z, AbstractEnvironmentType env)
         {
             if (_distance_traveled > _deathDistance)
             {
                 return true;
             }
-            double d = grid.countNumberOfParticlesPresent(x, y, z, _die_radius);
+            double d = env.countNumberOfParticlesPresent(x, y, z, _die_radius);
             if (d < _die_min || d > _die_max)
                 return true;
             else return false;
         }
-        public bool isOutsideLatticeBorderRange(int x, int y, int z, Grid3d grid)
+        public bool isOutsideLatticeBorderRange(int x, int y, int z, AbstractEnvironmentType env)
         {
-            if (x < 2|| x > (grid._x - 2))
+            if (x < 2|| x > (env.u - 2))
                 return true;
-            else if (y < 2 || y > (grid._y - 2))
+            else if (y < 2 || y > (env.v - 2))
                 return true;
-            else if (z < 2 || z > (grid._z - 2))
+            else if (z < 2 || z > (env.w - 2))
                 return true;
             else return false;
         }
@@ -414,6 +415,11 @@ namespace Physarealm
             curOri = Vector3d.Multiply(_cur_speed, curOri);
             orientation = curOri;
 
+        }
+
+        public void Dispose()
+        {
+            sensor_data.Initialize();
         }
     }//end of Amoeba class
 }

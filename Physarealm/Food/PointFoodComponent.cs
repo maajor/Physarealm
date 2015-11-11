@@ -8,12 +8,12 @@ namespace Physarealm.Food
 {
     public class PointFoodComponent :AbstractFoodComponent
     {
-        private List<Point3d> pts;
+        private List<Point3d> pts = new List<Point3d>();
         /// <summary>
         /// Initializes a new instance of the PointFoodComponent class.
         /// </summary>
         public PointFoodComponent()
-            : base("PointFoodComponent", "Nickname",
+            : base("Points Food", "PtsF",
                 "Description"
                 , null, "A365E1B3-4149-4C20-B6B2-47A356D6D7D1")
         {
@@ -35,16 +35,9 @@ namespace Physarealm.Food
             base.RegisterOutputParams(pManager);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-        }
         protected override bool GetInputs(IGH_DataAccess da)
         {
-            if (!da.GetData(nextInputIndex++, ref pts)) return false;
+            if (!da.GetDataList(nextInputIndex++, pts)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
