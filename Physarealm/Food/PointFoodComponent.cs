@@ -6,15 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Food
 {
-    public class PointFoodComponent : GH_Component
+    public class PointFoodComponent :AbstractFoodComponent
     {
+        private List<Point3d> pts;
         /// <summary>
         /// Initializes a new instance of the PointFoodComponent class.
         /// </summary>
         public PointFoodComponent()
             : base("PointFoodComponent", "Nickname",
-                "Description",
-                "Category", "Subcategory")
+                "Description"
+                , null, "A365E1B3-4149-4C20-B6B2-47A356D6D7D1")
         {
         }
 
@@ -23,6 +24,7 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddPointParameter("Points", "Pts", "Point food", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            base.RegisterOutputParams(pManager);
         }
 
         /// <summary>
@@ -39,26 +42,15 @@ namespace Physarealm.Food
         protected override void SolveInstance(IGH_DataAccess DA)
         {
         }
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override bool GetInputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
+            if (!da.GetData(nextInputIndex++, ref pts)) return false;
+            return true;
         }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get { return new Guid("{a942debd-479f-44ba-b733-80c4fae95837}"); }
+            AbstractFoodType food = new PointFoodType(pts);
+            da.SetData(nextOutputIndex++, food);
         }
     }
 }

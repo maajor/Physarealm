@@ -10,7 +10,7 @@ using Rhino.Geometry;
 
 namespace Physarealm
 {
-    private class Physarum
+    public class Physarum
     {
         public List<Amoeba> population = new List<Amoeba>();
         public List<Amoeba> _toborn_population = new List<Amoeba>();

@@ -3,11 +3,17 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Emitter;
+using Physarealm.Environment;
+using Physarealm.Food;
+using Physarealm.Setting;
 
 namespace Physarealm
 {
     public class PhysarealmComponent : GH_Component
     {
+        private Physarum popu;
+        private AbstractEnvironmentType env;
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
         /// constructor without any arguments.
@@ -18,7 +24,7 @@ namespace Physarealm
         public PhysarealmComponent()
             : base("Physarealm", "PRealm",
                 "agent-based modelling of physarum polycephalum",
-                "Physarealm", "Primitive")
+                "Physarealm", "Core")
         {
         }
 
@@ -27,6 +33,12 @@ namespace Physarealm
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddGenericParameter("Environment", "Env", "Environment", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Emitter", "Emi", "Emitter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Food", "F", "Food", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Environment Setting", "EnvS", "Environment Setting", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Agent Setting", "AgtS", "Agent Setting", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("reset", "r", "reset", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,6 +46,9 @@ namespace Physarealm
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("ChemoAttractor Field", "CAF", "ChemoAttractor Field", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Population", "pop", "Population", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("iteration", "i", "Iteration", GH_ParamAccess.item);
         }
 
         /// <summary>

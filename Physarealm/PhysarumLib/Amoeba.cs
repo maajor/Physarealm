@@ -10,7 +10,7 @@ using Rhino.Geometry;
 
 namespace Physarealm 
 {
-    private class Amoeba : Particle
+    public class Amoeba : Particle
     {
         public Vector3d orientation { get; set; }
         private float tempfloatx;

@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 
 namespace Physarealm
 {
-    private class Grid3d:IDisposable
+    public class Grid3d
     {
         public int _x { private set; get; }
         public int _y { private set; get; }
@@ -568,32 +568,6 @@ namespace Physarealm
 
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposed)
-                return;
-
-            if (disposing)
-            {
-                handle.Dispose();
-                // Free any other managed objects here.
-                //
-            }
-
-            // Free any unmanaged objects here.
-            //  
-            Array.Clear(trail,0,trail.Length);
-            Array.Clear(temptrail, 0, temptrail.Length);
-            Array.Clear(particle_ids, 0, particle_ids.Length);
-            Array.Clear(griddata, 0, griddata.Length);
-            Array.Clear(agedata, 0, agedata.Length);
-            disposed = true;
-        }
 
     }//end of Grid3d
 }

@@ -6,15 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Emitter
 {
-    public class PointEmitterComponent : GH_Component
+    public class PointEmitterComponent :AbstractEmitterComponent
     {
+        private List<Point3d> emit;
         /// <summary>
         /// Initializes a new instance of the PointEmitterComponent class.
         /// </summary>
         public PointEmitterComponent()
-            : base("PointEmitterComponent", "Nickname",
+            : base("PointEmitter", "PtEmi",
                 "Description",
-                "Category", "Subcategory")
+                null, "05CBA783-3A74-4253-B8C3-B894D9715A01")
         {
         }
 
@@ -23,6 +24,7 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddPointParameter("Points", "Pts", "points emitters", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            base.RegisterOutputParams(pManager);
         }
 
         /// <summary>
@@ -39,26 +42,15 @@ namespace Physarealm.Emitter
         protected override void SolveInstance(IGH_DataAccess DA)
         {
         }
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override bool GetInputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
+            if(!da.GetData(nextInputIndex++, ref emit)) return false;
+            return true;
         }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get { return new Guid("{fd0a5c5b-2dfb-47ce-8895-aeec9a0f26ad}"); }
+            AbstractEmitterType emitter = new PointEmitterType(emit);
+            da.SetData(nextOutputIndex++, emitter);
         }
     }
 }

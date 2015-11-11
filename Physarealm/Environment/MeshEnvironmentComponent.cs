@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace Physarealm.Environment
 {
-    public class MeshEnvironmentComponent : GH_Component
+    public class MeshEnvironmentComponent :GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MeshEnvironmentComponent class.
@@ -14,7 +14,7 @@ namespace Physarealm.Environment
         public MeshEnvironmentComponent()
             : base("MeshEnvironmentComponent", "Nickname",
                 "Description",
-                "Category", "Subcategory")
+                null, "9DF75EEA-0064-4A3B-A242-1A3CEDC6A794")
         {
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Physarealm
 {
-    private class Libutility
+    public class Libutility
     {
         public float[] sinlut { private set; get; }
         public float[] coslut { private set; get; }
