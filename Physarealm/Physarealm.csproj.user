@@ -6,4 +6,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <StartWorkingDirectory>C:\Users\walter\Desktop\</StartWorkingDirectory>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Rhinoceros 5 %2864-bit%29\System\rhino.exe</StartProgram>
+  </PropertyGroup>
 </Project>

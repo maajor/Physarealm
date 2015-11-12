@@ -57,6 +57,7 @@ namespace Physarealm.Environment
         protected override void SetOutputs(IGH_DataAccess da)
         {
             AbstractEnvironmentType environment = new BoxEnvironmentType(x_count, y_count, z_count);
+            //environment.setContainer(null);
             da.SetData(nextOutputIndex++, environment);
         }
     }

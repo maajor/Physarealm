@@ -28,8 +28,8 @@ namespace Physarealm
         public float _speed { get; set; }
         public int _detectDir { get; set; }
         public int _death_distance { get; set; }
-        private int _division_frequency_test;
-        private int _death_frequency_test;
+        public int _division_frequency_test { get; set; }
+        public int _death_frequency_test { get; set; }
         //private float _division_prob;
         //private float _death_random_prob;
         private int gw;
@@ -264,7 +264,8 @@ namespace Physarealm
 
         public override string ToString()
         {
-            return TypeName;
+
+            return TypeName + "\n current population: " + population.Count;
         }
 
         public override string TypeDescription

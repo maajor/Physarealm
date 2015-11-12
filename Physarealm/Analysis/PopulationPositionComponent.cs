@@ -8,7 +8,7 @@ namespace Physarealm.Analysis
 {
     public class PopulationPositionComponent :AbstractPopulationAnalysisComponent
     {
-        private List<Point3d> pos;
+        private List<Point3d> pos = new List<Point3d>();
         private Physarum p;
         /// <summary>
         /// Initializes a new instance of the PopulationPositionComponent class.
@@ -48,7 +48,7 @@ namespace Physarealm.Analysis
         protected override void SolveInstance(IGH_DataAccess da)
         {
             if (!GetInputs(da)) return;
-
+            pos.Clear();
             foreach (Amoeba amo in p.population)
                 pos.Add(new Point3d(amo.curx, amo.cury, amo.curz));
 

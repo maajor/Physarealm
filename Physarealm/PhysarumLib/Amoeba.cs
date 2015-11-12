@@ -140,7 +140,7 @@ namespace Physarealm
         }
         public bool iniSuccess(int x, int y, int z, AbstractEnvironmentType env)
         {
-            if (env.isOccupidByParticle(x, y, z) == true || env.getGriddata(x, y, z) == 2)
+            if (env.isOccupidByParticle(x, y, z) == true)
                 return false;
             return true;
         }

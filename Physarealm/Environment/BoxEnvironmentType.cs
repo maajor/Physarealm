@@ -37,7 +37,7 @@ namespace Physarealm.Environment
                     {
                         trail[i, j, k] = 0;
                         temptrail[i, j, k] = 0;
-                        particle_ids[i, j, k] = -2;
+                        particle_ids[i, j, k] = -1;
                         griddata[i, j, k] = 0;
                         agedata[i, j, k] = 0;
                     }
