@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class EnvironmentSettingComponent : AbstractSettingComponent
+    abstract public class EnvironmentSettingComponent : AbstractSettingComponent
     {
         private double pcd;
         private int div_radius;

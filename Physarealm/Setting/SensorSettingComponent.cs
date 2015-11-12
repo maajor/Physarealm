@@ -8,6 +8,9 @@ namespace Physarealm.Setting
 {
     public class SensorSettingComponent : AbstractSettingComponent
     {
+        private double sensor_angle;
+        private double rotate_angle;
+        private double sensor_offset;
         /// <summary>
         /// Initializes a new instance of the SensorSettingComponent class.
         /// </summary>
@@ -23,6 +26,9 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddNumberParameter("sensor angle", "sa", "sensor angle", GH_ParamAccess.item, 22.5);
+            pManager.AddNumberParameter("rotate angle", "ra", "rotate angle", GH_ParamAccess.item, 45.0);
+            pManager.AddNumberParameter("sensor offset", "so", "sensor offset", GH_ParamAccess.item, 10);
         }
 
         /// <summary>
@@ -30,35 +36,21 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("SensorSetting", "SSet", "Agent Sense Setting", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-        }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override bool GetInputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
+            if (!da.GetData(0, ref sensor_angle)) return false;
+            if (!da.GetData(1, ref rotate_angle)) return false;
+            if (!da.GetData(2, ref sensor_offset)) return false;
+            return true;
         }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get { return new Guid("{563d322a-e571-4b5a-9548-a13980c09c8f}"); }
+            AbstractSettingType agtset = new SensorSettingType((float)sensor_angle, (float)rotate_angle, (float)sensor_offset);
+            da.SetData(0, agtset);
         }
     }
 }

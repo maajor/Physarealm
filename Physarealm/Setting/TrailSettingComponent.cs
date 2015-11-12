@@ -6,15 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class TrailSettingComponent : GH_Component
+    public class TrailSettingComponent :AbstractSettingComponent
     {
+        private double trail_ratio;
         /// <summary>
         /// Initializes a new instance of the TrailSettingComponent class.
         /// </summary>
         public TrailSettingComponent()
-            : base("TrailSettingComponent", "Nickname",
+            : base("Trail Setting", "TrSet",
                 "Description",
-                "Category", "Subcategory")
+                null, "4F7C1186-3185-42B3-881A-82B1D9E0590E")
         {
         }
 
@@ -23,6 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddNumberParameter("Agent-Food Trail Ratio", "TrRat", "Agent-Food Trail Ratio", GH_ParamAccess.item, 0.2);
         }
 
         /// <summary>
@@ -30,35 +32,19 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("TrailSetting", "TSet", "TrailSetting", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref trail_ratio)) return false;
+            return true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{41294d5e-783c-442f-aea3-eb8bf4c6bfbe}"); }
+            AbstractSettingType tset = new TrailSettingType(trail_ratio);
+            da.SetData(0, tset);
         }
     }
 }

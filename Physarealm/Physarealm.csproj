@@ -97,15 +97,34 @@
     <Compile Include="PhysarealmComponent.cs" />
     <Compile Include="PhysarealmInfo.cs" />
     <Compile Include="PhysarumLib\Amoeba.cs" />
-    <Compile Include="PhysarumLib\Grid3d.cs" />
     <Compile Include="PhysarumLib\Physarum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting\AbstractSettingComponent.cs" />
     <Compile Include="Setting\AbstractSettingType.cs" />
     <Compile Include="Setting\AgentSettingComponent.cs" />
     <Compile Include="Setting\AgentSettingType.cs" />
+    <Compile Include="Setting\BirthDeathSettingComponent.cs" />
+    <Compile Include="Setting\BirthDeathSettingType.cs" />
+    <Compile Include="Setting\DeathDistanceSettingComponent.cs" />
+    <Compile Include="Setting\DeathDistanceSettingType.cs" />
+    <Compile Include="Setting\DetectDirectionSettingComponent.cs" />
+    <Compile Include="Setting\DetectDirectionSettingType.cs" />
     <Compile Include="Setting\EnvironmentSettingComponent.cs" />
     <Compile Include="Setting\EnvironmentSettingType.cs" />
+    <Compile Include="Setting\GuideSettingComponent.cs" />
+    <Compile Include="Setting\GuideSettingType.cs" />
+    <Compile Include="Setting\InitialPopulationSettingComponent.cs" />
+    <Compile Include="Setting\InitialPopulationSettingType.cs" />
+    <Compile Include="Setting\PcdSettingComponent.cs" />
+    <Compile Include="Setting\PcdSettingType.cs" />
+    <Compile Include="Setting\SensorSettingComponent.cs" />
+    <Compile Include="Setting\SensorSettingType.cs" />
+    <Compile Include="Setting\SpeedSettingComponent.cs" />
+    <Compile Include="Setting\SpeedSettingType.cs" />
+    <Compile Include="Setting\TestFrequencySettingComponent.cs" />
+    <Compile Include="Setting\TestFrequencySettingType.cs" />
+    <Compile Include="Setting\TrailSettingComponent.cs" />
+    <Compile Include="Setting\TrailSettingType.cs" />
     <Compile Include="Util\Libutility.cs" />
   </ItemGroup>
   <ItemGroup>

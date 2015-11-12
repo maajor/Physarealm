@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class AgentSettingComponent : AbstractSettingComponent
+    abstract public class AgentSettingComponent : AbstractSettingComponent
     {
         private double sensor_angle;
         private double rotate_angle;

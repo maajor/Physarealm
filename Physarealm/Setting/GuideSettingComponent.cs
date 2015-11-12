@@ -6,15 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class GuideSettingComponent : GH_Component
+    public class GuideSettingComponent :AbstractSettingComponent
     {
+        private double guide_factor;
         /// <summary>
         /// Initializes a new instance of the GuideSettingComponent class.
         /// </summary>
         public GuideSettingComponent()
-            : base("GuideSettingComponent", "Nickname",
+            : base("Guide Setting", "GuiSet",
                 "Description",
-                "Category", "Subcategory")
+                null, "DF4150A8-ED9A-496D-854B-9A877EF41220")
         {
         }
 
@@ -23,6 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddNumberParameter("Vertical Guide Factor", "VGF", "Vertical Guide Factor", GH_ParamAccess.item, 0);
         }
 
         /// <summary>
@@ -30,35 +32,20 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("Guide Setting", "GSet", "Guide Setting", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref guide_factor)) return false;
+            return true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{0eaa00d4-8c41-4419-8419-9b3593347eb2}"); }
+            AbstractSettingType gset = new GuideSettingType(guide_factor);
+            da.SetData(0, gset);
         }
     }
 }

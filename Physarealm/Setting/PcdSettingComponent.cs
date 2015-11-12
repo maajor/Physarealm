@@ -6,15 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class PcdSettingComponent : GH_Component
+    public class PcdSettingComponent :AbstractSettingComponent
     {
+        private double pcd;
         /// <summary>
         /// Initializes a new instance of the PcdSettingComponent class.
         /// </summary>
         public PcdSettingComponent()
-            : base("PcdSettingComponent", "Nickname",
+            : base("Pcd Setting", "PcdSet",
                 "Description",
-                "Category", "Subcategory")
+                null, "C64A5382-EFB1-4AC4-A184-C0EAA351356A")
         {
         }
 
@@ -23,6 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddNumberParameter("PCD", "pcd", "Possibility Changing Direction, range: 0~1", GH_ParamAccess.item, 0.1);
         }
 
         /// <summary>
@@ -30,35 +32,19 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("Pcd Setting", "PSet", "Pcd Setting", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref pcd)) return false;
+            return true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{541aeb52-74b0-42bd-b40a-7c680ec93d76}"); }
+            AbstractSettingType pset = new PcdSettingType(pcd);
+            da.SetData(0, pset);
         }
     }
 }

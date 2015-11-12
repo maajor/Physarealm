@@ -6,16 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class SpeedSettingComponent :AbstractSettingComponent
+    public class InitialPopulationSettingComponent :AbstractSettingComponent
     {
-        private double max_speed;
+        private int popsize;
         /// <summary>
-        /// Initializes a new instance of the SpeedSettingComponent class.
+        /// Initializes a new instance of the InitialPopulationSettingComponent class.
         /// </summary>
-        public SpeedSettingComponent()
-            : base("Speed Setting", "SpSet",
+        public InitialPopulationSettingComponent()
+            : base("Initial Population Setting", "InPSet",
                 "Description",
-                null, "5C38034E-9302-4A39-B67D-BB7B1AE388AF")
+                null, "2B7F549B-E39E-4E8F-8976-5A60EFB340AB")
         {
         }
 
@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("max speed", "ms", "max speed", GH_ParamAccess.item, 10);
+            pManager.AddIntegerParameter("Population Size", "PopS", "Initial Population Size", GH_ParamAccess.item, 200);
         }
 
         /// <summary>
@@ -32,19 +32,19 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("SpeedSetting", "SSet", "Agent Max Speed Setting", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PopuSetting", "PopSet", "Population Setting", GH_ParamAccess.item);
         }
 
         protected override bool GetInputs(IGH_DataAccess da)
         {
-            if (!da.GetData(0, ref max_speed)) return false;
+            if(!da.GetData(0, ref popsize)) return false;
             return true;
         }
 
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            AbstractSettingType speset = new SpeedSettingType((float)max_speed);
-            da.SetData(0, speset);
+            AbstractSettingType popset = new InitialPopulationSettingType(popsize);
+            da.SetData(0, popset);
         }
     }
 }

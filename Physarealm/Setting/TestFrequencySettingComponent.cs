@@ -8,6 +8,8 @@ namespace Physarealm.Setting
 {
     public class TestFrequencySettingComponent :AbstractSettingComponent
     {
+        private int div_freq;
+        private int die_freq;
         /// <summary>
         /// Initializes a new instance of the TestFrequencySettingComponent class.
         /// </summary>
@@ -23,6 +25,8 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddIntegerParameter("DivisionTestFreq", "DiTFr", "DivisionTestFreq", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("DeathTestFreq", "DeTFr", "DeathTestFreq", GH_ParamAccess.item, 3);
         }
 
         /// <summary>
@@ -30,35 +34,21 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("TestFrequencySetting", "TFSet", "TestFrequencySetting", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref div_freq)) return false;
+            if (!da.GetData(1, ref die_freq)) return false;
+            return true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{55099015-f176-4ad8-b62c-7fcda0f0402b}"); }
+            AbstractSettingType tfset = new TestFrequencySettingType(div_freq, die_freq);
+            da.SetData(0, tfset);
         }
     }
 }

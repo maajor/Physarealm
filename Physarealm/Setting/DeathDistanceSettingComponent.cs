@@ -6,15 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class DeathDistanceSettingComponent : GH_Component
+    public class DeathDistanceSettingComponent :AbstractSettingComponent
     {
+        private int death_distance;
         /// <summary>
         /// Initializes a new instance of the DeathDistanceSettingComponent class.
         /// </summary>
         public DeathDistanceSettingComponent()
-            : base("DeathDistanceSettingComponent", "Nickname",
+            : base("Death Distance Setting", "DDSet",
                 "Description",
-                "Category", "Subcategory")
+                null, "44522DCA-970C-4693-9C99-B348533BD9F8")
         {
         }
 
@@ -23,6 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddIntegerParameter("Death Distance", "DDis", "Death Distance", GH_ParamAccess.item, 100);
         }
 
         /// <summary>
@@ -30,35 +32,21 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("Death Distance Setting", "DDisSet", "Death Distance Setting", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+
+
+        protected override bool GetInputs(IGH_DataAccess da)
         {
+            if(! da.GetData(0, ref death_distance)) return false;
+            return true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        protected override void SetOutputs(IGH_DataAccess da)
         {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{0d8fcf88-26ae-4d50-8c3f-bc95da447499}"); }
+            AbstractSettingType ddset = new DeathDistanceSettingType(death_distance);
+            da.SetData(0, ddset);
         }
     }
 }
