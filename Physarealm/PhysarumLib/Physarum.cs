@@ -98,7 +98,7 @@ namespace Physarealm
             {
                 Amoeba newAmo = new Amoeba(i, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
                 Point3d birthPlace = env.getRandomBirthPlace(util);
-                newAmo.initializeAmoeba((int)birthPlace.X, (int)birthPlace.Y, (int)birthPlace.Z, env.u, env.v, env.w, 4, env, util);
+                newAmo.initializeAmoeba(birthPlace.X, birthPlace.Y, birthPlace.Z,  4, env, util);
                 newAmo._guide_factor = guide_factor;
                 population.Add(newAmo);
                 _current_population++;
@@ -126,7 +126,7 @@ namespace Physarealm
             }*/
             System.Threading.Tasks.Parallel.ForEach(population, amo =>
             {
-                amo.doSensortBehaviors(env, util);
+                amo.doSensorBehaviors(env, util);
             });
 
         }

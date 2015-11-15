@@ -31,6 +31,7 @@ namespace Physarealm.Environment
             pManager.AddIntegerParameter("XResolution", "xres", "subdivision on x-axis", GH_ParamAccess.item, 100);
             pManager.AddIntegerParameter("YResolution", "yres", "subdivision on y-axis", GH_ParamAccess.item, 100);
             pManager.AddIntegerParameter("ZResolution", "zres", "subdivision on z-axis", GH_ParamAccess.item, 100);
+            pManager.AddBoxParameter("Box", "B", "Box", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace Physarealm.Environment
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
+            pManager.AddPointParameter("pts", "pt", "pt", GH_ParamAccess.list);
             //pManager.AddGenericParameter("BoxEnvironment", "BoxEnv", "Box Environment", GH_ParamAccess.item);
         }
 
@@ -51,14 +53,16 @@ namespace Physarealm.Environment
             if (!da.GetData(nextInputIndex++, ref x_count)) return false;
             if (!da.GetData(nextInputIndex++, ref y_count)) return false;
             if (!da.GetData(nextInputIndex++, ref z_count)) return false;
+            if (!da.GetData(nextInputIndex++, ref box)) return false;
             return true;
         }
 
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            AbstractEnvironmentType environment = new BoxEnvironmentType(x_count, y_count, z_count);
+            BoxEnvironmentType environment = new BoxEnvironmentType(box.BoundingBox, x_count, y_count, z_count);
             //environment.setContainer(null);
             da.SetData(nextOutputIndex++, environment);
+            da.SetDataList(1, environment.positions);
         }
     }
 }

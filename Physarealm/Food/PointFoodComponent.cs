@@ -37,11 +37,13 @@ namespace Physarealm.Food
 
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            pts = new List<Point3d>();
             if (!da.GetDataList(nextInputIndex++, pts)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
+
             AbstractFoodType food = new PointFoodType(pts);
             da.SetData(nextOutputIndex++, food);
         }

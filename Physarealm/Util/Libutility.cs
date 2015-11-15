@@ -46,6 +46,10 @@ namespace Physarealm
         {
             return rand.Next(min, max);
         }
+        public double getDoubleRand(double min, double max) 
+        {
+            return rand.NextDouble() * (max - min) + min;
+        }
         public double getRandDouble()
         {
             return rand.NextDouble();

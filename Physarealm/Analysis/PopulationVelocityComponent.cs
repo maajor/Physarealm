@@ -48,7 +48,7 @@ namespace Physarealm.Analysis
         protected override void SolveInstance(IGH_DataAccess da)
         {
             if (!GetInputs(da)) return;
-
+            vel = new List<Vector3d>();
             foreach (Amoeba amo in p.population)
                 vel.Add(amo.orientation);
 

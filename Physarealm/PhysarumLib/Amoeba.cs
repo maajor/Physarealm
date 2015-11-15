@@ -14,20 +14,22 @@ namespace Physarealm
     public class Amoeba : Particle, IDisposable
     {
         public Vector3d orientation { get; set; }
-        private float tempfloatx;
-        private float tempfloaty;
-        private float tempfloatz;
+        private float tempfloatx;// a temporary accurate position x
+        private float tempfloaty;//a temporary accurate position z
+        private float tempfloatz;//a temporary accurate position z
         private int _id;
-        public int curx { get; private set; }
-        public int cury { get; private set; }
-        public int curz { get; private set; }
-        private int tempx;
-        private int tempy;
-        private int tempz;
+        public int curx { get; private set; }// u index
+        public int cury { get; private set; }// v index
+        public int curz { get; private set; }// w index
+        private int tempx; // temporary u index
+        private int tempy; // temporary v index
+        private int tempz; // temporary v index
         public float _sensor_angle { get; set; }
         public float _rotate_angle { get; set; }
         public float _sensor_offset { get; set; }
         public int _detectDir { get; set; }
+        public int _detectDirRSubd { get; set; }
+        public int _detectDirPhySubd{get;set;}
         public int _deathDistance { get; set; }
         public float _max_speed { get; set; }
         private float _sensor_theta_step_angle { get; set; }
@@ -35,7 +37,7 @@ namespace Physarealm
         public int _distance_traveled;
         private float _cur_speed;
         public bool _moved_successfully;
-        public bool _divide { set; get; }
+        public bool _divide {set; get; }
         public bool _die { set; get; }
         public float _depT { get; set; }
         private float _ca_torealease;
@@ -76,8 +78,10 @@ namespace Physarealm
             _depT = dept;
             if (detectDir < 3)
                 detectDir = 3;
+            _detectDirRSubd = 0;
+            _detectDirPhySubd = detectDir - 3;
             _sensor_theta_step_angle = 360 / detectDir;
-            _sensor_phy_step_angle = sensor_angle / (detectDir - 3);
+            _sensor_phy_step_angle = sensor_angle / _detectDirPhySubd;
             _ca_torealease = dept;
             _div_radius = 3;
             _die_radius = 2;
@@ -92,38 +96,46 @@ namespace Physarealm
         {
             do
             {
-                tempx = util.getRand(env.u);
-                tempy = util.getRand(env.v);
-                tempz = util.getRand(env.w);
+                tempfloatx = (float)util.getDoubleRand(env.getUMin(), env.getUMax());
+                tempfloaty = (float)util.getDoubleRand(env.getVMin(), env.getVMax());
+                tempfloatz = (float)util.getDoubleRand(env.getWMin(), env.getWMax());
+                Point3d indexPos = env.getIndexByPosition(tempfloatx, tempfloaty, tempfloatz);
+                tempx = (int)indexPos.X;
+                tempy = (int)indexPos.Y;
+                tempz = (int)indexPos.Z;
             }
             while (!iniSuccess(tempx, tempy, tempz, env));
             curx = tempx;
             cury = tempy;
             curz = tempz;
-            Location = new Point3d(curx, cury, curz);
+            //Location = new Point3d(curx, cury, curz);
+            Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
-        public void initializeAmoeba(int x, int y, int z, AbstractEnvironmentType env, Libutility util)
+        public void initializeAmoeba(double x, double y, double z, AbstractEnvironmentType env, Libutility util)
         {
-            tempx = x;
-            tempy = y;
-            tempz = z;
+            Point3d indexLoca = env.getIndexByPosition(x, y, z);
+            tempx = (int)indexLoca.X;
+            tempy = (int)indexLoca.Y;
+            tempz = (int)indexLoca.Z;
             curx = tempx;
             cury = tempy;
             curz = tempz;
-            Location = new Point3d(curx, cury, curz);
+            //Location = new Point3d(curx, cury, curz);
+            Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
-        public void initializeAmoeba(int x, int y, int z, int maxx, int maxy, int maxz, int radius, AbstractEnvironmentType env, Libutility util)
+        public void initializeAmoeba(double x, double y, double z,  int radius, AbstractEnvironmentType env, Libutility util)
         {
-            int start_x = x - radius > 0 ? x - radius : 0;
-            int start_y = y - radius > 0 ? y - radius : 0;
-            int start_z = z - radius > 0 ? z - radius : 0;
-            int end_x = x + radius < maxx ? x + radius : maxx - 1;
-            int end_y = y + radius < maxy ? y + radius : maxy - 1;
-            int end_z = z + radius < maxz ? z + radius : maxz - 1;
+            Point3d IniIndexLoca = env.getIndexByPosition(x, y, z);
+            int start_x = (int)IniIndexLoca.X - radius > 0 ? (int)IniIndexLoca.X - radius : 0;
+            int start_y = (int)IniIndexLoca.Y - radius > 0 ? (int)IniIndexLoca.Y - radius : 0;
+            int start_z = (int)IniIndexLoca.Z - radius > 0 ? (int)IniIndexLoca.Z - radius : 0;
+            int end_x = (int)IniIndexLoca.X + radius < env.u ? (int)IniIndexLoca.X + radius : env.u - 1;
+            int end_y = (int)IniIndexLoca.Y + radius < env.v ? (int)IniIndexLoca.Y + radius : env.v - 1;
+            int end_z = (int)IniIndexLoca.Z + radius < env.w ? (int)IniIndexLoca.Z + radius : env.w - 1;
             do
             {
                 tempx = util.getRand(start_x, end_x + 1);
@@ -134,7 +146,8 @@ namespace Physarealm
             curx = tempx;
             cury = tempy;
             curz = tempz;
-            Location = new Point3d(curx, cury, curz);
+            //Location = new Point3d(curx, cury, curz);
+            Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
@@ -151,7 +164,7 @@ namespace Physarealm
             curx = tempx;
             cury = tempy;
             curz = tempz;
-            resetFloatingPointPosition();
+            resetFloatingPointPosition(env);
             if (_moved_successfully)
                 env.increaseTrail(curx, cury, curz, _ca_torealease);
         }
@@ -175,6 +188,9 @@ namespace Physarealm
             tempfloatx = (float)curLoc.X;
             tempfloaty = (float)curLoc.Y;
             tempfloatz = (float)curLoc.Z;
+            if(env.constrainPos(ref tempfloatx, ref tempfloaty, ref tempfloatz))
+                selectRandomDirection(util);
+            /*
             if (tempfloatx < 0)
             {
                 tempfloatx = -tempfloatx;
@@ -213,11 +229,14 @@ namespace Physarealm
                 tempfloatz = env.w - 1;
                 //orientation.Transform(Transform.Mirror(Plane.WorldXY));
                 selectRandomDirection(util);
-            }
-
-            tempx = (int)Math.Round(tempfloatx);
-            tempy = (int)Math.Round(tempfloaty);
-            tempz = (int)Math.Round(tempfloatz);
+            }*/
+            Point3d temppos = env.getIndexByPosition(tempfloatx, tempfloaty, tempfloatz);
+            //tempx = (int)Math.Round(tempfloatx);
+            //tempy = (int)Math.Round(tempfloaty);
+            //tempz = (int)Math.Round(tempfloatz);
+            tempx = (int)temppos.X;
+            tempy = (int)temppos.Y;
+            tempz = (int)temppos.Z;
             if (env.isOccupidByParticle(tempx, tempy, tempz))
             {
                 selectRandomDirection(util);
@@ -235,7 +254,7 @@ namespace Physarealm
                 curz = tempz;
                 //float trailIncrement = calculateTrailIncrement(util);
                 //env.increaseTrail(curx, cury, curz, trailIncrement);
-                env.increaseTrail(curx, cury, curz, _depT);
+                env.increaseTrail(curx, cury, curz, _ca_torealease);
                 //if (_moved_successfully && !_die && _distance_traveled % division_frequency_test == 0)
                 if (_moved_successfully && !_die)
                     doDivisionTest(env);
@@ -268,18 +287,19 @@ namespace Physarealm
             orientation = Vector3d.Multiply(factor, randDir);
             return;
         }
-        public void resetFloatingPointPosition()
+        public void resetFloatingPointPosition(AbstractEnvironmentType env)
         {
-            tempfloatx = curx;
-            tempfloaty = cury;
-            tempfloatz = curz;
-            Location = new Point3d(curx, cury, curz);
+            Location = env.getPositionByIndex(curx, cury, curz);
+            //tempfloatx = curx;
+            //tempfloaty = cury;
+            //tempfloatz = curz;
+            //Location = new Point3d(curx, cury, curz);
             return;
         }
-        public void doSensortBehaviors(AbstractEnvironmentType env, Libutility util)
+        public void doSensorBehaviors(AbstractEnvironmentType env, Libutility util)
         {
-            doDeathTest(env);
-            int det_count = _detectDir * (_detectDir - 3) + 1;
+            this.doDeathTest(env);
+            int det_count = _detectDir * _detectDirPhySubd + 1;
             int max_item = 0;
             float max_item_phy = 0;
             float max_item_theta = 0;
@@ -292,7 +312,7 @@ namespace Physarealm
             int count_cur = 1;
             for (int i = 0; i < _detectDir; i++)
             {
-                for (int j = 1; j <= _detectDir - 3; j++)
+                for (int j = 1; j <= _detectDirPhySubd; j++)
                 {
                     sensor_data[count_cur] = env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util);
                     //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util));

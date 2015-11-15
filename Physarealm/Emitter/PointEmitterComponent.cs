@@ -38,6 +38,7 @@ namespace Physarealm.Emitter
 
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            emit = new List<Point3d>();
             if(!da.GetDataList(nextInputIndex++, emit)) return false;
             return true;
         }
