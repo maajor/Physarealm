@@ -16,6 +16,7 @@ namespace Physarealm.Setting
         public override void setParameter(Physarum p)
         {
             p._depT = (float) (100.0 * trail_ratio);
+            
 
         }
 

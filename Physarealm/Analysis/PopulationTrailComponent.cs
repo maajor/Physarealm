@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
 using Rhino.Geometry;
+using Grasshopper;
 
 namespace Physarealm.Analysis
 {
     public class PopulationTrailComponent :AbstractPopulationAnalysisComponent
     {
+        private Physarum p;
+        private DataTree<Point3d> trailTree;
+        private Boolean reset;
+        private int iter;
+        private int history;
         /// <summary>
         /// Initializes a new instance of the PopulationTrailComponent class.
         /// </summary>
@@ -25,6 +32,7 @@ namespace Physarealm.Analysis
         {
             base.RegisterInputParams(pManager);
             pManager.AddIntegerParameter("History Step", "HisStp", "History Step", GH_ParamAccess.item, 10);
+            pManager.AddBooleanParameter("reset", "r", "reset", GH_ParamAccess.item, true);
         }
 
         /// <summary>
@@ -36,11 +44,42 @@ namespace Physarealm.Analysis
         }
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref p)) return false;
+            if (!da.GetData(1, ref history)) return false;
+            if (!da.GetData(2, ref reset)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-
+            da.SetDataTree(0, trailTree);
+        }
+        protected override void SolveInstance(IGH_DataAccess da)
+        {
+            if (!GetInputs(da)) return;
+            if (reset == true)
+            {
+                trailTree = new DataTree<Point3d>();
+                iter = 0;
+            }
+            else 
+            {
+                foreach (Amoeba amo in p.population) 
+                {
+                    GH_Path thispath = new GH_Path(amo.ID);
+                    trailTree.Add(amo.Location, thispath);
+                    if (trailTree.Branch(thispath).Count > history) 
+                    {
+                        trailTree.Branch(thispath).RemoveAt(0);
+                    }
+                }
+                foreach (int id in p._todie_id) 
+                {
+                    GH_Path thispath = new GH_Path(id);
+                    trailTree.Branch(thispath).Clear();
+                }
+                iter++;
+            }
+            SetOutputs(da);
         }
     }
 }

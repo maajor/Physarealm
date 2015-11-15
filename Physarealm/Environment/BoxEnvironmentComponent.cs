@@ -40,7 +40,6 @@ namespace Physarealm.Environment
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddPointParameter("pts", "pt", "pt", GH_ParamAccess.list);
             //pManager.AddGenericParameter("BoxEnvironment", "BoxEnv", "Box Environment", GH_ParamAccess.item);
         }
 
@@ -62,7 +61,6 @@ namespace Physarealm.Environment
             BoxEnvironmentType environment = new BoxEnvironmentType(box.BoundingBox, x_count, y_count, z_count);
             //environment.setContainer(null);
             da.SetData(nextOutputIndex++, environment);
-            da.SetDataList(1, environment.positions);
         }
     }
 }

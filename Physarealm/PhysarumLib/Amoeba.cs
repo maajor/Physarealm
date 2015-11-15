@@ -17,7 +17,7 @@ namespace Physarealm
         private float tempfloatx;// a temporary accurate position x
         private float tempfloaty;//a temporary accurate position z
         private float tempfloatz;//a temporary accurate position z
-        private int _id;
+        public int ID { get; private set; }
         public int curx { get; private set; }// u index
         public int cury { get; private set; }// v index
         public int curz { get; private set; }// w index
@@ -60,13 +60,13 @@ namespace Physarealm
         public Amoeba(int id)
             : base()
         {
-            _id = id;
+            ID = id;
             _ca_torealease = 3;
         }
         public Amoeba(int id, float sensor_angle = (float) 45, float rotate_angle = 45, float sensor_offset = 7, int detectDir = 3, int deathDistance = 100, float max_speed = 3, float pcd = (float) 0.1, float dept = 3)
             : base()
         {
-            _id = id;
+            ID = id;
             _sensor_angle = sensor_angle;
             _rotate_angle = rotate_angle;
             _sensor_offset = sensor_offset;
@@ -160,7 +160,7 @@ namespace Physarealm
         public void occupyCell(int x, int y, int z, AbstractEnvironmentType env)
         {
             env.clearGridCell(curx, cury, curz);
-            env.occupyGridCell(tempx, tempy, tempz, _id);
+            env.occupyGridCell(tempx, tempy, tempz, ID);
             curx = tempx;
             cury = tempy;
             curz = tempz;
@@ -248,7 +248,7 @@ namespace Physarealm
                 Location = new Point3d(tempfloatx, tempfloaty, tempfloatz);
                 env.clearGridCell(curx, cury, curz);
                 //env.agedata[curx, cury, curz]++;
-                env.occupyGridCell(tempx, tempy, tempz, _id);
+                env.occupyGridCell(tempx, tempy, tempz, ID);
                 curx = tempx;
                 cury = tempy;
                 curz = tempz;

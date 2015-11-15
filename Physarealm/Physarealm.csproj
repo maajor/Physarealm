@@ -140,6 +140,9 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+
+Copy /Y "$(TargetDir)$(ProjectName).gha" "C:\Users\walter\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">

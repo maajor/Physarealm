@@ -97,7 +97,7 @@ namespace Physarealm.Environment
                     }
                 }
             }
-            projectvalue = 50;
+            projectvalue = 100;
             diffdamp = 0.1F;
             age_flag = false;
         }
@@ -456,7 +456,7 @@ namespace Physarealm.Environment
                         if (particle_ids[i, j, k] == -1)
                         {
                             //retpt = new Point3d(i, j, k);
-                            freePos.Add(new Point3d(i, j, k));
+                            freePos.Add(positions[i,j,k]);
                             //return retpt;
                         }
                     }
