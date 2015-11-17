@@ -84,6 +84,7 @@
     <Compile Include="Environment\AbstractEnvironmentType.cs" />
     <Compile Include="Environment\BoxEnvironmentComponent.cs" />
     <Compile Include="Environment\BoxEnvironmentType.cs" />
+    <Compile Include="Environment\BrepsEnvironmentComponent.cs" />
     <Compile Include="Environment\MeshEnvironmentComponent.cs" />
     <Compile Include="Environment\MeshEnvironmentType.cs" />
     <Compile Include="Environment\SurfaceEnvironmentComponent.cs" />
@@ -111,6 +112,8 @@
     <Compile Include="Setting\DetectDirectionSettingType.cs" />
     <Compile Include="Setting\EnvironmentSettingComponent.cs" />
     <Compile Include="Setting\EnvironmentSettingType.cs" />
+    <Compile Include="Setting\EscapeSettingComponent.cs" />
+    <Compile Include="Setting\EscapeSettingType.cs" />
     <Compile Include="Setting\GuideSettingComponent.cs" />
     <Compile Include="Setting\GuideSettingType.cs" />
     <Compile Include="Setting\InitialPopulationSettingComponent.cs" />

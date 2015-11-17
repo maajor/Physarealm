@@ -50,7 +50,7 @@ namespace Physarealm.Analysis
             if (!GetInputs(da)) return;
             pos.Clear();
             foreach (Amoeba amo in p.population)
-                pos.Add(new Point3d(amo.curx, amo.cury, amo.curz));
+                pos.Add(amo.Location);
 
             SetOutputs(da);
         }

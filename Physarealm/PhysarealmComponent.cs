@@ -43,6 +43,7 @@ namespace Physarealm
             pManager.AddGenericParameter("Food", "F", "Food", GH_ParamAccess.item);
             pManager.AddGenericParameter("Settings", "Set", "Settings", GH_ParamAccess.list);
             pManager.AddBooleanParameter("reset", "r", "reset", GH_ParamAccess.item, true);
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -68,6 +69,7 @@ namespace Physarealm
             {
                 iter = 0;
                 popu.Clear();
+                env.Clear();
                 popu.initParameters();
                 env.setBirthPlace(emit.getEmitPts());
                 env.setFood(food.getFoodPts());

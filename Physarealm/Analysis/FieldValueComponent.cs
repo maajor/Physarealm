@@ -8,7 +8,6 @@ namespace Physarealm.Analysis
 {
     public class FieldValueComponent :AbstractFieldAnalysisComponent
     {
-        private AbstractEnvironmentType env;
         private float[] value;
         /// <summary>
         /// Initializes a new instance of the FieldValueComponent class.

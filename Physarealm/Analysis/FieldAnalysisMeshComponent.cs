@@ -8,6 +8,7 @@ namespace Physarealm.Analysis
 {
     public class FieldAnalysisMeshComponent :AbstractFieldAnalysisComponent
     {
+        private double z;
         /// <summary>
         /// Initializes a new instance of the FieldAnalysisMeshComponent class.
         /// </summary>
@@ -36,11 +37,18 @@ namespace Physarealm.Analysis
         }
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetData(0, ref env)) return false;
+            if (!da.GetData(1, ref z)) return false;
+            if (z < env.getWMin())
+                z = env.getWMin();
+            else if (z > env.getWMax())
+                z = env.getWMax();
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-
+            Mesh mesh = env.getTrailEvaMesh(z);
+            da.SetData(0, mesh);
         }
     }
 }

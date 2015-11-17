@@ -55,6 +55,7 @@ namespace Physarealm
         public float[] sensor_data;
         //public Vector3d moved;
         public double _guide_factor { get; set; }
+        public double _escape_p { get; set; }
 
         public Amoeba() : base() { }
         public Amoeba(int id)
@@ -90,7 +91,8 @@ namespace Physarealm
             _die_min = 0;
             _die_max = 123;
             _moved_successfully = true;
-            _guide_factor = 0.2;
+            _guide_factor = 0;
+            _escape_p = 0;
         }
         public void initializeAmoeba(AbstractEnvironmentType env, Libutility util)
         {
@@ -104,7 +106,7 @@ namespace Physarealm
                 tempy = (int)indexPos.Y;
                 tempz = (int)indexPos.Z;
             }
-            while (!iniSuccess(tempx, tempy, tempz, env));
+            while (!iniSuccess(tempx, tempy, tempz, env, util));
             curx = tempx;
             cury = tempy;
             curz = tempz;
@@ -142,7 +144,7 @@ namespace Physarealm
                 tempy = util.getRand(start_y, end_y + 1);
                 tempz = util.getRand(start_z, end_z + 1);
             }
-            while (!iniSuccess(tempx, tempy, tempz, env));
+            while (!iniSuccess(tempx, tempy, tempz, env, util));
             curx = tempx;
             cury = tempy;
             curz = tempz;
@@ -151,9 +153,11 @@ namespace Physarealm
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
         }
-        public bool iniSuccess(int x, int y, int z, AbstractEnvironmentType env)
+        public bool iniSuccess(int x, int y, int z, AbstractEnvironmentType env, Libutility util)
         {
             if (env.isOccupidByParticle(x, y, z) == true)
+                return false;
+            if (env.isWithinObstacle(x, y, z) && util.getRandDouble() > _escape_p)
                 return false;
             return true;
         }
@@ -238,6 +242,11 @@ namespace Physarealm
             tempy = (int)temppos.Y;
             tempz = (int)temppos.Z;
             if (env.isOccupidByParticle(tempx, tempy, tempz))
+            {
+                selectRandomDirection(util);
+                return;
+            }
+            else if (env.isWithinObstacle(tempx, tempy, tempz) && util.getRandDouble() > _escape_p) 
             {
                 selectRandomDirection(util);
                 return;

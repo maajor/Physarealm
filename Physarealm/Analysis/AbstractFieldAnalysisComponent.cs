@@ -10,7 +10,7 @@ namespace Physarealm.Analysis
 {
     public abstract class AbstractFieldAnalysisComponent :AbstractComponent
     {
-        private AbstractEnvironmentType env;
+        protected AbstractEnvironmentType env;
         /// <summary>
         /// Initializes a new instance of the AbstractFieldAnalysisComponent class.
         /// </summary>

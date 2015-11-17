@@ -27,6 +27,8 @@ namespace Physarealm
         public float _depT { get; set; }
         public float _speed { get; set; }
         public int _detectDir { get; set; }
+        public int _detectDirRSubd { get; set; }
+        public int _detectDirPhySubd { get; set; }
         public int _death_distance { get; set; }
         public int _division_frequency_test { get; set; }
         public int _death_frequency_test { get; set; }
@@ -43,6 +45,7 @@ namespace Physarealm
         public int _current_id;
         private int _step;
         public double guide_factor { get; set; }
+        public double escape_p { get; set; }
 
         public Physarum()
             : base()
@@ -51,8 +54,9 @@ namespace Physarealm
             _step = 0;
             _division_frequency_test = 4;
             _death_frequency_test = 4;
-            guide_factor = 0.2;
+            guide_factor = 0;
             _popsize = 200;
+            escape_p = 0;
         }
         public Physarum(Physarum p) :base()
         {
@@ -75,7 +79,9 @@ namespace Physarealm
             smax = p.smax;
             smin = p.smin;
             guide_factor = p.guide_factor;
-
+            escape_p = p.escape_p;
+            _detectDirRSubd = p._detectDirRSubd;
+            _detectDirPhySubd = p._detectDirPhySubd;
         
         }
         public void initParameters(float sensor_angle = (float) 22.5, float rotate_angle = 45, float sensor_offset = 7, int detectDir = 4, int deathDistance = 100, float max_speed = 3, float pcd = (float) 0.1, float dept = 3)
@@ -90,6 +96,8 @@ namespace Physarealm
             _pcd = pcd;
             _depT = dept;
             _popsize = 50;
+            escape_p = 0;
+            guide_factor = 0;
 
         }
         public void initPopulation(AbstractEnvironmentType env)
@@ -101,9 +109,17 @@ namespace Physarealm
                 Point3d birthPlace = env.getRandomBirthPlace(util);
                 newAmo.initializeAmoeba(birthPlace.X, birthPlace.Y, birthPlace.Z,  4, env, util);
                 newAmo._guide_factor = guide_factor;
+                newAmo._div_radius = gw;
+                newAmo._die_radius = sw;
+                newAmo._die_max = smax;
+                newAmo._die_min = smin;
+                newAmo._div_max = gmax;
+                newAmo._div_min = gmin;
+                newAmo._escape_p = escape_p;
                 population.Add(newAmo);
                 _current_id++;
             }
+            env._escape_p = escape_p;
         }
         public void updatePopulation(AbstractEnvironmentType env)
         {
@@ -210,6 +226,7 @@ namespace Physarealm
             newAmo._die_min = smin;
             newAmo._div_max = gmax;
             newAmo._div_min = gmin;
+            newAmo._escape_p = escape_p;
             newAmo.selectRandomDirection(util, agent.orientation);
             //Amoeba newAmo = new Amoeba(_current_population - 1, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
             //Point3d birthPlace = _grid.getRandomBirthPlace(util);

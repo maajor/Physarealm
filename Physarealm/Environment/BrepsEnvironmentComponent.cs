@@ -1,38 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 namespace Physarealm.Environment
 {
-    public class BoxEnvironmentComponent : AbstractEnvironmentComponent
+    public class BrepsEnvironmentComponent : AbstractEnvironmentComponent
     {
         private int x_count;
         private int y_count;
         private int z_count;
-        private Box box;
+        private List<Brep> breps = new List<Brep>();
         private List<Brep> obs = new List<Brep>();
+        private int[,,] pos;
         /// <summary>
-        /// Initializes a new instance of the BoxEnvironmentComponent class.
+        /// Initializes a new instance of the BrepEnvironmentComponent class.
         /// </summary>
-        public BoxEnvironmentComponent()
-            : base("Box Environment", "BoxEnvir",
-                "Description",null
-                , "CBE2B1BA-1C6E-473E-8D4A-F724290A9BED")
+        public BrepsEnvironmentComponent()
+            : base("Brep Environment", "BrepEnvir",
+                "Description",
+                null, "5BA44E57-DDE9-44B9-A990-9CD35445AB3F")
         {
         }
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddIntegerParameter("XResolution", "xres", "subdivision on x-axis", GH_ParamAccess.item, 100);
             pManager.AddIntegerParameter("YResolution", "yres", "subdivision on y-axis", GH_ParamAccess.item, 100);
             pManager.AddIntegerParameter("ZResolution", "zres", "subdivision on z-axis", GH_ParamAccess.item, 100);
-            pManager.AddBoxParameter("Box", "B", "Box", GH_ParamAccess.item);
+            pManager.AddBrepParameter("Brep", "B", "Brep", GH_ParamAccess.list);
             pManager.AddBrepParameter("Obstacles", "Obs", "Obstacles for a list of breps", GH_ParamAccess.list);
             pManager[4].Optional = true;
         }
@@ -43,6 +40,7 @@ namespace Physarealm.Environment
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
+            pManager.AddIntegerParameter("pts", "pts", "pts", GH_ParamAccess.list);
             //pManager.AddGenericParameter("BoxEnvironment", "BoxEnv", "Box Environment", GH_ParamAccess.item);
         }
 
@@ -55,19 +53,27 @@ namespace Physarealm.Environment
             if (!da.GetData(nextInputIndex++, ref x_count)) return false;
             if (!da.GetData(nextInputIndex++, ref y_count)) return false;
             if (!da.GetData(nextInputIndex++, ref z_count)) return false;
-            if (!da.GetData(nextInputIndex++, ref box)) return false;
-            da.GetDataList(nextInputIndex++, obs);
+            if (!da.GetDataList(nextInputIndex++, breps)) return false;
+            da.GetDataList(4, obs);
             return true;
         }
 
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            BoxEnvironmentType environment = new BoxEnvironmentType(box.BoundingBox, x_count, y_count, z_count);
-            environment.setContainer();
-            if (obs != null)
-                environment.setObstacles(obs);
+            BoundingBox box = breps[0].GetBoundingBox(Plane.WorldXY);
+            foreach (Brep brep in breps)
+            {
+                BoundingBox thisbox = brep.GetBoundingBox(Plane.WorldXY);
+                box.Union(thisbox);
+            }
+            BoxEnvironmentType environment = new BoxEnvironmentType(box, x_count, y_count, z_count);
+            environment.setContainer(breps);
+            pos = environment.griddata;
+            //if (obs != null)
+            //    environment.setObstacles(obs);
             //environment.setContainer(null);
             da.SetData(nextOutputIndex++, environment);
+            da.SetDataList(1, pos);
         }
     }
 }

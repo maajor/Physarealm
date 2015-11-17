@@ -14,10 +14,12 @@ namespace Physarealm.Environment
         public int u;
         public int v;
         public int w;
+        public double _escape_p { get; set; }
         abstract public override IGH_Goo Duplicate();
 
         public abstract int getGriddata(int u, int v, int w);//by index
         public abstract bool isOccupidByParticle(int u, int v, int w);//by index
+        public abstract bool isWithinObstacle(int x, int y, int z);//by index
         public abstract void occupyGridCell(int u, int v, int w, int id);//by index
         public abstract void clearGridCell(int u, int v, int w);//by index
         public abstract void increaseTrail(int u, int v, int w, float val);//by index
@@ -36,7 +38,7 @@ namespace Physarealm.Environment
         public abstract void setFood(List<Point3d> food);
         public abstract void setBirthPlace(List<Point3d> origin);
         public abstract Point3d getRandomBirthPlace(Libutility util);
-        public abstract Mesh getTrailEvaMesh(int z);
+        public abstract Mesh getTrailEvaMesh(double z);
         public abstract Point3d getIndexByPosition(double x, double y, double z);
         public abstract Point3d getPositionByIndex(int u, int v, int w);
         public abstract double getUMin();

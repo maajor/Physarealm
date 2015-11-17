@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Drawing;
 using Grasshopper.Kernel;
 
@@ -42,7 +43,7 @@ namespace Physarealm
             get
             {
                 //Return a string identifying you or your company.
-                return "";
+                return "Ma Yidong @ THU.SA";
             }
         }
         public override string AuthorContact
@@ -50,7 +51,16 @@ namespace Physarealm
             get
             {
                 //Return a string representing your preferred contact details.
-                return "";
+                return "hello_myd@126.com";
+            }
+        }
+        public override string Version
+        {
+            get
+            {
+                Assembly executingAssembly = Assembly.GetExecutingAssembly();
+                Version version = executingAssembly.GetName().Version;
+                return version.ToString();
             }
         }
     }
