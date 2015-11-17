@@ -98,6 +98,12 @@ namespace Physarealm
             _popsize = 50;
             escape_p = 0;
             guide_factor = 0;
+            gw = 3;
+            gmin = 0;
+            gmax = 10;
+            sw = 2;
+            smax = 123;
+            smin = 0;
 
         }
         public void initPopulation(AbstractEnvironmentType env)

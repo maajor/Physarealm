@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Physarealm.Environment.AbstractEnvironmentComponent">
+    <Position X="49.25" Y="19.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\AbstractEnvironmentComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.AbstractFieldAnalysisComponent">
+    <Position X="43" Y="13" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Analysis\AbstractFieldAnalysisComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.AbstractPopulationAnalysisComponent">
+    <Position X="27.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Analysis\AbstractPopulationAnalysisComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.FieldAnalysisMeshComponent">
+    <Position X="45.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Analysis\FieldAnalysisMeshComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.FieldInterconnectComponent">
+    <Position X="41.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Analysis\FieldInterconnectComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.FieldValueComponent">
+    <Position X="43.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAABQAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Analysis\FieldValueComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.PopulationInterconnectComponent">
+    <Position X="24.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Analysis\PopulationInterconnectComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.PopulationPositionComponent">
+    <Position X="26.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAIEAABQAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Analysis\PopulationPositionComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.PopulationTrailComponent">
+    <Position X="29" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAEAAAAIAAAAAAAAAEAABQAAAAAAEAAAAAAAgA=</HashCode>
+      <FileName>Analysis\PopulationTrailComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Analysis.PopulationVelocityComponent">
+    <Position X="31.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAACAAAAEAABQAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Analysis\PopulationVelocityComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.AbstractEmitterComponent">
+    <Position X="36.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\AbstractEmitterComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.AbstractEmitterType">
+    <Position X="31.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAgAAAAAEAAgAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\AbstractEmitterType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.CurveEmitterComponent">
+    <Position X="34.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAASAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\CurveEmitterComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.CurveEmitterType" Collapsed="true">
+    <Position X="26.75" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\CurveEmitterType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.PointEmitterComponent">
+    <Position X="36.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAEAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\PointEmitterComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.PointEmitterType">
+    <Position X="31.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQCAAAAgAAAAAEAAAAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\PointEmitterType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.SurfaceEmitterComponent">
+    <Position X="39" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\SurfaceEmitterComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Emitter.SurfaceEmitterType" Collapsed="true">
+    <Position X="25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Emitter\SurfaceEmitterType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Environment.AbstractEnvironmentType">
+    <Position X="55.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAANCBAoCAEQDAAE4AwAEQBAAAAgMBiAUBoGAAJgAAI=</HashCode>
+      <FileName>Environment\AbstractEnvironmentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Environment.BoxEnvironmentComponent">
+    <Position X="46.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAgAAIAAAAAAAAgEAAAQAgAAAAAAAAABAAAA=</HashCode>
+      <FileName>Environment\BoxEnvironmentComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Environment.BoxEnvironmentType">
+    <Position X="55.75" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YQENAFAoiiEQDBAM4AQCNQAACAAgMBmQdAIWABZgCII=</HashCode>
+      <FileName>Environment\BoxEnvironmentType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Physarealm.Environment.BrepsEnvironmentComponent">
+    <Position X="48.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAgAAIAAAAAAAAIEAAAQAgAAAAAAgAABAAAA=</HashCode>
+      <FileName>Environment\BrepsEnvironmentComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Environment.MeshEnvironmentComponent">
+    <Position X="51" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAABQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\MeshEnvironmentComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Environment.SurfaceEnvironmentComponent">
+    <Position X="53.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\SurfaceEnvironmentComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Environment.SurfaceEnvironmentType" Collapsed="true">
+    <Position X="26.75" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\SurfaceEnvironmentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Food.AbstractFoodType">
+    <Position X="34" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAABAAAAAAEAAgAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Food\AbstractFoodType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Food.AbstractFoodComponent">
+    <Position X="51.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Food\AbstractFoodComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Food.PointFoodComponent">
+    <Position X="50.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Food\PointFoodComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Food.SurfaceFoodComponent">
+    <Position X="52.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Food\SurfaceFoodComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Food.PointFoodType">
+    <Position X="34" Y="22" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAABAAAAAAAAAAAIAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Food\PointFoodType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Food.SurfaceFoodType" Collapsed="true">
+    <Position X="28.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Food\SurfaceFoodType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Amoeba" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQ0BIkIBAKDUgmgMgAkRABXIAggigAoAgBQCAAAFPgA=</HashCode>
+      <FileName>PhysarumLib\Amoeba.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Physarealm.Physarum" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAKEEEgKgAEggEoAhAAAAAAFgANBsCBMQAAAFBECA=</HashCode>
+      <FileName>PhysarumLib\Physarum.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Physarealm.Setting.AbstractSettingComponent">
+    <Position X="38.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\AbstractSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.AbstractSettingType">
+    <Position X="38.75" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAEAAgAAAEAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\AbstractSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.AgentSettingComponent">
+    <Position X="38.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQIAAAAAAAAAIAAAAAAAAgEIEAQAAAAAAAAAAAIAEAA=</HashCode>
+      <FileName>Setting\AgentSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.AgentSettingType">
+    <Position X="25.25" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAAAAAAIAAAAAAAAgEIEAAAIBAAAAAAAAIAEAA=</HashCode>
+      <FileName>Setting\AgentSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.BirthDeathSettingComponent">
+    <Position X="36.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAQAAAAAAAIIAA=</HashCode>
+      <FileName>Setting\BirthDeathSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.BirthDeathSettingType">
+    <Position X="27.5" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAEAAAAAAEAAAAAIBAQAAAAAAAIIAA=</HashCode>
+      <FileName>Setting\BirthDeathSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.DeathDistanceSettingComponent">
+    <Position X="34" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Setting\DeathDistanceSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.DeathDistanceSettingType">
+    <Position X="36.5" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAgAEAAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\DeathDistanceSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.DetectDirectionSettingComponent">
+    <Position X="27.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Setting\DetectDirectionSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.DetectDirectionSettingType">
+    <Position X="52.25" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAEAEAAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\DetectDirectionSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.EnvironmentSettingComponent">
+    <Position X="25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ASIAAAAAAAAAAAAAIAAAAAEAAAQAAAAQAAAAAAAIIAA=</HashCode>
+      <FileName>Setting\EnvironmentSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.EnvironmentSettingType">
+    <Position X="38.75" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAACAAAAAAAAAAAIAAAAAEAAAAAIBAQAAAAAAAIIAA=</HashCode>
+      <FileName>Setting\EnvironmentSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.EscapeSettingComponent">
+    <Position X="45.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAgAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\EscapeSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.EscapeSettingType">
+    <Position X="47.75" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAEAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\EscapeSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.GuideSettingComponent">
+    <Position X="31.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAIAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\GuideSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.GuideSettingType">
+    <Position X="32" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAEIAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\GuideSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.InitialPopulationSettingComponent">
+    <Position X="40.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAQAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\InitialPopulationSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.InitialPopulationSettingType">
+    <Position X="43.25" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAEAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\InitialPopulationSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.PcdSettingComponent">
+    <Position X="49.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ASIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\PcdSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.PcdSettingType">
+    <Position X="29.75" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAEAAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\PcdSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.SensorSettingComponent">
+    <Position X="52" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQIAAAAAAAAAIAAAAAAAAgEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\SensorSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.SensorSettingType">
+    <Position X="41" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAAAAAAIAAEAAAAAgEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\SensorSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.SpeedSettingComponent">
+    <Position X="47.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Setting\SpeedSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.SpeedSettingType">
+    <Position X="50" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAEAAAAAAEAAAAAIRAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\SpeedSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.TestFrequencySettingComponent">
+    <Position X="29.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAEAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\TestFrequencySettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.TestFrequencySettingType">
+    <Position X="34.25" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAEAAAAAEAAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\TestFrequencySettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.TrailSettingComponent">
+    <Position X="43" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIQAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\TrailSettingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.Setting.TrailSettingType">
+    <Position X="45.5" Y="27.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQCAAAAAAAAAAEAAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Setting\TrailSettingType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.AbstractComponent">
+    <Position X="39.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIABAAAIAAAAAAAAAAABAEAABRAAAAAAQAAAAEAAAA=</HashCode>
+      <FileName>AbstractComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physarealm.PhysarealmComponent">
+    <Position X="48" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAACAAAAIAAAEAAAAAEAABQAAAQIAAAAACAAAAI=</HashCode>
+      <FileName>PhysarealmComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Physarealm.Environment.MeshEnvironmentType" Collapsed="true">
+    <Position X="25" Y="23.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\MeshEnvironmentType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

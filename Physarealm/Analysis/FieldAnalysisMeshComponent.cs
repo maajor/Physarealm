@@ -25,7 +25,7 @@ namespace Physarealm.Analysis
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddIntegerParameter("Z", "z", "Z", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Z", "z", "Z", GH_ParamAccess.item);
         }
 
         /// <summary>

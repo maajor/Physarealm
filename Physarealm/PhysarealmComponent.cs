@@ -69,7 +69,7 @@ namespace Physarealm
             {
                 iter = 0;
                 popu.Clear();
-                env.Clear();
+                env.Reset();
                 popu.initParameters();
                 env.setBirthPlace(emit.getEmitPts());
                 env.setFood(food.getFoodPts());
@@ -91,7 +91,7 @@ namespace Physarealm
             if(! da.GetData(0, ref env)) return false;
             if (!da.GetData(1, ref emit)) return false;
             if (!da.GetData(2, ref food)) return false;
-            if (!da.GetDataList(3, setList)) return false;
+            da.GetDataList(3, setList);
             if (!da.GetData(4, ref rst)) return false;
             return true;
 

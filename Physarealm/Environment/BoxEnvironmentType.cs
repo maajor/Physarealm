@@ -56,7 +56,7 @@ namespace Physarealm.Environment
                     }
                 }
             }
-            projectvalue = 50;
+            projectvalue = 10;
             diffdamp = 0.1F;
             age_flag = false;
         }*/
@@ -95,7 +95,7 @@ namespace Physarealm.Environment
                     }
                 }
             }
-            projectvalue = 100;
+            projectvalue = 5;
             diffdamp = 0.1F;
             age_flag = false;
             _escape_p = 0;
@@ -363,6 +363,32 @@ namespace Physarealm.Environment
 
             return nei;
         }
+        public override List<Point3d> getNeighbourTrailClosePos(int x, int y, int z, int radius, double near_level)
+        {
+            double maxv = getMaxTrailValue();
+            List<Point3d> nei = new List<Point3d>();
+            int start_x = x - radius > 0 ? x - radius : 0;
+            int start_y = y - radius > 0 ? y - radius : 0;
+            int start_z = z - radius > 0 ? z - radius : 0;
+            int end_x = x + radius <= u - 1 ? x + radius : u - 1;
+            int end_y = y + radius <= v - 1 ? y + radius : v - 1;
+            int end_z = z + radius <= w - 1 ? z + radius : w - 1;
+            for (int i = start_x; i <= end_x; i++)
+            {
+                for (int j = start_y; j <= end_y; j++)
+                {
+                    for (int k = start_z; k <= end_z; k++)
+                    {
+                        if (Math.Abs(trail[x, y, z] - trail[i, j, k]) / maxv < near_level)
+                        {
+                            nei.Add(positions[i, j, k]);
+                        }
+                    }
+                }
+            }
+
+            return nei;
+        }
         public override float getMaxTrailValue()
         {
             float max = 0;
@@ -488,6 +514,7 @@ namespace Physarealm.Environment
             Point3d target = oriplane.PointAt(u, v, w);
             return target;
         }*/
+
         public override void setObstacles(List<Brep> obs)
         {
             if (obs.Count == 0 || obs == null)
@@ -621,7 +648,8 @@ namespace Physarealm.Environment
             double trailmax = getMaxTrailValue();
             Mesh evaMesh = new Mesh();
             Plane worldXY = new Plane(new Point3d(0, 0, z), new Point3d(1, 0, z), new Point3d(0, 1, z));
-            evaMesh = Mesh.CreateFromPlane(worldXY, new Interval(getUMin(), getUMax()), new Interval(getVMin(), getVMax()), u, v);
+            Plane baseplane = new Plane(new Point3d(0, 0, getWMin()), new Vector3d(0, 0, 1));
+            evaMesh = Mesh.CreateFromPlane(baseplane, new Interval(getUMin(), getUMax()), new Interval(getVMin(), getVMax()), u, v);
             for (int i = 0; i < evaMesh.Vertices.Count; i++)
             {
                 Point3f vert = evaMesh.Vertices[i];
@@ -639,18 +667,19 @@ namespace Physarealm.Environment
 
         }
 
-        public override float[] getTrailV()
+        public override List<float> getTrailV()
         {
-            float[] ret = new float[u * v * w];
-            int item = 0;
+            List<float> ret = new List<float>();
+            //int item = 0;
             for (int k = 0; k < w; k++)
             {
                 for (int j = 0; j < v; j++)
                 {
                     for (int i = 0; i < u; i++)
                     {
-                        ret[item] = trail[i, j, k];
-                        item++;
+                        //ret[item] = trail[i, j, k];
+                        //item++;
+                        ret.Add(trail[i, j, k]);
                     }
                 }
             }
@@ -722,13 +751,39 @@ namespace Physarealm.Environment
             }
             return flag;
         }
+        public override float[, ,] getTrails() { return trail; }
+        public override Point3d[, ,] getPosition() { return positions; }
         public override void Clear() 
         {
+            positions.Initialize();
+            trail.Initialize();
             griddata.Initialize();
             temptrail.Initialize();
             particle_ids.Initialize();
             agedata.Initialize();
             _origins.Clear();
+        }
+        private void resetParticleIds() 
+        {
+            for (int k = 0; k < w; k++)
+            {
+                for (int j = 0; j < v; j++)
+                {
+                    for (int i = 0; i < u; i++)
+                    {
+                        if (griddata[i, j, k] == 2)
+                            particle_ids[i, j, k] = -2;
+                        else
+                            particle_ids[i, j, k] = -1;
+                    }
+                }
+            }
+        }
+        public override void Reset()
+        {
+            temptrail.Initialize();
+            resetParticleIds();
+            agedata.Initialize();
         }
 
         public void Dispose()

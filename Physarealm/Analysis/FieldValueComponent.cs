@@ -8,7 +8,7 @@ namespace Physarealm.Analysis
 {
     public class FieldValueComponent :AbstractFieldAnalysisComponent
     {
-        private float[] value;
+        private List<float> value;
         /// <summary>
         /// Initializes a new instance of the FieldValueComponent class.
         /// </summary>
@@ -46,13 +46,13 @@ namespace Physarealm.Analysis
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            da.SetDataList(0, value);
+            da.SetDataList(0, env.getTrailV());
         }
         protected override void SolveInstance(IGH_DataAccess da)
         {
             if (!GetInputs(da)) return;
-
-            value = env.getTrailV();
+            //value = new List<float>();
+            //value = env.getTrailV();
 
             SetOutputs(da);
         }

@@ -48,8 +48,12 @@ namespace Physarealm.Environment
         public abstract double getVMax();
         public abstract double getWMax();
         public abstract bool constrainPos(ref float x, ref float y, ref float z);
-        public abstract float[] getTrailV();
+        public abstract List<float> getTrailV();
         public abstract void Clear();
+        public abstract void Reset();
+        public abstract float[, ,] getTrails();
+        public abstract Point3d[, ,] getPosition();
+        public abstract List<Point3d> getNeighbourTrailClosePos(int u, int v, int w, int radius, double near_level);
 
         public AbstractEnvironmentType(int x, int y, int z) 
         {

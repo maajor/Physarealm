@@ -50,6 +50,8 @@ namespace Physarealm.Environment
 
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            breps = new List<Brep>();
+            obs = new List<Brep>();
             if (!da.GetData(nextInputIndex++, ref x_count)) return false;
             if (!da.GetData(nextInputIndex++, ref y_count)) return false;
             if (!da.GetData(nextInputIndex++, ref z_count)) return false;
