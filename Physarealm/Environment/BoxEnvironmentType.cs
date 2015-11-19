@@ -639,8 +639,9 @@ namespace Physarealm.Environment
         }
         public override Point3d getRandomBirthPlace(Libutility util)
         {
-            int length = _origins.Count;
-            return _origins[util.getRand(length)];
+            //int length = _origins.Count;
+            return emitter.getRandEmitPos();
+            //return _origins[util.getRand(length)];
         }
         public override  Mesh getTrailEvaMesh(double zpos)
         {
@@ -716,6 +717,11 @@ namespace Physarealm.Environment
         public override double getUMax() { return UMax; }
         public override double getVMax() { return VMax; }
         public override double getWMax() { return WMax; }
+        public override double getEnvAccu() 
+        {
+            double minuv = Math.Min(u_interval, v_interval);
+            return Math.Min(minuv, w_interval);
+        }
         public override bool constrainPos(ref float x, ref float y, ref float z) 
         {
             bool flag = false;
@@ -781,9 +787,20 @@ namespace Physarealm.Environment
         }
         public override void Reset()
         {
-            temptrail.Initialize();
             resetParticleIds();
-            agedata.Initialize();
+
+            for (int i = 0; i < u; i++)
+            {
+                for (int j = 0; j < v; j++)
+                {
+                    for (int k = 0; k < w; k++)
+                    {
+                        trail[i, j, k] = 0;
+                        temptrail[i, j, k] = 0;
+                        agedata[i, j, k] = 0;
+                    }
+                }
+            }
         }
 
         public void Dispose()

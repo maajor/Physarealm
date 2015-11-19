@@ -8,12 +8,12 @@ using Grasshopper.Kernel.Types;
 
 namespace Physarealm.Emitter
 {
-    abstract class AbstractEmitterType:GH_Goo<object>
+    public abstract class AbstractEmitterType:GH_Goo<object>
     {
 
         abstract public override IGH_Goo Duplicate();
 
-        public abstract List<Point3d> getEmitPts();
+       public abstract Point3d getRandEmitPos();
 
         public override bool IsValid
         {

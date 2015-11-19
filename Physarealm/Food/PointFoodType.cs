@@ -12,7 +12,7 @@ namespace Physarealm.Food
         public PointFoodType() { positions = new List<Point3d>(); }
         public PointFoodType(List<Point3d> l){ positions = l;}
         public PointFoodType(PointFoodType p) : this(p.positions) { }
-        public override List<Point3d> getFoodPts() 
+        public override List<Point3d> getFoodPts(double accu) 
         {
             return positions;
         }
@@ -33,6 +33,10 @@ namespace Physarealm.Food
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()
         {
             return new PointFoodType(this);
+        }
+        public override string ToString()
+        {
+            return this.TypeName;
         }
     }
 }

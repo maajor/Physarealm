@@ -36,12 +36,14 @@ namespace Physarealm.Emitter
         }
         protected override bool GetInputs(IGH_DataAccess da)
         {
-            if (!da.GetData(nextInputIndex++, ref curves)) return false;
+            curves = new List<Curve>();
+            if (!da.GetDataList(nextInputIndex++, curves)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            da.SetData(nextOutputIndex++, curves);
+            CurveEmitterType crvemit = new CurveEmitterType(curves);
+            da.SetData(nextOutputIndex++, crvemit);
             return;
         }
 

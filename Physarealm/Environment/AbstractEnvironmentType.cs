@@ -5,6 +5,7 @@ using System.Text;
 
 using Rhino.Geometry;
 using Grasshopper.Kernel.Types;
+using Physarealm.Emitter;
 
 namespace Physarealm.Environment
 {
@@ -15,6 +16,7 @@ namespace Physarealm.Environment
         public int v;
         public int w;
         public double _escape_p { get; set; }
+        public AbstractEmitterType emitter;
         abstract public override IGH_Goo Duplicate();
 
         public abstract int getGriddata(int u, int v, int w);//by index
@@ -47,6 +49,7 @@ namespace Physarealm.Environment
         public abstract double getUMax();
         public abstract double getVMax();
         public abstract double getWMax();
+        public abstract double getEnvAccu();
         public abstract bool constrainPos(ref float x, ref float y, ref float z);
         public abstract List<float> getTrailV();
         public abstract void Clear();

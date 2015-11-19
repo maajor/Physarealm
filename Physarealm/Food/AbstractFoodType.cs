@@ -9,7 +9,7 @@ namespace Physarealm.Food
 {
     abstract class AbstractFoodType:GH_Goo<object>
     {
-        public abstract List<Point3d> getFoodPts();
+        public abstract List<Point3d> getFoodPts(double accu);
         public override bool IsValid
         {
             get { return true; }

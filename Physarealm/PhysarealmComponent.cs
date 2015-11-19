@@ -71,8 +71,9 @@ namespace Physarealm
                 popu.Clear();
                 env.Reset();
                 popu.initParameters();
-                env.setBirthPlace(emit.getEmitPts());
-                env.setFood(food.getFoodPts());
+                //env.setBirthPlace(emit.getEmitPts());
+                env.emitter = emit;
+                env.setFood(food.getFoodPts(env.getEnvAccu()));
                 foreach (AbstractSettingType sett in setList)
                     sett.setParameter(popu);
                 popu.initPopulation(env);

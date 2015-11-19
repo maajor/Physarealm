@@ -8,6 +8,7 @@ namespace Physarealm.Emitter
 {
     public class SurfaceEmitterComponent :AbstractEmitterComponent
     {
+        private List<Surface> surf;
         /// <summary>
         /// Initializes a new instance of the SurfaceEmitterComponent class.
         /// </summary>
@@ -35,10 +36,15 @@ namespace Physarealm.Emitter
         }
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            surf = new List<Surface>();
+            if (!da.GetDataList(0, surf)) return false;
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-        }
+            SurfaceEmitterType emit = new SurfaceEmitterType(surf);
+            da.SetData(0, emit);
+        }
+
     }
 }

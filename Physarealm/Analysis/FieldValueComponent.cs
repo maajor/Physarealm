@@ -51,7 +51,7 @@ namespace Physarealm.Analysis
         protected override void SolveInstance(IGH_DataAccess da)
         {
             if (!GetInputs(da)) return;
-            //value = new List<float>();
+            value = new List<float>();
             //value = env.getTrailV();
 
             SetOutputs(da);

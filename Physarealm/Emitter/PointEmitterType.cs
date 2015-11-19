@@ -10,14 +10,15 @@ namespace Physarealm.Emitter
     class PointEmitterType:AbstractEmitterType
     {
         public List<Point3d> origins = new List<Point3d>();
+        private Random rand;
 
-        public PointEmitterType() {}
-        public PointEmitterType(List<Point3d> pts){origins = pts;}
-        public PointEmitterType(PointEmitterType p):this(p.origins){}
+        public PointEmitterType(List<Point3d> pts) { origins = pts; rand = new Random(DateTime.Now.Millisecond); }
+        public PointEmitterType(PointEmitterType p) : this(p.origins) { rand = new Random(DateTime.Now.Millisecond); }
 
-        public override List<Point3d> getEmitPts() 
+        public override Point3d getRandEmitPos()
         {
-            return origins;
+            int length = origins.Count;
+            return origins[rand.Next(length)];
         }
         public override string ToString()
         {
