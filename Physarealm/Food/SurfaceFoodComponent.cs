@@ -8,6 +8,7 @@ namespace Physarealm.Food
 {
     public class SurfaceFoodComponent :AbstractFoodComponent
     {
+        private List<Surface> srfs;
         /// <summary>
         /// Initializes a new instance of the SurfaceFoodComponent class.
         /// </summary>
@@ -36,10 +37,13 @@ namespace Physarealm.Food
 
         protected override bool GetInputs(IGH_DataAccess da)
         {
+            if (!da.GetDataList(0, srfs)) return false; 
             return true;
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
+            SurfaceFoodType srfod = new SurfaceFoodType(srfs);
+            da.SetData(0, srfod);
         }
 
     }

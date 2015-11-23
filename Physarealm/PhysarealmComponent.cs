@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
@@ -103,6 +104,16 @@ namespace Physarealm
             da.SetData(1, popu);
             da.SetData(2, iter);
         }
-
+        public override string Description
+        {
+            get
+            {
+                return base.Description;
+            }
+            set
+            {
+                base.Description = value;
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Physarealm.Environment
         private int z_count;
         private List<Brep> breps = new List<Brep>();
         private List<Brep> obs = new List<Brep>();
-        private int[,,] pos;
+        //private int[,,] pos;
         /// <summary>
         /// Initializes a new instance of the BrepEnvironmentComponent class.
         /// </summary>
@@ -40,7 +40,7 @@ namespace Physarealm.Environment
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddIntegerParameter("pts", "pts", "pts", GH_ParamAccess.list);
+            //pManager.AddIntegerParameter("pts", "pts", "pts", GH_ParamAccess.list);
             //pManager.AddGenericParameter("BoxEnvironment", "BoxEnv", "Box Environment", GH_ParamAccess.item);
         }
 
@@ -70,12 +70,12 @@ namespace Physarealm.Environment
             }
             BoxEnvironmentType environment = new BoxEnvironmentType(box, x_count, y_count, z_count);
             environment.setContainer(breps);
-            pos = environment.griddata;
-            //if (obs != null)
-            //    environment.setObstacles(obs);
+            //pos = environment.griddata;
+            if (obs != null)
+                environment.setObstacles(obs);
             //environment.setContainer(null);
             da.SetData(nextOutputIndex++, environment);
-            da.SetDataList(1, pos);
+            //da.SetDataList(1, pos);
         }
     }
 }

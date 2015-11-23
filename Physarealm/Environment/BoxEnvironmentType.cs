@@ -16,7 +16,7 @@ namespace Physarealm.Environment
         public int[, ,] agedata;
         public float diffdamp { get; set; }
         public float projectvalue { get; set; }
-        private List<Point3d> _origins;
+        //private List<Point3d> _origins;
         private int grid_age;
         public bool age_flag { get; set; }
         private BoundingBox _box;
@@ -629,14 +629,14 @@ namespace Physarealm.Environment
             }
             projectToTrail();
         }
-        public override void setBirthPlace(List<Point3d> origin)
+        /*public override void setBirthPlace(List<Point3d> origin)
         {
             _origins = origin;
             //foreach (Point3d pt in origin)
             //{
             //  setGridCellValue((int) pt.X, (int) pt.Y, (int) pt.Z, 1, 1);
             //}
-        }
+        }*/
         public override Point3d getRandomBirthPlace(Libutility util)
         {
             //int length = _origins.Count;
@@ -767,7 +767,7 @@ namespace Physarealm.Environment
             temptrail.Initialize();
             particle_ids.Initialize();
             agedata.Initialize();
-            _origins.Clear();
+            //_origins.Clear();
         }
         private void resetParticleIds() 
         {

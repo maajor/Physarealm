@@ -38,7 +38,7 @@ namespace Physarealm.Environment
         public abstract void setObstacles(List<Brep> obs);
         public abstract void setContainer(List<Brep> cont);
         public abstract void setFood(List<Point3d> food);
-        public abstract void setBirthPlace(List<Point3d> origin);
+        //public abstract void setBirthPlace(List<Point3d> origin);
         public abstract Point3d getRandomBirthPlace(Libutility util);
         public abstract Mesh getTrailEvaMesh(double z);
         public abstract Point3d getIndexByPosition(double x, double y, double z);
