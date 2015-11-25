@@ -8,7 +8,7 @@ namespace Physarealm.Food
 {
     public class SurfaceFoodComponent :AbstractFoodComponent
     {
-        private List<Surface> srfs;
+        private List<Surface> srfs = new List<Surface>();
         /// <summary>
         /// Initializes a new instance of the SurfaceFoodComponent class.
         /// </summary>

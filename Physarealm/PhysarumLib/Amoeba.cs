@@ -53,9 +53,10 @@ namespace Physarealm
         //public int _unitized;
         //public float moveangle;
         public float[] sensor_data;
-        //public Vector3d moved;
+        //public Vector3d moved;2q
         public double _guide_factor { get; set; }
         public double _escape_p { get; set; }
+        public Point3d prev_loc;
 
         public Amoeba() : base() { }
         public Amoeba(int id)
@@ -114,6 +115,7 @@ namespace Physarealm
             Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
+            prev_loc = Location;
         }
         public void initializeAmoeba(double x, double y, double z, AbstractEnvironmentType env, Libutility util)
         {
@@ -128,6 +130,7 @@ namespace Physarealm
             Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
+            prev_loc = Location;
         }
         public void initializeAmoeba(double x, double y, double z,  int radius, AbstractEnvironmentType env, Libutility util)
         {
@@ -152,6 +155,7 @@ namespace Physarealm
             Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
+            prev_loc = new Point3d(x, y, z);
         }
         public bool iniSuccess(int x, int y, int z, AbstractEnvironmentType env, Libutility util)
         {
@@ -175,17 +179,18 @@ namespace Physarealm
         public void doMotorBehaviors(AbstractEnvironmentType env, Libutility util)
         {
             _distance_traveled++;
+            prev_loc = Location;
             //_cur_speed = _max_speed * (1 - _distance_traveled / _deathDistance);
             _cur_speed = _max_speed;
             if (env.getGriddata(curx, cury, curz) == 1)
                 _distance_traveled = 0;
             _moved_successfully = false;
-            //if (util.getRandDouble() < _pcd)
-            //{
-            //  selectRandomDirection(util);
-            //  resetFloatingPointPosition();
-            //  return;
-            //}
+            if (util.getRandDouble() < _pcd)
+            {
+              selectRandomDirection(util);
+              resetFloatingPointPosition(env);
+              return;
+            }
             Point3d curLoc = Location;
             curLoc.Transform(Transform.Translation(orientation));
             //Location = curLoc;
@@ -194,50 +199,7 @@ namespace Physarealm
             tempfloatz = (float)curLoc.Z;
             if(env.constrainPos(ref tempfloatx, ref tempfloaty, ref tempfloatz))
                 selectRandomDirection(util);
-            /*
-            if (tempfloatx < 0)
-            {
-                tempfloatx = -tempfloatx;
-                //orientation.Transform(Transform.Mirror(Plane.WorldYZ));
-                selectRandomDirection(util);
-            }
-            if (tempfloatx > env.u - 1)
-            {
-                //tempfloatx = (env.u - 1) * 2 - tempfloatx - 1;
-                tempfloatx = env.u - 1;
-                //orientation.Transform(Transform.Mirror(Plane.WorldYZ));
-                selectRandomDirection(util);
-            }
-            if (tempfloaty < 0)
-            {
-                tempfloaty = -tempfloaty;
-                //orientation.Transform(Transform.Mirror(Plane.WorldZX));
-                selectRandomDirection(util);
-            }
-            if (tempfloaty > env.v - 1)
-            {
-                //tempfloaty = (env.v - 1) * 2 - tempfloaty - 1;
-                tempfloaty = env.v - 1;
-                //orientation.Transform(Transform.Mirror(Plane.WorldZX));
-                selectRandomDirection(util);
-            }
-            if (tempfloatz < 0)
-            {
-                tempfloatz = -tempfloatz;
-                //orientation.Transform(Transform.Mirror(Plane.WorldXY));
-                selectRandomDirection(util);
-            }
-            if (tempfloatz > env.w - 1)
-            {
-                //tempfloatz = (env.w - 1) * 2 - tempfloatz - 1;
-                tempfloatz = env.w - 1;
-                //orientation.Transform(Transform.Mirror(Plane.WorldXY));
-                selectRandomDirection(util);
-            }*/
             Point3d temppos = env.getIndexByPosition(tempfloatx, tempfloaty, tempfloatz);
-            //tempx = (int)Math.Round(tempfloatx);
-            //tempy = (int)Math.Round(tempfloaty);
-            //tempz = (int)Math.Round(tempfloatz);
             tempx = (int)temppos.X;
             tempy = (int)temppos.Y;
             tempz = (int)temppos.Z;
@@ -308,6 +270,7 @@ namespace Physarealm
         public void doSensorBehaviors(AbstractEnvironmentType env, Libutility util)
         {
             this.doDeathTest(env);
+            orientation = env.projectOrientationToEnv(Location, orientation);
             int det_count = _detectDir * _detectDirPhySubd + 1;
             int max_item = 0;
             float max_item_phy = 0;
@@ -375,7 +338,7 @@ namespace Physarealm
         public void doDivisionTest(AbstractEnvironmentType env)
         {
             _divide = false;
-            if (isOutsideLatticeBorderRange(curx, cury, curz, env))
+            if (env.isOutsideBorderRangeByIndex(curx, cury, curz))
                 return;
             if (isWithinThresholdRange(curx, cury, curz, env))
             {
@@ -385,7 +348,7 @@ namespace Physarealm
         public void doDeathTest(AbstractEnvironmentType env)
         {
             _die = false;
-            if (isOutsideLatticeBorderRange(curx, cury, curz, env))
+            if (env.isOutsideBorderRangeByIndex(curx, cury, curz))
             {
                 _die = true;
             }
@@ -411,16 +374,6 @@ namespace Physarealm
             }
             double d = env.countNumberOfParticlesPresent(x, y, z, _die_radius);
             if (d < _die_min || d > _die_max)
-                return true;
-            else return false;
-        }
-        public bool isOutsideLatticeBorderRange(int x, int y, int z, AbstractEnvironmentType env)
-        {
-            if (x < 2|| x > (env.u - 2))
-                return true;
-            else if (y < 2 || y > (env.v - 2))
-                return true;
-            else if (z < 2 || z > (env.w - 2))
                 return true;
             else return false;
         }

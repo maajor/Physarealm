@@ -213,17 +213,20 @@ namespace Physarealm
         }
         public void birthNew(Amoeba agent, AbstractEnvironmentType env)
         {
-            if (agent.curx <= 4 || agent.curx >= env.u - 4 || agent.cury <= 4 || agent.cury >= env.v - 4 || agent.curz <= 4 || agent.curz >= env.w - 4)
+            //if (agent.curx <= 4 || agent.curx >= env.u - 4 || agent.cury <= 4 || agent.cury >= env.v - 4 || agent.curz <= 4 || agent.curz >= env.w - 4)
+            //    return;
+            if (env.isOutsideBorderRangeByIndex(agent.curx, agent.cury, agent.curz))
                 return;
             //if (agent.curx == agent.cury || agent.curx == agent.curz)
             //  return;
-            Point3d newPos = env.getNeighbourhoodFreePos(agent.curx, agent.cury, agent.curz, 1, util);
+            Point3d newPos = env.getNeighbourhoodFreePosByIndex(agent.curx, agent.cury, agent.curz, 1, util);
             if (newPos.X == -1 || newPos.Y == -1 || newPos.Y == -1)
                 return;
             _current_id++;
             int thisindex = _current_id - 1;
             Amoeba newAmo = new Amoeba(thisindex, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
             newAmo.initializeAmoeba(newPos.X, newPos.Y, newPos.Z, env, util);
+            newAmo.prev_loc = agent.Location;
             //newAmo.initializeAmoeba(agent.curx, agent.cury, agent.curz, 2, _grid, util);
             newAmo._guide_factor = guide_factor;
             newAmo._div_radius = gw;
@@ -250,6 +253,7 @@ namespace Physarealm
         {
             updatePopulation(env);
             updateTrails(env);
+            
             if (_step % _death_frequency_test == 0)
                 doDeathTest(env);
             if (_step % _division_frequency_test == 0)

@@ -448,7 +448,7 @@ namespace Physarealm.Environment
           return newinfo;
         }*/
 
-        public override Point3d getNeighbourhoodFreePos(int x, int y, int z, int radius, Libutility util)
+        public override Point3d getNeighbourhoodFreePosByIndex(int x, int y, int z, int radius, Libutility util)
         {
             Point3d retpt = new Point3d(-1, -1, -1);
             if (radius < 1)
@@ -691,16 +691,19 @@ namespace Physarealm.Environment
         private int getUIndex(double x) 
         {
             int uid = (int)((x - UMin) / u_interval);
+            uid = uid < u ? uid : u - 1;
             return uid;
         }
         private int getVIndex(double y) 
         {
             int vid = (int)((y - VMin) / v_interval);
+            vid = vid < v ? vid : v - 1;
             return vid;
         }
         private int getWIndex(double z)
         {
             int wid = (int)((z - WMin) / w_interval);
+            wid = wid < w ? wid : w - 1;
             return wid;
         }
         public override Point3d getIndexByPosition(double x, double y, double z) 
@@ -757,6 +760,16 @@ namespace Physarealm.Environment
             }
             return flag;
         }
+        public override bool isOutsideBorderRangeByIndex(int x, int y, int z)
+        {
+            if (x < 2 || x > (u - 2))
+                return true;
+            else if (y < 2 || y > (v - 2))
+                return true;
+            else if (z < 2 || z > (w - 2))
+                return true;
+            else return false;
+        }
         public override float[, ,] getTrails() { return trail; }
         public override Point3d[, ,] getPosition() { return positions; }
         public override void Clear() 
@@ -801,6 +814,10 @@ namespace Physarealm.Environment
                     }
                 }
             }
+        }
+        public override Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel)
+        {
+            return vel;
         }
 
         public void Dispose()

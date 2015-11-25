@@ -15,6 +15,7 @@ namespace Physarealm.Analysis
         private Boolean reset;
         private int iter;
         private int history;
+        private int maxid;
         /// <summary>
         /// Initializes a new instance of the PopulationTrailComponent class.
         /// </summary>
@@ -60,12 +61,18 @@ namespace Physarealm.Analysis
             {
                 trailTree = new DataTree<Point3d>();
                 iter = 0;
+                maxid = 0;
             }
             else 
             {
                 foreach (Amoeba amo in p.population) 
                 {
                     GH_Path thispath = new GH_Path(amo.ID);
+                    if (amo.ID > maxid)
+                    {
+                        trailTree.Add(amo.prev_loc, thispath);
+                        maxid = amo.ID;
+                    }
                     trailTree.Add(amo.Location, thispath);
                     if (trailTree.Branch(thispath).Count > history) 
                     {

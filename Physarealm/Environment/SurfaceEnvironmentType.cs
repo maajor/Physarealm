@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace Physarealm.Environment
 {
-    class SurfaceEnvironmentType : AbstractEnvironmentType
+    class SurfaceEnvironmentType : AbstractEnvironmentType, IDisposable
     {
         public Point3d[, ,] uv_positions;
         private Surface _srf;
@@ -135,18 +135,18 @@ namespace Physarealm.Environment
                 return trail[u, v, w];
             int start_x = u - radius > 0 ? u - radius : 0;
             int start_y = v - radius > 0 ? v - radius : 0;
-            int start_z = w - radius > 0 ? w - radius : 0;
+            //int start_z = w - radius > 0 ? w - radius : 0;
             int end_x = u + radius < u - 1 ? u + radius : u - 1;
             int end_y = v + radius < v - 1 ? v + radius : v - 1;
-            int end_z = w + radius < w - 1 ? w + radius : w - 1;
+            //int end_z = w + radius < w - 1 ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
                 {
-                    for (int k = start_z; k <= end_z; k++)
-                    {
-                        total += trail[i, j, k];
-                    }
+                    //for (int k = start_z; k <= end_z; k++)
+                    //{
+                        total += trail[i, j, 0];
+                    //}
                 }
             }
             int num = (int)Math.Pow(radius * 2 + 1, 2);
@@ -159,31 +159,33 @@ namespace Physarealm.Environment
             {
                 System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
-                    int k = 0;
+                    //int k = 0;
                     //System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     //{
-                        float ave = getAverageNeighbourhood(i, j, k, 1);
-                        temptrail[i, j, k] = ave * (1 - diffdamp);
-                        if (agedata[i, j, k] != 0)
-                            agedata[i, j, k]++;
+                        float ave = getAverageNeighbourhood(i, j, 0, 1);
+                        temptrail[i, j, 0] = ave * (1 - diffdamp);
+                        if (agedata[i, j, 0] != 0)
+                            agedata[i, j, 0]++;
                     //});
                 });
             });
+            
             System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
                 System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
-                    int k = 0;
+                    //int k = 0;
                     //System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     //{
-                        trail[i, j, k] = temptrail[i, j, k];
-                        if (trail[i, j, k] < 0)
-                            trail[i, j, k] = k;
-                        if (griddata[i, j, k] == 2)
-                            trail[i, j, k] *= (float)_escape_p;
+                        trail[i, j, 0] = temptrail[i, j, 0];
+                        if (trail[i, j, 0] < 0)
+                            trail[i, j, 0] = 0;
+                        if (griddata[i, j, 0] == 2)
+                            trail[i, j, 0] *= (float)_escape_p;
                     //});
                 });
             });
+            
         }
 
         public override void projectToTrail()
@@ -201,6 +203,7 @@ namespace Physarealm.Environment
                     //});
                 });
             });
+            
         }
 
         public override int countNumberOfParticlesPresent(int u, int v, int w, int radius)
@@ -332,7 +335,7 @@ namespace Physarealm.Environment
             return trail[tx, ty, tz];
         }
 
-        public override Point3d getNeighbourhoodFreePos(int x, int y, int z, int radius, Libutility util)
+        public override Point3d getNeighbourhoodFreePosByIndex(int x, int y, int z, int radius, Libutility util)
         {
             Point3d retpt = new Point3d(-1, -1, -1);
             if (radius < 1)
@@ -507,6 +510,27 @@ namespace Physarealm.Environment
 
         public override Mesh getTrailEvaMesh(double z)
         {
+            /*
+            int z = getWIndex(zpos);
+            double trailmax = getMaxTrailValue();
+            Mesh evaMesh = new Mesh();
+            Plane worldXY = new Plane(new Point3d(0, 0, z), new Point3d(1, 0, z), new Point3d(0, 1, z));
+            Plane baseplane = new Plane(new Point3d(0, 0, getWMin()), new Vector3d(0, 0, 1));
+            evaMesh = Mesh.CreateFromPlane(baseplane, new Interval(getUMin(), getUMax()), new Interval(getVMin(), getVMax()), u, v);
+            for (int i = 0; i < evaMesh.Vertices.Count; i++)
+            {
+                Point3f vert = evaMesh.Vertices[i];
+                int x = getUIndex(vert.X);
+                int y = getVIndex(vert.Y);
+                float thisTrail = 0;
+                if (x < u - 1 && y < v - 1)
+                    thisTrail = (float)(trail[x, y, z] * 255.0 / trailmax);
+                if (thisTrail > 255)
+                    thisTrail = 255;
+
+                evaMesh.VertexColors.SetColor(i, (int)thisTrail, 0, 0);
+            }
+            return evaMesh;*/
             return null;
         }
 
@@ -568,14 +592,30 @@ namespace Physarealm.Environment
 
         public override bool constrainPos(ref float x, ref float y, ref float z)
         {
+            //bool flag = false;
             double u;
             double v;
             _srf.ClosestPoint(new Point3d(x, y, z),out u,out v);
             Point3d thispt = _srf.PointAt(u, v);
-            x = (float )thispt.X;
+            x = (float)thispt.X;
             y = (float)thispt.Y;
             z = (float)thispt.Z;
-            return true;
+            if (isOutsideBorderRangeByIndex(getUIndex(u),getVIndex(v), 0))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        public override bool isOutsideBorderRangeByIndex(int x, int y, int z)
+        {
+            if (x < 2 || x > (u - 2))
+                return true;
+            else if (y < 2 || y > (v - 2))
+                return true;
+            //else if (z < 2 || z > (w - 2))
+                //return true;
+            else return false;
         }
 
         public override List<float> getTrailV()
@@ -686,17 +726,35 @@ namespace Physarealm.Environment
         private int getUIndex(double x)
         {
             int uid = (int)(x / u_interval);
+            uid = uid < u ? uid : u - 1;
             return uid;
         }
         private int getVIndex(double y)
         {
             int vid = (int)(y / v_interval);
+            vid = vid < v ? vid : v - 1;
             return vid;
         }
         private int getWIndex(double z)
         {
             //int wid = (int)((z - WMin) / w_interval);
             return 0;
+        }
+        public override Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel) 
+        {
+            double u;
+            double v;
+            Plane frame;
+            _srf.ClosestPoint(pos, out u, out v);
+            _srf.FrameAt(u, v, out frame);
+            Point3d ptframe;
+            frame.RemapToPlaneSpace(Point3d.Add(pos, vel), out ptframe);
+            frame.PointAt(ptframe.X, ptframe.Y);
+            return new Vector3d(Point3d.Subtract( frame.PointAt(ptframe.X, ptframe.Y), pos));
+        }
+        public void Dispose()
+        {
+            Clear();
         }
     }
 }

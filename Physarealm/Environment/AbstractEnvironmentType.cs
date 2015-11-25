@@ -34,7 +34,7 @@ namespace Physarealm.Environment
         public abstract List<Point3d> findNeighborParticle(int u, int v, int w, int radius);//by index
         public abstract float getMaxTrailValue();
         public abstract float getOffsetTrailValue(int u, int v, int w, Vector3d orient, float viewangle, float offsetangle, float offsetsteps, Libutility util);
-        public abstract Point3d getNeighbourhoodFreePos(int u, int v, int w, int radius, Libutility util);//by index
+        public abstract Point3d getNeighbourhoodFreePosByIndex(int u, int v, int w, int radius, Libutility util);//by index
         public abstract void setObstacles(List<Brep> obs);
         public abstract void setContainer(List<Brep> cont);
         public abstract void setFood(List<Point3d> food);
@@ -57,6 +57,8 @@ namespace Physarealm.Environment
         public abstract float[, ,] getTrails();
         public abstract Point3d[, ,] getPosition();
         public abstract List<Point3d> getNeighbourTrailClosePos(int u, int v, int w, int radius, double near_level);
+        public abstract bool isOutsideBorderRangeByIndex(int u, int v, int w);
+        public abstract Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel);
 
         public AbstractEnvironmentType(int x, int y, int z) 
         {
