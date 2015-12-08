@@ -17,6 +17,7 @@ namespace Physarealm
         public List<Amoeba> population = new List<Amoeba>();
         public List<Amoeba> _toborn_population = new List<Amoeba>();
         public List<int> _todie_id = new List<int>();
+        public Vector3d initOrient { get; set; }
         public int _popsize { get; set; }
         public float _sense_offset { get; set; }
         public float _sense_angle { get; set; }
@@ -57,6 +58,7 @@ namespace Physarealm
             guide_factor = 0;
             _popsize = 200;
             escape_p = 0;
+            initOrient = new Vector3d(0, 0, 0);
         }
         public Physarum(Physarum p) :base()
         {
@@ -82,6 +84,7 @@ namespace Physarealm
             escape_p = p.escape_p;
             _detectDirRSubd = p._detectDirRSubd;
             _detectDirPhySubd = p._detectDirPhySubd;
+            initOrient = p.initOrient;
         
         }
         public void initParameters(float sensor_angle = (float) 22.5, float rotate_angle = 45, float sensor_offset = 7, int detectDir = 4, int deathDistance = 100, float max_speed = 3, float pcd = (float) 0.1, float dept = 3)
@@ -114,6 +117,8 @@ namespace Physarealm
                 Amoeba newAmo = new Amoeba(_current_id, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
                 Point3d birthPlace = env.getRandomBirthPlace(util);
                 newAmo.initializeAmoeba(birthPlace.X, birthPlace.Y, birthPlace.Z,  4, env, util);
+                if (initOrient.Length > 0)
+                    newAmo.orientation = initOrient;
                 newAmo._guide_factor = guide_factor;
                 newAmo._div_radius = gw;
                 newAmo._die_radius = sw;

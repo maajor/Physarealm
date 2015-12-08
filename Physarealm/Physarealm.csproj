@@ -129,6 +129,8 @@
     <Compile Include="Setting\TestFrequencySettingType.cs" />
     <Compile Include="Setting\TrailSettingComponent.cs" />
     <Compile Include="Setting\TrailSettingType.cs" />
+    <Compile Include="Setting\InitialOrientationSettingComponent.cs" />
+    <Compile Include="Setting\InitialOrientationSettingType.cs" />
     <Compile Include="Util\Libutility.cs" />
   </ItemGroup>
   <ItemGroup>

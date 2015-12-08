@@ -14,7 +14,7 @@ namespace Physarealm
     public class Amoeba : Particle, IDisposable
     {
         public Vector3d orientation { get; set; }
-        private float tempfloatx;// a temporary accurate position x
+        private float tempfloatx;//a temporary accurate position x
         private float tempfloaty;//a temporary accurate position z
         private float tempfloatz;//a temporary accurate position z
         public int ID { get; private set; }

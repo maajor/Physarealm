@@ -762,11 +762,11 @@ namespace Physarealm.Environment
         }
         public override bool isOutsideBorderRangeByIndex(int x, int y, int z)
         {
-            if (x < 2 || x > (u - 2))
+            if (x < 2 || x > (u - 3))
                 return true;
-            else if (y < 2 || y > (v - 2))
+            else if (y < 2 || y > (v - 3))
                 return true;
-            else if (z < 2 || z > (w - 2))
+            else if (z < 2 || z > (w - 3))
                 return true;
             else return false;
         }
