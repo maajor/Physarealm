@@ -47,6 +47,8 @@ namespace Physarealm
         private int _step;
         public double guide_factor { get; set; }
         public double escape_p { get; set; }
+        public bool both_dir_flag;
+        public int border_type;//0:border die; 1:wrap; 2:bounce
 
         public Physarum()
             : base()
@@ -59,6 +61,8 @@ namespace Physarealm
             _popsize = 200;
             escape_p = 0;
             initOrient = new Vector3d(0, 0, 0);
+            both_dir_flag = true;
+            border_type = 0;
         }
         public Physarum(Physarum p) :base()
         {
@@ -196,7 +200,7 @@ namespace Physarealm
             {
             if (amo._die )
             {
-            _grid.clearGridCell(amo.curx, amo.cury, amo.curz);
+            _grid.clearGridCellByIndex(amo.curx, amo.cury, amo.curz);
             _todie_population.Add(amo);
             //population.Remove(amo);
             _current_population--;
@@ -208,7 +212,7 @@ namespace Physarealm
             {
                 if (amo._die)
                 {
-                    env.clearGridCell(amo.curx, amo.cury, amo.curz);
+                    env.clearGridCellByIndex(amo.curx, amo.cury, amo.curz);
                     _todie_id.Add(amo.ID);
                     //population.Remove(amo);
                     //_current_population--;
@@ -241,6 +245,8 @@ namespace Physarealm
             newAmo._div_max = gmax;
             newAmo._div_min = gmin;
             newAmo._escape_p = escape_p;
+            newAmo._both_dir_flag = both_dir_flag;
+            newAmo._border_type = border_type;
             newAmo.selectRandomDirection(util, agent.orientation);
             //Amoeba newAmo = new Amoeba(_current_population - 1, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
             //Point3d birthPlace = _grid.getRandomBirthPlace(util);

@@ -76,38 +76,38 @@ namespace Physarealm.Environment
             return new SurfaceEnvironmentType(this);
         }
 
-        public override int getGriddata(int u, int v, int w)
+        public override int getGriddataByIndex(int u, int v, int w)
         {
             return griddata[u, v, w];
         }
-        public override bool isOccupidByParticle(int u, int v, int w)
+        public override bool isOccupidByParticleByIndex(int u, int v, int w)
         {
             if (particle_ids[u, v,w] == -1 || particle_ids[u, v, w] == -2)
                 return false;
             return true;
         }
-        public override bool isWithinObstacle(int x, int y, int z)
+        public override bool isWithinObstacleByIndex(int x, int y, int z)
         {
             if (particle_ids[x, y, z] == -2)
                 return true;
             return false;
         }
-        public override void occupyGridCell(int u, int v, int w, int id)
+        public override void occupyGridCellByIndex(int u, int v, int w, int id)
         {
             particle_ids[u, v, w] = id;
         }
-        public override void clearGridCell(int u, int v, int w)
+        public override void clearGridCellByIndex(int u, int v, int w)
         {
             if (griddata[u, v, w] == 2)
                 particle_ids[u, v, w] = -2;
             else
                 particle_ids[u, v, w] = -1;
         }
-        public override void increaseTrail(int u, int v, int w, float val)
+        public override void increaseTrailByIndex(int u, int v, int w, float val)
         {
             trail[u, v, w] += val;
         }
-        public override void setGridCellValue(int u, int v, int w, int radius, int val)
+        public override void setGridCellValueByIndex(int u, int v, int w, int radius, int val)
         {
             if (radius < 1)
                 griddata[u, v, w] = val;
@@ -128,7 +128,7 @@ namespace Physarealm.Environment
                 }
             }
         }
-        public override float getAverageNeighbourhood(int u, int v, int w, int radius)
+        public override float getAverageNeighbourhoodByIndex(int u, int v, int w, int radius)
         {
             float total = 0;
             if (radius < 1)
@@ -149,7 +149,8 @@ namespace Physarealm.Environment
                     //}
                 }
             }
-            int num = (int)Math.Pow(radius * 2 + 1, 2);
+            int num = (radius * 2 + 1) * (radius * 2 + 1);
+            //int num = (int)Math.Pow(radius * 2 + 1, 2);
             return total / num;
         }
         public override void diffuseTrails()
@@ -162,7 +163,7 @@ namespace Physarealm.Environment
                     //int k = 0;
                     //System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     //{
-                        float ave = getAverageNeighbourhood(i, j, 0, 1);
+                        float ave = getAverageNeighbourhoodByIndex(i, j, 0, 1);
                         temptrail[i, j, 0] = ave * (1 - diffdamp);
                         if (agedata[i, j, 0] != 0)
                             agedata[i, j, 0]++;
@@ -198,7 +199,7 @@ namespace Physarealm.Environment
                     //{
                         if (griddata[i, j, 0] == 1)
                         {
-                            increaseTrail(i, j, 0, projectvalue);
+                            increaseTrailByIndex(i, j, 0, projectvalue);
                         }
                     //});
                 });
@@ -206,7 +207,7 @@ namespace Physarealm.Environment
             
         }
 
-        public override int countNumberOfParticlesPresent(int u, int v, int w, int radius)
+        public override int countNumberOfParticlesPresentByIndex(int u, int v, int w, int radius)
         {
             int total = 0;
             int countNow = 0;
@@ -222,7 +223,7 @@ namespace Physarealm.Environment
                 {
                     //for (int k = start_z; k <= end_z; k++)
                     //{
-                        if (isOccupidByParticle(i, j, 0) == true)
+                        if (isOccupidByParticleByIndex(i, j, 0) == true)
                             total++;
                         countNow++;
                     //}
@@ -251,7 +252,7 @@ namespace Physarealm.Environment
                 {
                     //for (int k = start_z; k <= end_z; k++)
                     //{
-                        if (isOccupidByParticle(i, j, 0) == true)
+                        if (isOccupidByParticleByIndex(i, j, 0) == true)
                         {
                             //nei.Add(new Point3d(i, j, k));
                             nei.Add(uv_positions[i, j, 0]);
@@ -263,7 +264,7 @@ namespace Physarealm.Environment
             return nei;
         }
 
-        public override List<Point3d> findNeighborParticle(int u, int v, int w, int radius)
+        public override List<Point3d> findNeighborParticleByIndex(int u, int v, int w, int radius)
         {
             List<Point3d> nei = new List<Point3d>();
             int start_x = u - radius > 0 ? u - radius : 0;
@@ -279,7 +280,7 @@ namespace Physarealm.Environment
                     int k = 0;
                     //for (int k = start_z; k <= end_z; k++)
                     //{
-                        if (isOccupidByParticle(i, j, k) == true)
+                        if (isOccupidByParticleByIndex(i, j, k) == true)
                         {
                             //nei.Add(new Point3d(i, j, k));
                             nei.Add(uv_positions[i, j, k]);
@@ -491,7 +492,7 @@ namespace Physarealm.Environment
             foreach (Point3d pt in food)
             {
                 Point3d indexpt = getIndexByPosition(pt.X, pt.Y,pt.Z);
-                setGridCellValue((int)indexpt.X, (int)(indexpt.Y), (int)(indexpt.Z), 1, 1);
+                setGridCellValueByIndex((int)indexpt.X, (int)(indexpt.Y), (int)(indexpt.Z), 1, 1);
             }
             projectToTrail();
         }
@@ -590,7 +591,7 @@ namespace Physarealm.Environment
             return Math.Min(dist1, dist2) ;
         }
 
-        public override bool constrainPos(ref float x, ref float y, ref float z)
+        public override bool constrainPos(ref float x, ref float y, ref float z, int type)
         {
             //bool flag = false;
             double u;
@@ -684,7 +685,10 @@ namespace Physarealm.Environment
 
         public override float[, ,] getTrails() { return trail; }
         public override Point3d[, ,] getPosition() { return uv_positions; }
-
+        public override Vector3d bounceOrientation(Point3d pos, Vector3d vel) 
+        {
+            return new Vector3d(0, 0, 0);
+        }
         public override List<Point3d> getNeighbourTrailClosePos(int x, int y, int z, int radius, double near_level)
         {
             double maxv = getMaxTrailValue();

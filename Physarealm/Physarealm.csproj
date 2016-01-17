@@ -131,6 +131,8 @@
     <Compile Include="Setting\TrailSettingType.cs" />
     <Compile Include="Setting\InitialOrientationSettingComponent.cs" />
     <Compile Include="Setting\InitialOrientationSettingType.cs" />
+    <Compile Include="Setting\BorderSettingComponent.cs" />
+    <Compile Include="Setting\BorderSettingType.cs" />
     <Compile Include="Util\Libutility.cs" />
   </ItemGroup>
   <ItemGroup>

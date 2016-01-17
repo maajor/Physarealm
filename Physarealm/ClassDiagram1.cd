@@ -31,7 +31,7 @@
   <Class Name="Physarealm.Analysis.FieldInterconnectComponent">
     <Position X="41.25" Y="15.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQIAAAAACAAAAAAAgAAAIAEAABQAAAAgAAAAAAAIAAA=</HashCode>
       <FileName>Analysis\FieldInterconnectComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="Physarealm.Analysis.PopulationInterconnectComponent">
     <Position X="24.5" Y="14.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQIAAAACCAAAAAAAAAAAAAEAAAQAAAAAAEAAAAAIAAA=</HashCode>
       <FileName>Analysis\PopulationInterconnectComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,7 +59,7 @@
   <Class Name="Physarealm.Analysis.PopulationTrailComponent">
     <Position X="29" Y="14.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAEAAAAIAAAAAAAAAEAABQAAAAAAEAAAAAAAgA=</HashCode>
+      <HashCode>AQIAAAAEAAACIAAAAAAAAAEAABQAAAAAAEAAAAAAAgA=</HashCode>
       <FileName>Analysis\PopulationTrailComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -80,7 +80,7 @@
   <Class Name="Physarealm.Emitter.AbstractEmitterType">
     <Position X="31.25" Y="18.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAgAAAAAEAAgAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAACAAAEAAgAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Emitter\AbstractEmitterType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -94,7 +94,7 @@
   <Class Name="Physarealm.Emitter.CurveEmitterType" Collapsed="true">
     <Position X="26.75" Y="21.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAgACIAAAAACAAAEBAAAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Emitter\CurveEmitterType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -108,7 +108,7 @@
   <Class Name="Physarealm.Emitter.PointEmitterType">
     <Position X="31.25" Y="21.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQCAAAAgAAAAAEAAAAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQCIAAAAACAAAEAAAAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Emitter\PointEmitterType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -122,14 +122,14 @@
   <Class Name="Physarealm.Emitter.SurfaceEmitterType" Collapsed="true">
     <Position X="25" Y="22.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEACIAAAAACAAAEBAAAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Emitter\SurfaceEmitterType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Environment.AbstractEnvironmentType">
     <Position X="55.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>YAANCBAoCAEQDAAE4AwAEQBAAAAgMBiAUBoGAAJgAAI=</HashCode>
+      <HashCode>QAANKBAoCAEQTAEE4QwUEQBAAAAgMBiAUBsGAAJgAAI=</HashCode>
       <FileName>Environment\AbstractEnvironmentType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,7 +143,7 @@
   <Class Name="Physarealm.Environment.BoxEnvironmentType">
     <Position X="55.75" Y="17.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>YQENAFAoiiEQDBAM4AQCNQAACAAgMBmQdAIWABZgCII=</HashCode>
+      <HashCode>QQENIFAoiiEQTBEM4QQSNQAAAAAgMBmQdAEWABZgCII=</HashCode>
       <FileName>Environment\BoxEnvironmentType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -151,7 +151,7 @@
   <Class Name="Physarealm.Environment.BrepsEnvironmentComponent">
     <Position X="48.75" Y="21.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAgAAIAAAAAAAAIEAAAQAgAAAAAAgAABAAAA=</HashCode>
+      <HashCode>AQIAAAAAAgAAIAAAAAAAAAEAAAQAgAAAAAAgAABAAAA=</HashCode>
       <FileName>Environment\BrepsEnvironmentComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -165,16 +165,17 @@
   <Class Name="Physarealm.Environment.SurfaceEnvironmentComponent">
     <Position X="53.25" Y="21.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQIAAAAgAAAAIAAAAAAAAAEAAAQQAgAAAAAAAAAEAAA=</HashCode>
       <FileName>Environment\SurfaceEnvironmentComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Environment.SurfaceEnvironmentType" Collapsed="true">
     <Position X="26.75" Y="22.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QQENIBAoyiEQTBEc4QQSEQAAAAAgMBmQVAEWAAZgCII=</HashCode>
       <FileName>Environment\SurfaceEnvironmentType.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Physarealm.Food.AbstractFoodType">
     <Position X="34" Y="19" Width="1.5" />
@@ -200,28 +201,28 @@
   <Class Name="Physarealm.Food.SurfaceFoodComponent">
     <Position X="52.5" Y="15" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Food\SurfaceFoodComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Food.PointFoodType">
     <Position X="34" Y="22" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAABAAAAAAAAAAAIAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAABAAAAAAEAAAAIAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Food\PointFoodType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Food.SurfaceFoodType" Collapsed="true">
     <Position X="28.5" Y="22.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAABAAACAAEAAAAAAAAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Food\SurfaceFoodType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Amoeba" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="25" Y="21.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BQ0BIkIBAKDUgmgMgAkRABXIAggigAoAgBQCAAAFPgA=</HashCode>
+      <HashCode>BQ0BIkIBgKDUgmgMgAkRABXIAggigAoAgAQCAAgFPgA=</HashCode>
       <FileName>PhysarumLib\Amoeba.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
@@ -229,7 +230,7 @@
   <Class Name="Physarealm.Physarum" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="28.5" Y="21.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAUAKEEEgKgAEggEoAhAAAAAAFgANBsCBMQAAAFBECA=</HashCode>
+      <HashCode>AAVAKEUEgKgAEggEoAhAAAAAAFgANBsCBMQAAAFBECA=</HashCode>
       <FileName>PhysarumLib\Physarum.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -335,14 +336,14 @@
   <Class Name="Physarealm.Setting.GuideSettingComponent">
     <Position X="31.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAIAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQIAAAAAAAAAAAAAIAAAAAEAAAQAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Setting\GuideSettingComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Setting.GuideSettingType">
     <Position X="32" Y="27.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAEIAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAMIAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
       <FileName>Setting\GuideSettingType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -440,7 +441,7 @@
   <Class Name="Physarealm.PhysarealmComponent">
     <Position X="48" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAACAAAAIAAAEAAAAAEAABQAAAQIAAAAACAAAAI=</HashCode>
+      <HashCode>AQIAAAACAAAgIAAAEAAAAAEAABQAAAQIAAAAACAAAAI=</HashCode>
       <FileName>PhysarealmComponent.cs</FileName>
     </TypeIdentifier>
   </Class>

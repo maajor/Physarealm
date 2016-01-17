@@ -9,6 +9,7 @@ namespace Physarealm.Setting
     public class GuideSettingComponent :AbstractSettingComponent
     {
         private double guide_factor;
+        private bool both_dir;
         /// <summary>
         /// Initializes a new instance of the GuideSettingComponent class.
         /// </summary>
@@ -25,6 +26,7 @@ namespace Physarealm.Setting
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Vertical Guide Factor", "VGF", "Vertical Guide Factor", GH_ParamAccess.item, 0);
+            pManager.AddBooleanParameter("Both Direction or One?", "1or2", "guide agent to up direction or up and down direction", GH_ParamAccess.item, true);
         }
 
         /// <summary>
@@ -39,12 +41,13 @@ namespace Physarealm.Setting
         protected override bool GetInputs(IGH_DataAccess da)
         {
             if (!da.GetData(0, ref guide_factor)) return false;
+            if (!da.GetData(1, ref both_dir)) return false;
             return true;
         }
 
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            AbstractSettingType gset = new GuideSettingType(guide_factor);
+            AbstractSettingType gset = new GuideSettingType(guide_factor, both_dir);
             da.SetData(0, gset);
         }
     }

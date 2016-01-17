@@ -101,38 +101,39 @@ namespace Physarealm.Environment
             _escape_p = 0;
         }
         public BoxEnvironmentType(BoxEnvironmentType boxenv) : this(boxenv._box, boxenv.u, boxenv.v, boxenv.w) { }
-        public override bool isOccupidByParticle(int x, int y, int z)
+        public override bool isOccupidByParticleByIndex(int x, int y, int z)
         {
-            if (particle_ids[x, y, z] == -1 || particle_ids[x, y, z] == -2)
+            //if (particle_ids[x, y, z] == -1 || particle_ids[x, y, z] == -2)
+            if (particle_ids[x, y, z] < 0)
                 return false;
             return true;
         }
-        public override bool isWithinObstacle(int x, int y, int z)
+        public override bool isWithinObstacleByIndex(int x, int y, int z)
         {
             if (particle_ids[x, y, z] == -2)
                 return true;
             return false;
         }
-        public override void occupyGridCell(int x, int y, int z, int id)
+        public override void occupyGridCellByIndex(int x, int y, int z, int id)
         {
             particle_ids[x, y, z] = id;
         }
-        public override void clearGridCell(int x, int y, int z)
+        public override void clearGridCellByIndex(int x, int y, int z)
         {
             if (griddata[x, y, z] == 2)
                 particle_ids[x, y, z] = -2;
             else
                 particle_ids[x, y, z] = -1;
         }
-        public override void increaseTrail(int x, int y, int z, float val)
+        public override void increaseTrailByIndex(int x, int y, int z, float val)
         {
             trail[x, y, z] += val;
         }
-        public override int getGriddata(int u, int v, int w) 
+        public override int getGriddataByIndex(int u, int v, int w) 
         {
             return griddata[u, v, w];
         }
-        public override void setGridCellValue(int xpos, int ypos, int zpos, int radius, int val)
+        public override void setGridCellValueByIndex(int xpos, int ypos, int zpos, int radius, int val)
         {
             if (radius < 1)
                 griddata[xpos, ypos, zpos] = val;
@@ -167,7 +168,7 @@ namespace Physarealm.Environment
             }*/
             return trail[x, y, z];
         }
-        public override float getAverageNeighbourhood(int x, int y, int z, int radius) //return avg of 3 * 3 * 3 grid if radius = 1
+        public override float getAverageNeighbourhoodByIndex(int x, int y, int z, int radius) //return avg of 3 * 3 * 3 grid if radius = 1
         {
             float total = 0;
             if (radius < 1)
@@ -188,7 +189,8 @@ namespace Physarealm.Environment
                     }
                 }
             }
-            int num = (int)Math.Pow(radius * 2 + 1, 3);
+            int num = (radius * 2 + 1) * (radius * 2 + 1) * (radius * 2 + 1);
+            //int num = (int)Math.Pow(radius * 2 + 1, 3);
             return total / num;
         }
         public override  void diffuseTrails()
@@ -201,7 +203,7 @@ namespace Physarealm.Environment
                 {
                     System.Threading.Tasks.Parallel.For(0, w, (k) =>
                     {
-                        float ave = getAverageNeighbourhood(i, j, k, 1);
+                        float ave = getAverageNeighbourhoodByIndex(i, j, k, 1);
                         temptrail[i, j, k] = ave * (1 - diffdamp);
                         if (agedata[i, j, k] != 0)
                             agedata[i, j, k]++;
@@ -214,7 +216,7 @@ namespace Physarealm.Environment
             for (int i = 0; i < _x; i++) {
               for (int j = 0; j < _y; j++) {
                 for (int k = 0; k < _z; k++) {
-                  ave = getAverageNeighbourhood(i, j, k, 1);
+                  ave = getAverageNeighbourhoodByIndex(i, j, k, 1);
                   temptrail[i, j, k] = ave * (1 - diffdamp);
                 }
               }
@@ -261,7 +263,7 @@ namespace Physarealm.Environment
                     {
                         if (griddata[i, j, k] == 1)
                         {
-                            increaseTrail(i, j, k, projectvalue);
+                            increaseTrailByIndex(i, j, k, projectvalue);
                         }
                     });
                 });
@@ -274,17 +276,17 @@ namespace Physarealm.Environment
               for (int k = 0; k < _z; k++)
               {
                 if (griddata[i, j, k] == 1) {
-                  increaseTrail(i, j, k, projectvalue);
+                  increaseTrailByIndex(i, j, k, projectvalue);
                 }
               }
             }*/
 
         }
-        public override int countNumberOfParticlesPresent(int x, int y, int z, int radius)
+        public override int countNumberOfParticlesPresentByIndex(int x, int y, int z, int radius)
         {
             int total = 0;
             //if (radius < 1)
-            //  return isOccupidByParticle(x, y, z) == true ? 1 : 0;
+            //  return isOccupidByParticleByIndex(x, y, z) == true ? 1 : 0;
             int countNow = 0;
             int start_x = x - radius > 0 ? x - radius : 0;
             int start_y = y - radius > 0 ? y - radius : 0;
@@ -298,7 +300,7 @@ namespace Physarealm.Environment
                 {
                     for (int k = start_z; k <= end_z; k++)
                     {
-                        if (isOccupidByParticle(i, j, k) == true)
+                        if (isOccupidByParticleByIndex(i, j, k) == true)
                             total++;
                         countNow++;
                     }
@@ -326,7 +328,7 @@ namespace Physarealm.Environment
                 {
                     for (int k = start_z; k <= end_z; k++)
                     {
-                        if (isOccupidByParticle(i, j, k) == true)
+                        if (isOccupidByParticleByIndex(i, j, k) == true)
                         {
                             //nei.Add(new Point3d(i, j, k));
                             nei.Add(positions[i,j,k]);
@@ -337,7 +339,7 @@ namespace Physarealm.Environment
 
             return nei;
         }
-        public override List<Point3d> findNeighborParticle(int x, int y, int z, int radius)
+        public override List<Point3d> findNeighborParticleByIndex(int x, int y, int z, int radius)
         {
             List<Point3d> nei = new List<Point3d>();
             int start_x = x - radius > 0 ? x - radius : 0;
@@ -352,7 +354,7 @@ namespace Physarealm.Environment
                 {
                     for (int k = start_z; k <= end_z; k++)
                     {
-                        if (isOccupidByParticle(i, j, k) == true)
+                        if (isOccupidByParticleByIndex(i, j, k) == true)
                         {
                             //nei.Add(new Point3d(i, j, k));
                             nei.Add(positions[i, j, k]);
@@ -625,7 +627,7 @@ namespace Physarealm.Environment
         {
             foreach (Point3d pt in food)
             {
-                setGridCellValue(getUIndex(pt.X), getVIndex(pt.Y), getWIndex(pt.Z), 1, 1);
+                setGridCellValueByIndex(getUIndex(pt.X), getVIndex(pt.Y), getWIndex(pt.Z), 1, 1);
             }
             projectToTrail();
         }
@@ -634,7 +636,7 @@ namespace Physarealm.Environment
             _origins = origin;
             //foreach (Point3d pt in origin)
             //{
-            //  setGridCellValue((int) pt.X, (int) pt.Y, (int) pt.Z, 1, 1);
+            //  setGridCellValueByIndex((int) pt.X, (int) pt.Y, (int) pt.Z, 1, 1);
             //}
         }*/
         public override Point3d getRandomBirthPlace(Libutility util)
@@ -725,40 +727,88 @@ namespace Physarealm.Environment
             double minuv = Math.Min(u_interval, v_interval);
             return Math.Min(minuv, w_interval);
         }
-        public override bool constrainPos(ref float x, ref float y, ref float z) 
+        public override bool constrainPos(ref float x, ref float y, ref float z, int type) 
         {
             bool flag = false;
-            if (x < getUMin())
+            if (type == 0)
             {
-                x = -x;
-                flag = true;
+                if (x < getUMin())
+                {
+                    x = -x;
+                    flag = true;
+                }
+                if (x > getUMax())
+                {
+                    x = (float)(getUMax() - u_interval);
+                    flag = true;
+                }
+                if (y < getVMin())
+                {
+                    y = -y;
+                    flag = true;
+                }
+                if (y > getVMax())
+                {
+                    y = (float)(getVMax() - v_interval);
+                    flag = true;
+                }
+                if (z < getWMin())
+                {
+                    z = -z;
+                    flag = true;
+                }
+                if (z > getWMax())
+                {
+                    z = (float)(getWMax() - w_interval);
+                    flag = true;
+                }
             }
-            if (x > getUMax())
+            else 
             {
-                x = (float)(getUMax() - u_interval);
-                flag = true;
-            }
-            if (y < 0)
-            {
-                y = -y;
-                flag = true;
-            }
-            if (y >  getVMax())
-            {
-                y = (float) (getVMax() - v_interval);
-                flag = true;
-            }
-            if (z < 0)
-            {
-                z = -z;
-                flag = true;
-            }
-            if (z > getWMax())
-            {
-                z = (float) (getWMax() - w_interval);
-                flag = true;
+                if (x < getUMin())
+                {
+                    x = (float)(x + getUMax());
+                    flag = true;
+                }
+                if (x > getUMax())
+                {
+                    x = (float)(x - getUMax());
+                    flag = true;
+                }
+                if (y < getVMin())
+                {
+                    y = (float)(y + getVMax());
+                    flag = true;
+                }
+                if (y > getVMax())
+                {
+                    y = (float)(y - getVMax());
+                    flag = true;
+                }
+                if (z < getWMin())
+                {
+                    z = (float)(z + getWMax());
+                    flag = true;
+                }
+                if (z > getWMax())
+                {
+                    z = (float)(z - getWMax());
+                    flag = true;
+                }
             }
             return flag;
+        }
+        public override Vector3d bounceOrientation(Point3d pos, Vector3d vel) 
+        {
+            Vector3d retVec = vel;
+            if (pos.X < getUMin() || pos.X > getUMin())
+                vel.X = -vel.X;
+            if (pos.Y < getVMin() || pos.Y > getVMin())
+                vel.Y = -vel.Y;
+            if (pos.Z < getWMin() || pos.Z > getWMin())
+                vel.Z = -vel.Z;
+            return retVec;
+
         }
         public override bool isOutsideBorderRangeByIndex(int x, int y, int z)
         {
