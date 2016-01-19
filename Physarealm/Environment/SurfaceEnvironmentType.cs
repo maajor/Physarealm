@@ -78,30 +78,30 @@ namespace Physarealm.Environment
 
         public override int getGriddataByIndex(int u, int v, int w)
         {
-            return griddata[u, v, w];
+            return griddata[u, v, 0];
         }
         public override bool isOccupidByParticleByIndex(int u, int v, int w)
         {
-            if (particle_ids[u, v,w] == -1 || particle_ids[u, v, w] == -2)
+            if (particle_ids[u, v,0] == -1 || particle_ids[u, v, 0] == -2)
                 return false;
             return true;
         }
         public override bool isWithinObstacleByIndex(int x, int y, int z)
         {
-            if (particle_ids[x, y, z] == -2)
+            if (particle_ids[x, y, 0] == -2)
                 return true;
             return false;
         }
         public override void occupyGridCellByIndex(int u, int v, int w, int id)
         {
-            particle_ids[u, v, w] = id;
+            particle_ids[u, v, 0] = id;
         }
         public override void clearGridCellByIndex(int u, int v, int w)
         {
-            if (griddata[u, v, w] == 2)
-                particle_ids[u, v, w] = -2;
+            if (griddata[u, v, 0] == 2)
+                particle_ids[u, v, 0] = -2;
             else
-                particle_ids[u, v, w] = -1;
+                particle_ids[u, v, 0] = -1;
         }
         public override void increaseTrailByIndex(int u, int v, int w, float val)
         {
@@ -113,18 +113,18 @@ namespace Physarealm.Environment
                 griddata[u, v, w] = val;
             int start_x = u - radius > 0 ? u - radius : 0;
             int start_y = v - radius > 0 ? v - radius : 0;
-            int start_z = w - radius > 0 ? w - radius : 0;
+            //int start_z = w - radius > 0 ? w - radius : 0;
             int end_x = u + radius < u ? u + radius : u - 1;
             int end_y = v + radius < v ? v + radius : v - 1;
-            int end_z = w + radius < w ? w + radius : w - 1;
+            //int end_z = w + radius < w ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
                 {
-                    for (int k = start_z; k <= end_z; k++)
-                    {
-                        griddata[i, j, k] = val;
-                    }
+                    //for (int k = start_z; k <= end_z; k++)
+                    //{
+                        griddata[i, j, 0] = val;
+                    //}
                 }
             }
         }
@@ -269,10 +269,10 @@ namespace Physarealm.Environment
             List<Point3d> nei = new List<Point3d>();
             int start_x = u - radius > 0 ? u - radius : 0;
             int start_y = v - radius > 0 ? v - radius : 0;
-            int start_z = w - radius > 0 ? w - radius : 0;
+            //int start_z = w - radius > 0 ? w - radius : 0;
             int end_x = u + radius <= u - 1 ? u + radius : u - 1;
             int end_y = v + radius <= v - 1 ? v + radius : v - 1;
-            int end_z = w + radius <= w - 1 ? w + radius : w - 1;
+            //int end_z = w + radius <= w - 1 ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
                 for (int j = start_y; j <= end_y; j++)
@@ -356,15 +356,15 @@ namespace Physarealm.Environment
             {
                 for (int j = end_y; j >= start_y; j--)
                 {
-                    for (int k = end_z; k >= start_z; k--)
-                    {
-                        if (particle_ids[i, j, k] == -1)
+                    //for (int k = end_z; k >= start_z; k--)
+                    //{
+                        if (particle_ids[i, j, 0] == -1)
                         {
                             //retpt = new Point3d(i, j, k);
-                            freePos.Add(uv_positions[i, j, k]);
+                            freePos.Add(uv_positions[i, j, 0]);
                             //return retpt;
                         }
-                    }
+                    //}
                 }
             }
             int lens = freePos.Count;
@@ -422,11 +422,11 @@ namespace Physarealm.Environment
             {
                 for (int j = 0; j < v; j++)
                 {
-                    for (int k = 0; k < w; k++)
-                    {
-                        particle_ids[i, j, k] = -1;
-                        griddata[i, j, k] = 0;
-                    }
+                    //for (int k = 0; k < w; k++)
+                    //{
+                        particle_ids[i, j, 0] = -1;
+                        griddata[i, j, 0] = 0;
+                    //}
                 }
             }
         }
@@ -440,11 +440,11 @@ namespace Physarealm.Environment
                 {
                     for (int j = 0; j < v; j++)
                     {
-                        for (int k = -0; k < w; k++)
-                        {
-                            particle_ids[i, j, k] = -1;
-                            griddata[i, j, k] = 0;
-                        }
+                        //for (int k = -0; k < w; k++)
+                        //{
+                            particle_ids[i, j, 0] = -1;
+                            griddata[i, j, 0] = 0;
+                        //}
                     }
                 }
                 return;
@@ -546,7 +546,7 @@ namespace Physarealm.Environment
 
         public override Point3d getPositionByIndex(int u, int v, int w)
         {
-            return uv_positions[u, v, w];
+            return uv_positions[u, v, 0];
         }
 
         public override double getUMin()
@@ -631,7 +631,8 @@ namespace Physarealm.Environment
                     {
                         //ret[item] = trail[i, j, k];
                         //item++;
-                        ret.Add(trail[i, j, k]);
+                        //ret.Add(trail[i, j, 0]);
+                        ret.Add(particle_ids[i, j, 0]);
                     }
                 }
             }
@@ -657,12 +658,12 @@ namespace Physarealm.Environment
             {
                 for (int j = 0; j < v; j++)
                 {
-                    for (int k = 0; k < w; k++)
-                    {
-                        trail[i, j, k] = 0;
-                        temptrail[i, j, k] = 0;
-                        agedata[i, j, k] = 0;
-                    }
+                    //for (int k = 0; k < w; k++)
+                    //{
+                        trail[i, j, 0] = 0;
+                        temptrail[i, j, 0] = 0;
+                        agedata[i, j, 0] = 0;
+                    //}
                 }
             }
         }
@@ -731,12 +732,14 @@ namespace Physarealm.Environment
         {
             int uid = (int)(x / u_interval);
             uid = uid < u ? uid : u - 1;
+            uid = uid > 0 ? uid : 0;
             return uid;
         }
         private int getVIndex(double y)
         {
             int vid = (int)(y / v_interval);
             vid = vid < v ? vid : v - 1;
+            vid = vid > 0 ? vid : 0;
             return vid;
         }
         private int getWIndex(double z)

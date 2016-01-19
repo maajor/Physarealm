@@ -645,6 +645,7 @@ namespace Physarealm.Environment
             return emitter.getRandEmitPos();
             //return _origins[util.getRand(length)];
         }
+
         public override  Mesh getTrailEvaMesh(double zpos)
         {
             int z = getWIndex(zpos);
@@ -694,18 +695,21 @@ namespace Physarealm.Environment
         {
             int uid = (int)((x - UMin) / u_interval);
             uid = uid < u ? uid : u - 1;
+            uid = uid > 0 ? uid : 0;
             return uid;
         }
         private int getVIndex(double y) 
         {
             int vid = (int)((y - VMin) / v_interval);
             vid = vid < v ? vid : v - 1;
+            vid = vid > 0 ? vid : 0;
             return vid;
         }
         private int getWIndex(double z)
         {
             int wid = (int)((z - WMin) / w_interval);
             wid = wid < w ? wid : w - 1;
+            wid = wid > 0 ? wid : 0;
             return wid;
         }
         public override Point3d getIndexByPosition(double x, double y, double z) 
@@ -734,7 +738,7 @@ namespace Physarealm.Environment
             {
                 if (x < getUMin())
                 {
-                    x = -x;
+                    x = 2 * (float)(getUMin())  - x;
                     flag = true;
                 }
                 if (x > getUMax())
@@ -744,7 +748,7 @@ namespace Physarealm.Environment
                 }
                 if (y < getVMin())
                 {
-                    y = -y;
+                    y = 2 * (float)(getVMin()) - y;
                     flag = true;
                 }
                 if (y > getVMax())
@@ -754,7 +758,7 @@ namespace Physarealm.Environment
                 }
                 if (z < getWMin())
                 {
-                    z = -z;
+                    z = 2 * (float)(getWMin()) - z;
                     flag = true;
                 }
                 if (z > getWMax())

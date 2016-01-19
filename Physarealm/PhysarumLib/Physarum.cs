@@ -53,6 +53,7 @@ namespace Physarealm
         public Physarum()
             : base()
         {
+            /*
             _current_id = 0;
             _step = 0;
             _division_frequency_test = 4;
@@ -62,7 +63,8 @@ namespace Physarealm
             escape_p = 0;
             initOrient = new Vector3d(0, 0, 0);
             both_dir_flag = true;
-            border_type = 0;
+            border_type = 0;*/
+            initParameters();
         }
         public Physarum(Physarum p) :base()
         {
@@ -91,17 +93,17 @@ namespace Physarealm
             initOrient = p.initOrient;
         
         }
-        public void initParameters(float sensor_angle = (float) 22.5, float rotate_angle = 45, float sensor_offset = 7, int detectDir = 4, int deathDistance = 100, float max_speed = 3, float pcd = (float) 0.1, float dept = 3)
+        public void initParameters()
         {
             _current_id = 0;
-            _sense_angle = sensor_angle;
-            _rotate_angle = rotate_angle;
-            _sense_offset = sensor_offset;
-            _detectDir = detectDir;
-            _death_distance = deathDistance;
-            _speed = max_speed;
-            _pcd = pcd;
-            _depT = dept;
+            _sense_angle = 22.5F;
+            _rotate_angle = 45F;
+            _sense_offset = 7F;
+            _detectDir = 4;
+            _death_distance = 100;
+            _speed = 3;
+            _pcd = 0.1F;
+            _depT = 3F;
             _popsize = 50;
             escape_p = 0;
             guide_factor = 0;
@@ -111,16 +113,33 @@ namespace Physarealm
             sw = 2;
             smax = 123;
             smin = 0;
+            _current_id = 0;
+            _step = 0;
+            _division_frequency_test = 4;
+            _death_frequency_test = 4;
+            guide_factor = 0;
+            escape_p = 0;
+            initOrient = new Vector3d(0, 0, 0);
+            both_dir_flag = true;
+            border_type = 0;
 
         }
         public void initPopulation(AbstractEnvironmentType env)
         {
             //_popsize = popsize;
+            int init_error_threshold = 5;
+            int init_error_count = 0;
             for (int i = 0; i < _popsize; i++)
             {
                 Amoeba newAmo = new Amoeba(_current_id, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
                 Point3d birthPlace = env.getRandomBirthPlace(util);
-                newAmo.initializeAmoeba(birthPlace.X, birthPlace.Y, birthPlace.Z,  4, env, util);
+                if(!newAmo.initializeAmoeba(birthPlace.X, birthPlace.Y, birthPlace.Z,  4, env, util))
+                {
+                    init_error_count++;
+                    if (init_error_count > init_error_threshold)
+                        break;
+                    continue;
+                }
                 if (initOrient.Length > 0)
                     newAmo.orientation = initOrient;
                 newAmo._guide_factor = guide_factor;
@@ -138,29 +157,27 @@ namespace Physarealm
         }
         public void updatePopulation(AbstractEnvironmentType env)
         {
-            //shuffleOrder();
+            
+            foreach (Amoeba amo in population)
+            {
+                amo.doMotorBehaviors(env, util);
+            }
+            shuffleOrder();
+            foreach (Amoeba amo in population)
+            {
+                amo.doSensorBehaviors(env, util);
+            }
+             
+            /*
             System.Threading.Tasks.Parallel.ForEach(population, amo =>
             {
                 amo.doMotorBehaviors(env, util);
             });
-
-
-            /*foreach (Amoeba amo in population)
-            {
-              amo.doMotorBehaviors(_grid, util);
-              //amo.doSensortBehaviors(_grid, util);
-            }
-            //shuffleOrder();
-            foreach (Amoeba amo in population)
-            {
-              amo.doSensortBehaviors(_grid, util);
-              //amo.doMotorBehaviors(_grid, util);
-            }*/
             System.Threading.Tasks.Parallel.ForEach(population, amo =>
             {
                 amo.doSensorBehaviors(env, util);
             });
-
+            *///Parallel will be a little bit faster, but may encounter unexpected error that every agent freeze....so i disable
         }
         public void doDivisionTest(AbstractEnvironmentType env)
         {

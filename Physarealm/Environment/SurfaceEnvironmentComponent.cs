@@ -63,7 +63,7 @@ namespace Physarealm.Environment
             //if (obs != null)
             //    environment.setContainer(cont);
             //else
-                environment.setContainer();
+            environment.setContainer();
             if (obs != null)
                 environment.setObstacles(obs);
             da.SetData(0, environment);

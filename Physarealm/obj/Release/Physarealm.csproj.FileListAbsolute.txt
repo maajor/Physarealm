@@ -4,3 +4,4 @@ D:\Repo\Physarealm\Physarealm\obj\Release\Physarealm.dll
 D:\Repo\Physarealm\Physarealm\obj\Release\Physarealm.pdb
 D:\Repo\Physarealm\Physarealm\bin\Physarealm.dll.CodeAnalysisLog.xml
 D:\Repo\Physarealm\Physarealm\bin\Physarealm.dll.lastcodeanalysissucceeded
+D:\Repo\Physarealm\Physarealm\obj\Release\Physarealm.csprojResolveAssemblyReference.cache

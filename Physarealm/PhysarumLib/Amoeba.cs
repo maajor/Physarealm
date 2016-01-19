@@ -99,7 +99,7 @@ namespace Physarealm
             _escape_p = 0;
             _both_dir_flag = true;
         }
-        public void initializeAmoeba(AbstractEnvironmentType env, Libutility util)
+        public bool initializeAmoeba(AbstractEnvironmentType env, Libutility util)
         {
             do
             {
@@ -120,8 +120,9 @@ namespace Physarealm
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
             prev_loc = Location;
+            return true;
         }
-        public void initializeAmoeba(double x, double y, double z, AbstractEnvironmentType env, Libutility util)
+        public bool initializeAmoeba(double x, double y, double z, AbstractEnvironmentType env, Libutility util)
         {
             Point3d indexLoca = env.getIndexByPosition(x, y, z);
             tempx = (int)indexLoca.X;
@@ -135,9 +136,11 @@ namespace Physarealm
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
             prev_loc = Location;
+            return true;
         }
-        public void initializeAmoeba(double x, double y, double z,  int radius, AbstractEnvironmentType env, Libutility util)
+        public bool initializeAmoeba(double x, double y, double z,  int radius, AbstractEnvironmentType env, Libutility util)
         {
+            int try_count = 0;
             Point3d IniIndexLoca = env.getIndexByPosition(x, y, z);
             int start_x = (int)IniIndexLoca.X - radius > 0 ? (int)IniIndexLoca.X - radius : 0;
             int start_y = (int)IniIndexLoca.Y - radius > 0 ? (int)IniIndexLoca.Y - radius : 0;
@@ -150,8 +153,9 @@ namespace Physarealm
                 tempx = util.getRand(start_x, end_x + 1);
                 tempy = util.getRand(start_y, end_y + 1);
                 tempz = util.getRand(start_z, end_z + 1);
+                try_count++;
             }
-            while (!iniSuccess(tempx, tempy, tempz, env, util));
+            while (!iniSuccess(tempx, tempy, tempz, env, util) && try_count<10);
             curx = tempx;
             cury = tempy;
             curz = tempz;
@@ -160,6 +164,7 @@ namespace Physarealm
             occupyCell(curx, cury, curz, env);
             selectRandomDirection(util);
             prev_loc = new Point3d(x, y, z);
+            return true;
         }
         public bool iniSuccess(int x, int y, int z, AbstractEnvironmentType env, Libutility util)
         {
@@ -228,7 +233,7 @@ namespace Physarealm
                 selectRandomDirection(util);
                 return;
             }
-            else if (env.isWithinObstacleByIndex(tempx, tempy, tempz) && util.getRandDouble() > _escape_p) 
+             else if (env.isWithinObstacleByIndex(tempx, tempy, tempz) && util.getRandDouble() > _escape_p) 
             {
                 selectRandomDirection(util);
                 return;
