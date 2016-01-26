@@ -18,37 +18,8 @@ namespace Physarealm
         public List<Amoeba> _toborn_population = new List<Amoeba>();
         public List<int> _todie_id = new List<int>();
         public Vector3d initOrient { get; set; }
-        public int _popsize { get; set; }
-        public float _sense_offset { get; set; }
-        public float _sense_angle { get; set; }
-        public float _rotate_angle { get; set; }
-        //private bool osc;
-        public float _pcd { get; set; }
-        //private float oscresetprob;
-        public float _depT { get; set; }
-        public float _speed { get; set; }
-        public int _detectDir { get; set; }
-        public int _detectDirRSubd { get; set; }
-        public int _detectDirPhySubd { get; set; }
-        public int _death_distance { get; set; }
-        public int _division_frequency_test { get; set; }
-        public int _death_frequency_test { get; set; }
-        //private float _division_prob;
-        //private float _death_random_prob;
-        private int gw;
-        private int gmin;
-        private int gmax;
-        private int sw;
-        private int smax;
-        private int smin;
-        //private int divisionborder;
-        static private Libutility util = new Libutility();
         public int _current_id;
         private int _step;
-        public double guide_factor { get; set; }
-        public double escape_p { get; set; }
-        public bool both_dir_flag;
-        public int border_type;//0:border die; 1:wrap; 2:bounce
 
         public Physarum()
             : base()
@@ -69,103 +40,51 @@ namespace Physarealm
         public Physarum(Physarum p) :base()
         {
             population = p.population;
-            _popsize  = p._popsize;
-            _sense_offset = p._sense_offset;
-            _sense_angle = p._sense_angle;
-            _rotate_angle = p._rotate_angle;
-            _pcd = p._pcd;
-            _depT = p._depT;
-            _speed = p._speed;
-            _detectDir  = p._detectDir;
-            _death_distance  = p._death_distance;
-            _division_frequency_test = p._division_frequency_test;
-            _death_frequency_test = p._death_frequency_test;
-            gw = p.gw;
-            gmin = p.gmin;
-            gmax = p.gmax;
-            sw = p.sw;
-            smax = p.smax;
-            smin = p.smin;
-            guide_factor = p.guide_factor;
-            escape_p = p.escape_p;
-            _detectDirRSubd = p._detectDirRSubd;
-            _detectDirPhySubd = p._detectDirPhySubd;
             initOrient = p.initOrient;
         
         }
         public void initParameters()
         {
             _current_id = 0;
-            _sense_angle = 22.5F;
-            _rotate_angle = 45F;
-            _sense_offset = 7F;
-            _detectDir = 4;
-            _death_distance = 100;
-            _speed = 3;
-            _pcd = 0.1F;
-            _depT = 3F;
-            _popsize = 50;
-            escape_p = 0;
-            guide_factor = 0;
-            gw = 3;
-            gmin = 0;
-            gmax = 10;
-            sw = 2;
-            smax = 123;
-            smin = 0;
-            _current_id = 0;
             _step = 0;
-            _division_frequency_test = 4;
-            _death_frequency_test = 4;
-            guide_factor = 0;
-            escape_p = 0;
             initOrient = new Vector3d(0, 0, 0);
-            both_dir_flag = true;
-            border_type = 0;
-
         }
         public void initPopulation(AbstractEnvironmentType env)
         {
             //_popsize = popsize;
             int init_error_threshold = 5;
             int init_error_count = 0;
-            for (int i = 0; i < _popsize; i++)
+            for (int i = 0; i <PhysaSetting._popsize; i++)
             {
-                Amoeba newAmo = new Amoeba(_current_id, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
-                Point3d birthPlace = env.getRandomBirthPlace(util);
-                if(!newAmo.initializeAmoeba(birthPlace.X, birthPlace.Y, birthPlace.Z,  4, env, util))
+                Amoeba newAmo = new Amoeba(_current_id);
+                Point3d birthPlace = env.getRandomBirthPlace();
+                if (!newAmo.initializeAmoeba(birthPlace, 4, env))
                 {
                     init_error_count++;
                     if (init_error_count > init_error_threshold)
                         break;
                     continue;
                 }
+               // newAmo.initializeAmoeba(birthPlace, 4, env);
                 if (initOrient.Length > 0)
-                    newAmo.orientation = initOrient;
-                newAmo._guide_factor = guide_factor;
-                newAmo._div_radius = gw;
-                newAmo._die_radius = sw;
-                newAmo._die_max = smax;
-                newAmo._die_min = smin;
-                newAmo._div_max = gmax;
-                newAmo._div_min = gmin;
-                newAmo._escape_p = escape_p;
+                    newAmo.orientation = initOrient;//unsafe further amendment
                 population.Add(newAmo);
                 _current_id++;
             }
-            env._escape_p = escape_p;
+            env._escape_p =PhysaSetting.escape_p;
         }
         public void updatePopulation(AbstractEnvironmentType env)
         {
             
             foreach (Amoeba amo in population)
             {
-                amo.doMotorBehaviors(env, util);
+                amo.doMotorBehaviors(env);
             }
+            
             shuffleOrder();
             foreach (Amoeba amo in population)
             {
-                amo.doSensorBehaviors(env, util);
+                amo.doSensorBehaviors(env);
             }
              
             /*
@@ -229,7 +148,7 @@ namespace Physarealm
             {
                 if (amo._die)
                 {
-                    env.clearGridCellByIndex(amo.curx, amo.cury, amo.curz);
+                    env.clearGridCellByIndex(amo.indexPos.convertToIndex(env.u, env.v, env.w));
                     _todie_id.Add(amo.ID);
                     //population.Remove(amo);
                     //_current_population--;
@@ -241,34 +160,25 @@ namespace Physarealm
         {
             //if (agent.curx <= 4 || agent.curx >= env.u - 4 || agent.cury <= 4 || agent.cury >= env.v - 4 || agent.curz <= 4 || agent.curz >= env.w - 4)
             //    return;
-            if (env.isOutsideBorderRangeByIndex(agent.curx, agent.cury, agent.curz))
+            if (env.isOutsideBorderRangeByIndex(agent.indexPos.convertToIndex(env.u, env.v, env.w)))
                 return;
             //if (agent.curx == agent.cury || agent.curx == agent.curz)
             //  return;
-            Point3d newPos = env.getNeighbourhoodFreePosByIndex(agent.curx, agent.cury, agent.curz, 1, util);
+            Point3d newPos = env.getNeighbourhoodFreePosByIndex(agent.indexPos.convertToIndex(env.u, env.v, env.w), 1);
             if (newPos.X == -1 || newPos.Y == -1 || newPos.Y == -1)
                 return;
             _current_id++;
             int thisindex = _current_id - 1;
-            Amoeba newAmo = new Amoeba(thisindex, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
-            newAmo.initializeAmoeba(newPos.X, newPos.Y, newPos.Z, env, util);
+            Amoeba newAmo = new Amoeba(thisindex);
+            newAmo.initializeAmoeba(newPos, env);
             newAmo.prev_loc = agent.Location;
             //newAmo.initializeAmoeba(agent.curx, agent.cury, agent.curz, 2, _grid, util);
-            newAmo._guide_factor = guide_factor;
-            newAmo._div_radius = gw;
-            newAmo._die_radius = sw;
-            newAmo._die_max = smax;
-            newAmo._die_min = smin;
-            newAmo._div_max = gmax;
-            newAmo._div_min = gmin;
-            newAmo._escape_p = escape_p;
-            newAmo._both_dir_flag = both_dir_flag;
-            newAmo._border_type = border_type;
-            newAmo.selectRandomDirection(util, agent.orientation);
+            newAmo.selectRandomDirection( agent.orientation);
             //Amoeba newAmo = new Amoeba(_current_population - 1, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
             //Point3d birthPlace = _grid.getRandomBirthPlace(util);
             //newAmo.initializeAmoeba((int) birthPlace.X, (int) birthPlace.Y, (int) birthPlace.Z, 3, _grid, util);
             //newAmo._guide_factor = guide_factor;
+            newAmo.orientationFromIndexOrientation(env);
             _toborn_population.Add(newAmo);
 
         }
@@ -280,11 +190,12 @@ namespace Physarealm
         public void Update(AbstractEnvironmentType env)
         {
             updatePopulation(env);
+            
             updateTrails(env);
             
-            if (_step % _death_frequency_test == 0)
+            if (_step % PhysaSetting._death_frequency_test == 0)
                 doDeathTest(env);
-            if (_step % _division_frequency_test == 0)
+            if (_step % PhysaSetting._division_frequency_test == 0)
                 doDivisionTest(env);
             foreach (Amoeba tb in _toborn_population)
                 population.Add(tb);
@@ -293,15 +204,6 @@ namespace Physarealm
             _toborn_population = new List<Amoeba>();
             _todie_id = new List<int>();
             _step++;
-        }
-        public void setBirthDeathCondition(List<int> cond)
-        {
-            gw = cond[0];
-            gmin = cond[1];
-            gmax = cond[2];
-            sw = cond[3];
-            smin = cond[4];
-            smax = cond[5];
         }
         public void Clear() 
         {

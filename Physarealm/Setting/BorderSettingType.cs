@@ -21,7 +21,7 @@ namespace Physarealm.Setting
         public BorderSettingType(BorderSettingType p) : this(p.bdtype) { }
         public override void setParameter(Physarum p)
         {
-            p.border_type = bdtype;
+            PhysaSetting.border_type = bdtype;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

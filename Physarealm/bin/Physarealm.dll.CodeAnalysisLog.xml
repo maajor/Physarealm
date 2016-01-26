@@ -10,15 +10,15 @@
        <Types>
         <Type Name="Amoeba" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">对 'Amoeba' 提供 Dispose(bool) 的可重写实现或将该类型标记为密封。对 Dispose(false) 的调用应仅清理本机资源。对 Dispose(true) 的调用应既清理托管资源又清理本机资源。</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="Breaking">
-             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="d:\Repo\Physarealm\Physarealm\PhysarumLib" File="Amoeba.cs" Line="436">修改 'Amoeba.Dispose()'，使它先调用 Dispose(true)，然后对当前对象实例(在 Visual Basic 中为“this”或“Me”)调用 GC.SuppressFinalize，最后返回。</Issue>
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="Breaking">
+             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="d:\Repo\Physarealm\Physarealm\PhysarumLib" File="Amoeba.cs" Line="358">修改 'Amoeba.Dispose()'，使它先调用 Dispose(true)，然后对当前对象实例(在 Visual Basic 中为“this”或“Me”)调用 GC.SuppressFinalize，最后返回。</Issue>
             </Message>
            </Messages>
           </Member>
@@ -26,22 +26,22 @@
         </Type>
         <Type Name="PhysarealmComponent" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">在 'PhysarealmComponent' 上实现 IDisposable，因为它创建下列 IDisposable 类型的成员: 'Physarum'。如果以前提供过 'PhysarealmComponent'，对于现有使用者来说，向此类型添加用于实现 IDisposable 的新成员属于重大更改。</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="Physarum" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">对 'Physarum' 提供 Dispose(bool) 的可重写实现或将该类型标记为密封。对 Dispose(false) 的调用应仅清理本机资源。对 Dispose(true) 的调用应既清理托管资源又清理本机资源。</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="Breaking">
-             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="d:\Repo\Physarealm\Physarealm\PhysarumLib" File="Physarum.cs" Line="315">修改 'Physarum.Dispose()'，使它先调用 Dispose(true)，然后对当前对象实例(在 Visual Basic 中为“this”或“Me”)调用 GC.SuppressFinalize，最后返回。</Issue>
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="Breaking">
+             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="d:\Repo\Physarealm\Physarealm\PhysarumLib" File="Physarum.cs" Line="217">修改 'Physarum.Dispose()'，使它先调用 Dispose(true)，然后对当前对象实例(在 Visual Basic 中为“this”或“Me”)调用 GC.SuppressFinalize，最后返回。</Issue>
             </Message>
            </Messages>
           </Member>
@@ -53,15 +53,15 @@
        <Types>
         <Type Name="BoxEnvironmentType" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">对 'BoxEnvironmentType' 提供 Dispose(bool) 的可重写实现或将该类型标记为密封。对 Dispose(false) 的调用应仅清理本机资源。对 Dispose(true) 的调用应既清理托管资源又清理本机资源。</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-19 15:07:00Z" FixCategory="Breaking">
-             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="d:\Repo\Physarealm\Physarealm\Environment" File="BoxEnvironmentType.cs" Line="879">修改 'BoxEnvironmentType.Dispose()'，使它先调用 Dispose(true)，然后对当前对象实例(在 Visual Basic 中为“this”或“Me”)调用 GC.SuppressFinalize，最后返回。</Issue>
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-01-26 12:00:36Z" FixCategory="Breaking">
+             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="d:\Repo\Physarealm\Physarealm\Environment" File="BoxEnvironmentType.cs" Line="700">修改 'BoxEnvironmentType.Dispose()'，使它先调用 Dispose(true)，然后对当前对象实例(在 Visual Basic 中为“this”或“Me”)调用 GC.SuppressFinalize，最后返回。</Issue>
             </Message>
            </Messages>
           </Member>

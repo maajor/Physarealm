@@ -8,7 +8,8 @@ namespace Physarealm.Setting
 {
     public class DetectDirectionSettingComponent :AbstractSettingComponent
     {
-        private int det_dir;
+        private int det_dir_r;
+        private int det_dir_phy;
         /// <summary>
         /// Initializes a new instance of the DetectDirectionSettingComponent class.
         /// </summary>
@@ -39,13 +40,14 @@ namespace Physarealm.Setting
 
         protected override bool GetInputs(IGH_DataAccess da)
         {
-            if (!da.GetData(0, ref det_dir)) return false;
+            if (!da.GetData(0, ref det_dir_r)) return false;
+            if (!da.GetData(1, ref det_dir_phy)) return false;
             return true;
         }
 
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            AbstractSettingType ddset = new DetectDirectionSettingType(det_dir);
+            AbstractSettingType ddset = new DetectDirectionSettingType(det_dir_r, det_dir_phy);
             da.SetData(0, ddset);
         }
     }

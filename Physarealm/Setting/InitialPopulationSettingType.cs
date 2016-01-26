@@ -16,7 +16,7 @@ namespace Physarealm.Setting
         public InitialPopulationSettingType(InitialPopulationSettingType i) : this(i.pop_size) { }
         public override void setParameter(Physarum p)
         {
-            p._popsize = pop_size;
+            PhysaSetting._popsize = pop_size;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

@@ -15,34 +15,43 @@ namespace Physarealm.Environment
         public int u;
         public int v;
         public int w;
+        public static Point3d[] positions;
+        public static float[] trail;
+        protected static float[] temptrail;
+        protected static int[] particle_ids;
+        public static int[] griddata;//0 for default, 1 for food, 2 for outside
+        public static int[] agedata;
+
         public double _escape_p { get; set; }
         public AbstractEmitterType emitter;
         abstract public override IGH_Goo Duplicate();
 
-        public abstract int getGriddataByIndex(int u, int v, int w);//by index
-        public abstract bool isOccupidByParticleByIndex(int u, int v, int w);//by index
-        public abstract bool isWithinObstacleByIndex(int x, int y, int z);//by index
-        public abstract void occupyGridCellByIndex(int u, int v, int w, int id);//by index
-        public abstract void clearGridCellByIndex(int u, int v, int w);//by index
-        public abstract void increaseTrailByIndex(int u, int v, int w, float val);//by index
-        public abstract void setGridCellValueByIndex(int u, int v, int w, int radius, int val);//by index
-        public abstract float getAverageNeighbourhoodByIndex(int u, int v, int w, int radius);//by index
+        public abstract int getGriddataByIndex(int idx);//by index
+        public abstract bool isOccupidByParticleByIndex(int idx);//by index
+        public abstract bool isWithinObstacleByIndex(int idx);//by index
+        public abstract void occupyGridCellByIndex(int idx, int id);//by index
+        public abstract void clearGridCellByIndex(int idx);//by index
+        public abstract void increaseTrailByIndex(int idx, float val);//by index
+        public abstract void setGridCellValueByIndex(int idx, int radius, int val);//by index
+        public abstract float getAverageNeighbourhoodByIndex(int idx, int radius);//by index
         public abstract void diffuseTrails();
         public abstract void projectToTrail();
-        public abstract int countNumberOfParticlesPresentByIndex(int u, int v, int w, int radius);//by index
+        public abstract int countNumberOfParticlesPresentByIndex(int idx, int radius);//by index
         public abstract List<Point3d> findNeighborParticle(Amoeba agent, int radius);
-        public abstract List<Point3d> findNeighborParticleByIndex(int u, int v, int w, int radius);//by index
+        public abstract List<Point3d> findNeighborParticleByIndex(int idx, int radius);//by index
         public abstract float getMaxTrailValue();
-        public abstract float getOffsetTrailValue(int u, int v, int w, Vector3d orient, float viewangle, float offsetangle, float offsetsteps, Libutility util);
-        public abstract Point3d getNeighbourhoodFreePosByIndex(int u, int v, int w, int radius, Libutility util);//by index
+        public abstract float getOffsetTrailValueByIndex(int idx, Vector3d orient, float viewangle, float offsetangle, float offsetsteps);
+        public abstract Point3d getNeighbourhoodFreePosByIndex(int idx, int radius);//by index
         public abstract void setObstacles(List<Brep> obs);
         public abstract void setContainer(List<Brep> cont);
         public abstract void setFood(List<Point3d> food);
         //public abstract void setBirthPlace(List<Point3d> origin);
-        public abstract Point3d getRandomBirthPlace(Libutility util);
+        public abstract Point3d getRandomBirthPlace();
         public abstract Mesh getTrailEvaMesh(double z);
-        public abstract Point3d getIndexByPosition(double x, double y, double z);
-        public abstract Point3d getPositionByIndex(int u, int v, int w);
+        public abstract Index3f getIndexByPosition(double x, double y, double z);
+        //public abstract Index3f getIndexByPosition(Index3f idx);
+        public abstract Index3f getIndexByPosition(Point3d pos);
+        public abstract Point3d getPositionByIndex(int idx);
         public abstract double getUMin();
         public abstract double getVMin();
         public abstract double getWMin();
@@ -50,16 +59,16 @@ namespace Physarealm.Environment
         public abstract double getVMax();
         public abstract double getWMax();
         public abstract double getEnvAccu();
-        public abstract bool constrainPos(ref float x, ref float y, ref float z, int type);
-        public abstract List<float> getTrailV();
+        public abstract bool constrainPos(Index3f pos, int type);
+        public abstract float[] getTrails();
         public abstract void Clear();
         public abstract void Reset();
-        public abstract float[, ,] getTrails();
-        public abstract Point3d[, ,] getPosition();
-        public abstract List<Point3d> getNeighbourTrailClosePos(int u, int v, int w, int radius, double near_level);
-        public abstract bool isOutsideBorderRangeByIndex(int u, int v, int w);
+        public abstract List<Point3d> getNeighbourTrailClosePosByIndex(int idx, int radius, double near_level);
+        public abstract bool isOutsideBorderRangeByIndex(int idx);
         public abstract Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel);
         public abstract Vector3d bounceOrientation(Point3d pos, Vector3d vel);
+        public abstract Point3d[] getPoints();
+        public abstract Vector3d getAcuOrientation(Index3f pos, Vector3d idOri);
 
         public AbstractEnvironmentType(int x, int y, int z) 
         {

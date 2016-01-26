@@ -690,7 +690,7 @@ namespace Physarealm.Environment
         {
             return new Vector3d(0, 0, 0);
         }
-        public override List<Point3d> getNeighbourTrailClosePos(int x, int y, int z, int radius, double near_level)
+        public override List<Point3d> getNeighbourTrailClosePosByIndex(int x, int y, int z, int radius, double near_level)
         {
             double maxv = getMaxTrailValue();
             List<Point3d> nei = new List<Point3d>();

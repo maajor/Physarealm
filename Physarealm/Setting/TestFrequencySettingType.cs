@@ -17,8 +17,8 @@ namespace Physarealm.Setting
         public TestFrequencySettingType(TestFrequencySettingType t) : this(t.div_freq, t.die_freq) { }
         public override void setParameter(Physarum p)
         {
-            p._division_frequency_test = div_freq;
-            p._death_frequency_test = die_freq;
+            PhysaSetting._division_frequency_test = div_freq;
+            PhysaSetting._death_frequency_test = die_freq;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

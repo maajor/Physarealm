@@ -67,26 +67,27 @@ namespace Physarealm.Analysis
             connect = new List<Line>();
             weight = new List<double>();
             Random rand = new Random(DateTime.Now.Millisecond);
-            float[,,] value = env.getTrails();
+            float[] value = env.getTrails();
             float maxv = env.getMaxTrailValue();
-            Point3d[,,] pos = env.getPosition();
+            Point3d[] pos = env.getPoints();
             for (int i = 0; i < env.u; i++) 
             {
                 for (int j = 0; j < env.v; j++) 
                 {
                     for (int k = 0; k < env.w; k++) 
                     {
-                        if (rand.NextDouble() > (value[i, j, k]  / maxv) * possib)
+                        int index = i + j * env.u + k * env.u * env.v;
+                        if (rand.NextDouble() > (value[index] / maxv) * possib)
                             continue;
-                        Point3d thispt = pos[i,j,k];
-                        List<Point3d> neighbor = env.getNeighbourTrailClosePos(i,j,k,radius, near_level);
+                        Point3d thispt = pos[index];
+                        List<Point3d> neighbor = env.getNeighbourTrailClosePosByIndex(index, radius, near_level);
                         foreach (Point3d pt in neighbor)
                         {
-                            if (rand.NextDouble() < (value[i, j, k] / maxv)  * 0.5)
+                            if (rand.NextDouble() < (value[index] / maxv) * 0.5)
                             {
                                 connect.Add(new Line(pt, thispt));
-                                Point3d indexpos = env.getIndexByPosition(pt.X, pt.Y, pt.Z);
-                                weight.Add(value[i, j, k] + value[(int)indexpos.X, (int)indexpos.Y, (int)indexpos.Z]);
+                                Index3f indexpos = env.getIndexByPosition(pt);
+                                weight.Add(value[index] + value[indexpos.convertToIndex(env.u, env.v, env.w)]);
                             }
                         }
                     }

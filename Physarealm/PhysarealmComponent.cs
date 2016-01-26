@@ -71,6 +71,7 @@ namespace Physarealm
                 iter = 0;
                 popu.Clear();
                 env.Reset();
+                //PhysaSetting newset = new PhysaSetting();
                 popu.initParameters();
                 //env.setBirthPlace(emit.getEmitPts());
                 env.emitter = emit;

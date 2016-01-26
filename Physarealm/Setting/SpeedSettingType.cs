@@ -12,7 +12,7 @@ namespace Physarealm.Setting
         public SpeedSettingType(SpeedSettingType s) : this(s.speed) { }
         public override void setParameter(Physarum p)
         {
-            p._speed = (float)speed;
+            PhysaSetting._speed = (float)speed;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

@@ -59,7 +59,7 @@ namespace Physarealm.Setting
             : this( a.pcd, a.div_radius, a.die_radius, a.div_max, a.div_min, a.die_max, a.die_min, a.guide_factor) { }
         public override void setParameter(Physarum p) 
         {
-            p._pcd = pcd;
+            PhysaSetting._pcd = pcd;
             List<int> cond = new List<int>();
             cond.Add(div_radius);
             cond.Add(div_min);
@@ -67,8 +67,8 @@ namespace Physarealm.Setting
             cond.Add(die_radius);
             cond.Add(die_min);
             cond.Add(die_max);
-            p.setBirthDeathCondition(cond);
-            p.guide_factor = guide_factor;
+            PhysaSetting.setBirthDeathCondition(cond);
+            PhysaSetting.guide_factor = guide_factor;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

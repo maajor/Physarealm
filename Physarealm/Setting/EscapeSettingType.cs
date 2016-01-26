@@ -19,7 +19,7 @@ namespace Physarealm.Setting
         public EscapeSettingType(EscapeSettingType es) : this(es.esc_p) { }
         public override void setParameter(Physarum p)
         {
-            p.escape_p = esc_p;
+            PhysaSetting.escape_p = esc_p;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()
