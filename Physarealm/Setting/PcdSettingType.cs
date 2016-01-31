@@ -21,7 +21,7 @@ namespace Physarealm.Setting
         public PcdSettingType(PcdSettingType p) : this(p.pcd) { }
         public override void setParameter(Physarum p)
         {
-            p._pcd =(float) pcd;
+            PhysaSetting._pcd =(float) pcd;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

@@ -13,8 +13,8 @@ namespace Physarealm.Setting
         public GuideSettingType(GuideSettingType g) : this(g.guide_factor, g.both_direction) { }
         public override void setParameter(Physarum p)
         {
-            p.guide_factor = guide_factor;
-            p.both_dir_flag = both_direction;
+            PhysaSetting.guide_factor = guide_factor;
+            PhysaSetting.both_dir_flag = both_direction;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

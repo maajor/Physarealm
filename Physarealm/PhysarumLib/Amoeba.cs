@@ -24,41 +24,14 @@ namespace Physarealm
         private int tempx; // temporary u index
         private int tempy; // temporary v index
         private int tempz; // temporary v index
-        public float _sensor_angle { get; set; }
-        public float _rotate_angle { get; set; }
-        public float _sensor_offset { get; set; }
-        public int _detectDir { get; set; }
-        public int _detectDirRSubd { get; set; }
-        public int _detectDirPhySubd{get;set;}
-        public int _deathDistance { get; set; }
-        public float _max_speed { get; set; }
-        private float _sensor_theta_step_angle { get; set; }
-        private float _sensor_phy_step_angle { get; set; }
         public int _distance_traveled;
         private float _cur_speed;
         public bool _moved_successfully;
-        public bool _divide {set; get; }
+        public bool _divide { set; get; }
         public bool _die { set; get; }
-        public float _depT { get; set; }
         private float _ca_torealease;
-        public float _pcd { get; set; }
-        //private int division_frequency_test = 5;
-        //private int death_frequency_test = 5;
-        public int _div_radius { get; set; }
-        public int _die_radius { get; set; }
-        public int _div_max { get; set; }
-        public int _div_min { get; set; }
-        public int _die_min { get; set; }
-        public int _die_max { get; set; }
-        //public int _unitized;
-        //public float moveangle;
         public float[] sensor_data;
-        //public Vector3d moved;2q
-        public double _guide_factor { get; set; }
-        public double _escape_p { get; set; }
         public Point3d prev_loc;
-        public bool _both_dir_flag;
-        public int _border_type;//0: border die, 1: border wrap, 2: border bounce
 
         public Amoeba() : base() { }
         public Amoeba(int id)
@@ -66,38 +39,6 @@ namespace Physarealm
         {
             ID = id;
             _ca_torealease = 3;
-            _both_dir_flag = true;
-        }
-        public Amoeba(int id, float sensor_angle = (float) 45, float rotate_angle = 45, float sensor_offset = 7, int detectDir = 3, int deathDistance = 100, float max_speed = 3, float pcd = (float) 0.1, float dept = 3)
-            : base()
-        {
-            ID = id;
-            _sensor_angle = sensor_angle;
-            _rotate_angle = rotate_angle;
-            _sensor_offset = sensor_offset;
-            _detectDir = detectDir;
-            _deathDistance = deathDistance;
-            _max_speed = max_speed;
-            _cur_speed = _max_speed;
-            _pcd = pcd;
-            _depT = dept;
-            if (detectDir < 3)
-                detectDir = 3;
-            _detectDirRSubd = 0;
-            _detectDirPhySubd = detectDir - 3;
-            _sensor_theta_step_angle = 360 / detectDir;
-            _sensor_phy_step_angle = sensor_angle / _detectDirPhySubd;
-            _ca_torealease = dept;
-            _div_radius = 3;
-            _die_radius = 2;
-            _div_max = 10;
-            _div_min = 0;
-            _die_min = 0;
-            _die_max = 123;
-            _moved_successfully = true;
-            _guide_factor = 0;
-            _escape_p = 0;
-            _both_dir_flag = true;
         }
         public bool initializeAmoeba(AbstractEnvironmentType env, Libutility util)
         {
@@ -170,7 +111,7 @@ namespace Physarealm
         {
             if (env.isOccupidByParticleByIndex(x, y, z) == true)
                 return false;
-            if (env.isWithinObstacleByIndex(x, y, z) && util.getRandDouble() > _escape_p)
+            if (env.isWithinObstacleByIndex(x, y, z) && util.getRandDouble() > PhysaSetting.escape_p)
                 return false;
             return true;
         }
@@ -190,11 +131,11 @@ namespace Physarealm
             _distance_traveled++;
             prev_loc = Location;
             //_cur_speed = _max_speed * (1 - _distance_traveled / _deathDistance);
-            _cur_speed = _max_speed;
+            _cur_speed = PhysaSetting._speed;
             if (env.getGriddataByIndex(curx, cury, curz) == 1)
                 _distance_traveled = 0;
             _moved_successfully = false;
-            if (util.getRandDouble() < _pcd)
+            if (util.getRandDouble() < PhysaSetting._pcd)
             {
               selectRandomDirection(util);
               resetFloatingPointPosition(env);
@@ -206,7 +147,7 @@ namespace Physarealm
             tempfloatx = (float)curLoc.X;
             tempfloaty = (float)curLoc.Y;
             tempfloatz = (float)curLoc.Z;
-            switch (_border_type) 
+            switch (PhysaSetting.border_type) 
             {
                 case 0:
                     if(env.constrainPos(ref tempfloatx, ref tempfloaty, ref tempfloatz,0))
@@ -233,7 +174,7 @@ namespace Physarealm
                 selectRandomDirection(util);
                 return;
             }
-             else if (env.isWithinObstacleByIndex(tempx, tempy, tempz) && util.getRandDouble() > _escape_p) 
+            else if (env.isWithinObstacleByIndex(tempx, tempy, tempz) && util.getRandDouble() > PhysaSetting.escape_p) 
             {
                 selectRandomDirection(util);
                 return;
@@ -258,7 +199,7 @@ namespace Physarealm
         }
         public float calculateTrailIncrement(Libutility util)
         {
-            return util.getIncrement(_distance_traveled, _deathDistance);
+            return util.getIncrement(_distance_traveled, PhysaSetting._death_distance);
         }
         public void selectRandomDirection(Libutility util)
         {
@@ -296,7 +237,7 @@ namespace Physarealm
         {
             this.doDeathTest(env);
             orientation = env.projectOrientationToEnv(Location, orientation);
-            int det_count = _detectDir * _detectDirPhySubd + 1;
+            int det_count = PhysaSetting.DetectDirRSubd * PhysaSetting.DetectDirPhySubd + 1;
             int max_item = 0;
             float max_item_phy = 0;
             float max_item_theta = 0;
@@ -305,19 +246,19 @@ namespace Physarealm
             //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util));
             //float maxtrail = 0;
             //Point3d tgtPos = new Point3d();
-            sensor_data[0] = env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util);
+            sensor_data[0] = env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, PhysaSetting._sense_offset, util);
             int count_cur = 1;
-            for (int i = 0; i < _detectDir; i++)
+            for (int i = 0; i < PhysaSetting.DetectDirRSubd; i++)
             {
-                for (int j = 1; j <= _detectDirPhySubd; j++)
+                for (int j = 1; j <= PhysaSetting.DetectDirPhySubd; j++)
                 {
-                    sensor_data[count_cur] = env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util);
+                    sensor_data[count_cur] = env.getOffsetTrailValue(curx, cury, curz, orientation, j * PhysaSetting._sensor_phy_step_angle, i * PhysaSetting._sensor_theta_step_angle, PhysaSetting._sense_offset, util);
                     //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util));
                     if (sensor_data[count_cur] > sensor_data[max_item])
                     {
                         max_item = count_cur;
-                        max_item_phy = j * _sensor_phy_step_angle;
-                        max_item_theta = i * _sensor_theta_step_angle;
+                        max_item_phy = j * PhysaSetting._sensor_phy_step_angle;
+                        max_item_theta = i * PhysaSetting._sensor_theta_step_angle;
                     }
                     count_cur++;
                 }
@@ -337,7 +278,7 @@ namespace Physarealm
             //orientation = newOri;
             */
 
-            rotate(max_item_phy * _rotate_angle / _sensor_angle, max_item_theta);
+            rotate(max_item_phy * PhysaSetting._rotate_angle / PhysaSetting._sense_angle, max_item_theta);
             guideOrientation();
         }
         public void rotate(float rotate_phy, float rotate_theta)
@@ -373,7 +314,7 @@ namespace Physarealm
         public void doDeathTest(AbstractEnvironmentType env)
         {
             _die = false;
-            if (env.isOutsideBorderRangeByIndex(curx, cury, curz) && _border_type != 2)
+            if (env.isOutsideBorderRangeByIndex(curx, cury, curz) && PhysaSetting.border_type != 2)
             {
                 _die = true;
             }
@@ -385,46 +326,38 @@ namespace Physarealm
         }
         public bool isWithinThresholdRange(int x, int y, int z, AbstractEnvironmentType env)
         {
-            int d = env.countNumberOfParticlesPresentByIndex(x, y, z, _div_radius);
+            int d = env.countNumberOfParticlesPresentByIndex(x, y, z, PhysaSetting.gw);
             //_around = d;
-            if (d >= _div_min && d <= _div_max)
+            if (d >= PhysaSetting.gmin && d <= PhysaSetting.gmax)
                 return true;
             else return false;
         }
         public bool isOutsideSurvivalRange(int x, int y, int z, AbstractEnvironmentType env)
         {
-            if (_distance_traveled > _deathDistance)
+            if (_distance_traveled > PhysaSetting._death_distance)
             {
                 return true;
             }
-            double d = env.countNumberOfParticlesPresentByIndex(x, y, z, _die_radius);
-            if (d < _die_min || d > _die_max)
+            double d = env.countNumberOfParticlesPresentByIndex(x, y, z, PhysaSetting.sw);
+            if (d < PhysaSetting.smin || d > PhysaSetting.smax)
                 return true;
             else return false;
         }
-        public void setBirthDeathCondition(int gw, int gmin, int gmax, int sw, int smin, int smax)
-        {
-            _div_radius = gw;
-            _die_radius = sw;
-            _div_max = gmax;
-            _div_min = gmin;
-            _die_min = smin;
-            _die_max = smax;
-        }
+
         private void guideOrientation()
         {
             Vector3d curOri = orientation;
             curOri.Unitize();
-            if (_both_dir_flag)
+            if (PhysaSetting.both_dir_flag)
             {
                 if (curOri.Z > 0)
-                    curOri.Z += _guide_factor;
+                    curOri.Z += PhysaSetting.guide_factor;
                 else
-                    curOri.Z -= _guide_factor;
+                    curOri.Z -= PhysaSetting.guide_factor;
             }
             else 
             {
-                curOri.Z = curOri.Z > 0 ? curOri.Z + _guide_factor : -curOri.Z + _guide_factor;
+                curOri.Z = curOri.Z > 0 ? curOri.Z + PhysaSetting.guide_factor : -curOri.Z + PhysaSetting.guide_factor;
             }
             curOri = Vector3d.Multiply(_cur_speed, curOri);
             orientation = curOri;

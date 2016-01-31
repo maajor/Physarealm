@@ -15,7 +15,7 @@ namespace Physarealm.Setting
         public DeathDistanceSettingType(DeathDistanceSettingType d) : this(d._death_distance) { }
         public override void setParameter(Physarum p)
         {
-            p._death_distance = _death_distance;
+            PhysaSetting._death_distance = _death_distance;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

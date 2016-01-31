@@ -32,9 +32,9 @@ namespace Physarealm.Setting
                 ) { }
         public override void setParameter(Physarum p)
         {
-            p._sense_angle = sensor_angle;
-            p._rotate_angle = rotate_angle;
-            p._sense_offset = sensor_offset;
+            PhysaSetting._sense_angle = sensor_angle;
+            PhysaSetting._rotate_angle = rotate_angle;
+            PhysaSetting._sense_offset = sensor_offset;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

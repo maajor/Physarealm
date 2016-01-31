@@ -55,7 +55,7 @@ namespace Physarealm.Setting
             cond.Add(die_radius);
             cond.Add(die_min);
             cond.Add(die_max);
-            p.setBirthDeathCondition(cond);
+            PhysaSetting.setBirthDeathCondition(cond);
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()

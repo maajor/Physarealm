@@ -68,6 +68,7 @@
     <Compile Include="Analysis\AbstractPopulationAnalysisComponent.cs" />
     <Compile Include="Analysis\FieldAnalysisMeshComponent.cs" />
     <Compile Include="Analysis\FieldInterconnectComponent.cs" />
+    <Compile Include="Analysis\FieldPointComponent.cs" />
     <Compile Include="Analysis\FieldValueComponent.cs" />
     <Compile Include="Analysis\PopulationInterconnectComponent.cs" />
     <Compile Include="Analysis\PopulationPositionComponent.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="PhysarealmInfo.cs" />
     <Compile Include="PhysarumLib\Amoeba.cs" />
     <Compile Include="PhysarumLib\Physarum.cs" />
+    <Compile Include="PhysarumLib\PhysaSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setting\AbstractSettingComponent.cs" />
     <Compile Include="Setting\AbstractSettingType.cs" />

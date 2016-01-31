@@ -7,15 +7,19 @@ namespace Physarealm.Setting
 {
     class DetectDirectionSettingType :AbstractSettingType
     {
-        private int detect_direction;
-        public DetectDirectionSettingType(int det) 
+        private int detect_direction_r;
+        private int detect_direction_phy;
+        public DetectDirectionSettingType(int detr, int detphy) 
         {
-            detect_direction = det >= 4 ? det : 4;
+            detect_direction_r = detr >= 4 ? detr : 4;
+            detect_direction_phy = detphy >= 1 ? detphy : 1;
+
         }
-        public DetectDirectionSettingType(DetectDirectionSettingType d) : this(d.detect_direction) { }
+        public DetectDirectionSettingType(DetectDirectionSettingType d) : this(d.detect_direction_r, d.detect_direction_phy) { }
         public override void setParameter(Physarum p)
         {
-            p._detectDir = detect_direction;
+            PhysaSetting.DetectDirRSubd = detect_direction_r;
+            PhysaSetting.DetectDirPhySubd = detect_direction_phy;
         }
 
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()
@@ -38,7 +42,7 @@ namespace Physarealm.Setting
         }
         public override string ToString()
         {
-            return TypeName + "\ndetect direction: " + detect_direction;
+            return TypeName + "\ndetect direction r: " + detect_direction_r + "\ndetect direction phy: " + detect_direction_phy;
         }
     }
 }
