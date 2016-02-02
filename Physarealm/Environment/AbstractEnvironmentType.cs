@@ -15,6 +15,7 @@ namespace Physarealm.Environment
         public int u;
         public int v;
         public int w;
+        public int env_type;//1:box environment, 2: nurbs surface, 3: mesh
         public double _escape_p { get; set; }
         public AbstractEmitterType emitter;
         abstract public override IGH_Goo Duplicate();
@@ -60,6 +61,7 @@ namespace Physarealm.Environment
         public abstract bool isOutsideBorderRangeByIndex(int u, int v, int w);
         public abstract Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel);
         public abstract Vector3d bounceOrientation(Point3d pos, Vector3d vel);
+        public abstract Vector3d getOrientationFromUv(Point3d pos, Vector3d uv_orit);
 
         public AbstractEnvironmentType(int x, int y, int z) 
         {

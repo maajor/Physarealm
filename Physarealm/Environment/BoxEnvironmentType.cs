@@ -99,6 +99,7 @@ namespace Physarealm.Environment
             diffdamp = 0.1F;
             age_flag = false;
             _escape_p = 0;
+            env_type = 1;
         }
         public BoxEnvironmentType(BoxEnvironmentType boxenv) : this(boxenv._box, boxenv.u, boxenv.v, boxenv.w) { }
         public override bool isOccupidByParticleByIndex(int x, int y, int z)
@@ -670,7 +671,10 @@ namespace Physarealm.Environment
             return evaMesh;
 
         }
-
+        public override Vector3d getOrientationFromUv(Point3d pos, Vector3d uv_orit)
+        {
+            return uv_orit;
+        }
         public override List<float> getTrailV()
         {
             List<float> ret = new List<float>();

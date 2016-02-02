@@ -30,8 +30,8 @@ namespace Physarealm.Environment
         //public double WMin { get; private set; }
         //public double WMax { get; private set; }
                 
-        public SurfaceEnvironmentType(Surface srf, int u, int v, int w)
-            : base(u, v, 1) //initialize data
+        public SurfaceEnvironmentType(Surface srf, int x, int y, int z)
+            : base(x, y, 1) //initialize data
         {
             _srf = srf;
             //UMin = _box.Min.X;
@@ -69,6 +69,7 @@ namespace Physarealm.Environment
             diffdamp = 0.1F;
             age_flag = false;
             _escape_p = 0;
+            env_type = 2;
         }
         public SurfaceEnvironmentType(SurfaceEnvironmentType srfenv) : this(srfenv._srf, srfenv.u, srfenv.v, srfenv.w) { }
         public override Grasshopper.Kernel.Types.IGH_Goo Duplicate()
@@ -76,13 +77,13 @@ namespace Physarealm.Environment
             return new SurfaceEnvironmentType(this);
         }
 
-        public override int getGriddataByIndex(int u, int v, int w)
+        public override int getGriddataByIndex(int x, int y, int z)
         {
-            return griddata[u, v, 0];
+            return griddata[x, y, 0];
         }
-        public override bool isOccupidByParticleByIndex(int u, int v, int w)
+        public override bool isOccupidByParticleByIndex(int x, int y, int z)
         {
-            if (particle_ids[u, v,0] == -1 || particle_ids[u, v, 0] == -2)
+            if (particle_ids[x, y,0] == -1 || particle_ids[x, y, 0] == -2)
                 return false;
             return true;
         }
@@ -92,30 +93,30 @@ namespace Physarealm.Environment
                 return true;
             return false;
         }
-        public override void occupyGridCellByIndex(int u, int v, int w, int id)
+        public override void occupyGridCellByIndex(int x, int y, int z, int id)
         {
-            particle_ids[u, v, 0] = id;
+            particle_ids[x, y, 0] = id;
         }
-        public override void clearGridCellByIndex(int u, int v, int w)
+        public override void clearGridCellByIndex(int x, int y, int z)
         {
-            if (griddata[u, v, 0] == 2)
-                particle_ids[u, v, 0] = -2;
+            if (griddata[x, y, 0] == 2)
+                particle_ids[x, y, 0] = -2;
             else
-                particle_ids[u, v, 0] = -1;
+                particle_ids[x, y, 0] = -1;
         }
-        public override void increaseTrailByIndex(int u, int v, int w, float val)
+        public override void increaseTrailByIndex(int x, int y, int z, float val)
         {
-            trail[u, v, w] += val;
+            trail[x, y, z] += val;
         }
-        public override void setGridCellValueByIndex(int u, int v, int w, int radius, int val)
+        public override void setGridCellValueByIndex(int x, int y, int z, int radius, int val)
         {
             if (radius < 1)
-                griddata[u, v, w] = val;
-            int start_x = u - radius > 0 ? u - radius : 0;
-            int start_y = v - radius > 0 ? v - radius : 0;
+                griddata[x, y, z] = val;
+            int start_x = x - radius > 0 ? x - radius : 0;
+            int start_y = y - radius > 0 ? y - radius : 0;
             //int start_z = w - radius > 0 ? w - radius : 0;
-            int end_x = u + radius < u ? u + radius : u - 1;
-            int end_y = v + radius < v ? v + radius : v - 1;
+            int end_x = x + radius < u ? x + radius : u - 1;
+            int end_y = y + radius < v ? y + radius : v - 1;
             //int end_z = w + radius < w ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
@@ -128,16 +129,16 @@ namespace Physarealm.Environment
                 }
             }
         }
-        public override float getAverageNeighbourhoodByIndex(int u, int v, int w, int radius)
+        public override float getAverageNeighbourhoodByIndex(int x, int y, int z, int radius)
         {
             float total = 0;
             if (radius < 1)
-                return trail[u, v, w];
-            int start_x = u - radius > 0 ? u - radius : 0;
-            int start_y = v - radius > 0 ? v - radius : 0;
+                return trail[x, y, z];
+            int start_x = x - radius > 0 ? x - radius : 0;
+            int start_y = y - radius > 0 ? y - radius : 0;
             //int start_z = w - radius > 0 ? w - radius : 0;
-            int end_x = u + radius < u - 1 ? u + radius : u - 1;
-            int end_y = v + radius < v - 1 ? v + radius : v - 1;
+            int end_x = x + radius < u - 1 ? x + radius : u - 1;
+            int end_y = y + radius < v - 1 ? y + radius : v - 1;
             //int end_z = w + radius < w - 1 ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
@@ -156,7 +157,7 @@ namespace Physarealm.Environment
         public override void diffuseTrails()
         {
             grid_age++;
-            System.Threading.Tasks.Parallel.For(0, u, (i) =>
+            /*System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
                 System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
@@ -169,9 +170,29 @@ namespace Physarealm.Environment
                             agedata[i, j, 0]++;
                     //});
                 });
-            });
-            
-            System.Threading.Tasks.Parallel.For(0, u, (i) =>
+            });*/
+            for (int i = 0; i < u; i++)
+            {
+                for (int j = 0; j < v; j++)
+                {
+                    float ave = getAverageNeighbourhoodByIndex(i, j, 0, 1);
+                    temptrail[i, j, 0] = ave * (1 - diffdamp);
+                    if (agedata[i, j, 0] != 0)
+                        agedata[i, j, 0]++;
+                }
+            }
+            for (int i = 0; i < u; i++)
+            {
+                for (int j = 0; j < v; j++)
+                {
+                    trail[i, j, 0] = temptrail[i, j, 0];
+                    if (trail[i, j, 0] < 0)
+                        trail[i, j, 0] = 0;
+                    if (griddata[i, j, 0] == 2)
+                        trail[i, j, 0] *= (float)_escape_p;
+                }
+            }
+            /*System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
                 System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
@@ -185,13 +206,13 @@ namespace Physarealm.Environment
                             trail[i, j, 0] *= (float)_escape_p;
                     //});
                 });
-            });
+            });*/
             
         }
 
         public override void projectToTrail()
         {
-            System.Threading.Tasks.Parallel.For(0, u, (i) =>
+            /*System.Threading.Tasks.Parallel.For(0, u, (i) =>
             {
                 System.Threading.Tasks.Parallel.For(0, v, (j) =>
                 {
@@ -203,19 +224,28 @@ namespace Physarealm.Environment
                         }
                     //});
                 });
-            });
-            
+            });*/
+            for (int i = 0; i < u; i++) 
+            {
+                for (int j = 0; j < v; j++) 
+                {
+                    if (griddata[i, j, 0] == 1)
+                    {
+                        increaseTrailByIndex(i, j, 0, projectvalue);
+                    }
+                }
+            }
         }
 
-        public override int countNumberOfParticlesPresentByIndex(int u, int v, int w, int radius)
+        public override int countNumberOfParticlesPresentByIndex(int x, int y, int z, int radius)
         {
             int total = 0;
             int countNow = 0;
-            int start_x = u - radius > 0 ? u - radius : 0;
-            int start_y = v - radius > 0 ? v - radius : 0;
+            int start_x = x - radius > 0 ? x - radius : 0;
+            int start_y = y - radius > 0 ? y - radius : 0;
             //int start_z = w - radius > 0 ? w - radius : 0;
-            int end_x = u + radius <= u - 1 ? u + radius : u - 1;
-            int end_y = v + radius <= v - 1 ? v + radius : v - 1;
+            int end_x = x + radius <= u - 1 ? x + radius : u - 1;
+            int end_y = y + radius <= v - 1 ? y + radius : v - 1;
             //int end_z = w + radius <= w - 1 ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
@@ -261,17 +291,17 @@ namespace Physarealm.Environment
                 }
             }
 
-            return nei;
+            return nei; 
         }
 
-        public override List<Point3d> findNeighborParticleByIndex(int u, int v, int w, int radius)
+        public override List<Point3d> findNeighborParticleByIndex(int x, int y, int z, int radius)
         {
             List<Point3d> nei = new List<Point3d>();
-            int start_x = u - radius > 0 ? u - radius : 0;
-            int start_y = v - radius > 0 ? v - radius : 0;
+            int start_x = x - radius > 0 ? x - radius : 0;
+            int start_y = y - radius > 0 ? y - radius : 0;
             //int start_z = w - radius > 0 ? w - radius : 0;
-            int end_x = u + radius <= u - 1 ? u + radius : u - 1;
-            int end_y = v + radius <= v - 1 ? v + radius : v - 1;
+            int end_x = x + radius <= u - 1 ? x + radius : u - 1;
+            int end_y = y + radius <= v - 1 ? y + radius : v - 1;
             //int end_z = w + radius <= w - 1 ? w + radius : w - 1;
             for (int i = start_x; i <= end_x; i++)
             {
@@ -310,18 +340,18 @@ namespace Physarealm.Environment
             return max;
         }
 
-        public override float getOffsetTrailValue(int u, int v, int w, Vector3d orient, float viewangle, float offsetangle, float offsetsteps, Libutility util)
+        public override float getOffsetTrailValue(int x, int y, int z, Vector3d orient, float viewangle, float offsetangle, float offsetsteps, Libutility util)
         {
-            Point3d pt;
+            /*Point3d pt;
             Vector3d[] vec;
-            _srf.Evaluate((u + 0.5) * u_interval, (v + 0.5) * v_interval, 1, out pt, out vec);
+            _srf.Evaluate((x + 0.5) * u_interval, (y + 0.5) * v_interval, 1, out pt, out vec);
             vec[0].Unitize();
             Vector3d oricopy = new Vector3d(orient.X, orient.Y, orient.Z);
             oricopy.Unitize();
             double dotproduc = Vector3d.Multiply(vec[0], oricopy);
             if (dotproduc > 0.3)
                 return -1;
-            Point3d _origin = uv_positions[u, v, w];
+            Point3d _origin = uv_positions[x, y, z];
             Plane oriplane = new Plane(_origin, orient);
             float _u = offsetsteps * util.sinlut[(int)viewangle] * util.coslut[(int)offsetangle];
             float _v = offsetsteps * util.sinlut[(int)viewangle] * util.sinlut[(int)offsetangle];
@@ -333,7 +363,21 @@ namespace Physarealm.Environment
             int tz = getWIndex(target.Z);
             if (tx < 0 || tx >= u || ty < 0 || ty >= v || tz < 0 || tz >= w)
                 return -1;
-            return trail[tx, ty, tz];
+            return trail[tx, ty, tz];*/
+            float viewRad = viewangle * 3.1416F / 180;
+            Point3d _ori = new Point3d(x, y, 0);
+            Vector3d _tarOri = orient;
+            _tarOri.Transform(Transform.Rotation(viewRad, Plane.WorldXY.ZAxis, _ori));
+            _tarOri.Unitize();
+            _tarOri *= offsetsteps;
+            Point3d _tar = _ori + _tarOri;
+            //Point3d _tar = Point3d.Add(_ori, _tarOri);
+            int tx = (int)_tar.X;
+            int ty = (int)_tar.Y;
+            if (tx < 0 || tx >= u || ty < 0 || ty >= v)
+                return -1;
+            return trail[tx, ty, 0];
+
         }
 
         public override Point3d getNeighbourhoodFreePosByIndex(int x, int y, int z, int radius, Libutility util)
@@ -538,17 +582,39 @@ namespace Physarealm.Environment
         public override Point3d getIndexByPosition(double x, double y, double z)
         {
             Point3d retpos = new Point3d(x,y,z);
-            double u;
-            double v;
-            _srf.ClosestPoint(retpos, out u, out v);
-            return new Point3d(getUIndex(u), getVIndex(v), 0); ;
+            double i;
+            double j;
+            _srf.ClosestPoint(retpos, out i, out j);
+            return new Point3d(getUIndex(i), getVIndex(j), 0); ;
         }
 
-        public override Point3d getPositionByIndex(int u, int v, int w)
+        public override Point3d getPositionByIndex(int x, int y, int z)
         {
-            return uv_positions[u, v, 0];
+            return uv_positions[x, y, 0];
         }
-
+        public override Vector3d getOrientationFromUv(Point3d pos, Vector3d uv_orit) 
+        {
+            /*double i, j;
+            _srf.ClosestPoint(pos,out i,out j);
+            double i2 = i + uv_orit.X;
+            double j2 = j + uv_orit.Y;
+            Point3d tarPt;
+            Vector3d[] deris;
+            if (!_srf.Evaluate(i2, j2, 1, out tarPt, out deris))
+            {
+                return Point3d.Subtract(tarPt, pos);
+            }
+            else
+                return new Vector3d(0, 0, 0);  */
+            Point3d _ori = getIndexByPosition(pos.X, pos.Y, pos.Z);
+            Point3d _tarIdx = Point3d.Add(_ori, uv_orit);
+            int _x = (int)_tarIdx.X < u ? (int)_tarIdx.X : u - 1;
+            int _y = (int)_tarIdx.Y < v ? (int)_tarIdx.Y : v - 1;
+            _x = _x > 0 ? _x : 0;
+            _y = _y > 0 ? _y : 0;
+            Point3d _tar = getPositionByIndex(_x, _y, 0);
+            return Point3d.Subtract(_tar, pos);
+        }
         public override double getUMin()
         {
             throw new NotImplementedException();
@@ -594,15 +660,16 @@ namespace Physarealm.Environment
         public override bool constrainPos(ref float x, ref float y, ref float z, int type)
         {
             //bool flag = false;
-            double u;
-            double v;
-            _srf.ClosestPoint(new Point3d(x, y, z),out u,out v);
-            Point3d thispt = _srf.PointAt(u, v);
-            x = (float)thispt.X;
-            y = (float)thispt.Y;
-            z = (float)thispt.Z;
-            if (isOutsideBorderRangeByIndex(getUIndex(u),getVIndex(v), 0))
+            double i;
+            double j;
+            _srf.ClosestPoint(new Point3d(x, y, z), out i, out j);
+            if (isOutsideBorderRangeByIndex(getUIndex(i),getVIndex(j), 0))
             {
+                Point3d thispt = _srf.PointAt(i, j);
+                x = (float)thispt.X;
+                y = (float)thispt.Y;
+                z = (float)thispt.Z;
+            
                 return true;
             }
             else
@@ -632,7 +699,7 @@ namespace Physarealm.Environment
                         //ret[item] = trail[i, j, k];
                         //item++;
                         //ret.Add(trail[i, j, 0]);
-                        ret.Add(particle_ids[i, j, 0]);
+                        ret.Add(trail[i, j, 0]);
                     }
                 }
             }
@@ -749,11 +816,11 @@ namespace Physarealm.Environment
         }
         public override Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel) 
         {
-            double u;
-            double v;
+            double i;
+            double j;
             Plane frame;
-            _srf.ClosestPoint(pos, out u, out v);
-            _srf.FrameAt(u, v, out frame);
+            _srf.ClosestPoint(pos, out i, out j);
+            _srf.FrameAt(i, j, out frame);
             Point3d ptframe;
             frame.RemapToPlaneSpace(Point3d.Add(pos, vel), out ptframe);
             frame.PointAt(ptframe.X, ptframe.Y);

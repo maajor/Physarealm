@@ -14,6 +14,7 @@ namespace Physarealm
     public class Amoeba : Particle, IDisposable
     {
         public Vector3d orientation { get; set; }
+        public Vector3d uv_orientation;
         private float tempfloatx;//a temporary accurate position x
         private float tempfloaty;//a temporary accurate position z
         private float tempfloatz;//a temporary accurate position z
@@ -31,7 +32,10 @@ namespace Physarealm
         public bool _die { set; get; }
         private float _ca_torealease;
         public float[] sensor_data;
+        public double tempValue;
         public Point3d prev_loc;
+        public delegate void sensorBehavior(AbstractEnvironmentType env, Libutility util);
+        public List<sensorBehavior> doSensorBehavior = new List<sensorBehavior>(2);
 
         public Amoeba() : base() { }
         public Amoeba(int id)
@@ -39,6 +43,8 @@ namespace Physarealm
         {
             ID = id;
             _ca_torealease = 3;
+            doSensorBehavior.Add(new sensorBehavior(doSensorBehaviorsInBoxenv));
+            doSensorBehavior.Add(new sensorBehavior(doSensorBehaviorsInSrfenv));
         }
         public bool initializeAmoeba(AbstractEnvironmentType env, Libutility util)
         {
@@ -59,7 +65,7 @@ namespace Physarealm
             //Location = new Point3d(curx, cury, curz);
             Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
-            selectRandomDirection(util);
+            selectRandomDirection(env, util);
             prev_loc = Location;
             return true;
         }
@@ -75,7 +81,7 @@ namespace Physarealm
             //Location = new Point3d(curx, cury, curz);
             Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
-            selectRandomDirection(util);
+            selectRandomDirection(env, util);
             prev_loc = Location;
             return true;
         }
@@ -103,7 +109,7 @@ namespace Physarealm
             //Location = new Point3d(curx, cury, curz);
             Location = env.getPositionByIndex(curx, cury, curz);
             occupyCell(curx, cury, curz, env);
-            selectRandomDirection(util);
+            selectRandomDirection(env, util);
             prev_loc = new Point3d(x, y, z);
             return true;
         }
@@ -137,7 +143,7 @@ namespace Physarealm
             _moved_successfully = false;
             if (util.getRandDouble() < PhysaSetting._pcd)
             {
-              selectRandomDirection(util);
+              selectRandomDirection(env, util);
               resetFloatingPointPosition(env);
               return;
             }
@@ -151,7 +157,7 @@ namespace Physarealm
             {
                 case 0:
                     if(env.constrainPos(ref tempfloatx, ref tempfloaty, ref tempfloatz,0))
-                        selectRandomDirection(util);
+                        selectRandomDirection(env, util);
                     break;
                 case 1: 
                     env.constrainPos(ref tempfloatx, ref tempfloaty, ref tempfloatz, 1);
@@ -171,12 +177,12 @@ namespace Physarealm
             tempz = (int)temppos.Z;
             if (env.isOccupidByParticleByIndex(tempx, tempy, tempz))
             {
-                selectRandomDirection(util);
+                selectRandomDirection(env,util);
                 return;
             }
             else if (env.isWithinObstacleByIndex(tempx, tempy, tempz) && util.getRandDouble() > PhysaSetting.escape_p) 
             {
-                selectRandomDirection(util);
+                selectRandomDirection(env,util);
                 return;
             }
             else
@@ -201,28 +207,57 @@ namespace Physarealm
         {
             return util.getIncrement(_distance_traveled, PhysaSetting._death_distance);
         }
-        public void selectRandomDirection(Libutility util)
+        public void selectRandomDirection(AbstractEnvironmentType env, Libutility util)
         {
-            double randx = (util.getRandDouble() - 0.5) * 2;
-            double randy = (util.getRandDouble() - 0.5) * 2;
-            double randz = (util.getRandDouble() - 0.5) * 2;
-            Vector3d randDir = new Vector3d(randx, randy, randz);
-            Double leng = randDir.Length;
-            Double factor = _cur_speed / leng;
-            orientation = Vector3d.Multiply(factor, randDir);
-            return;
+            if (env.env_type == 1)
+            {
+                double randx = (util.getRandDouble() - 0.5) * 2;
+                double randy = (util.getRandDouble() - 0.5) * 2;
+                double randz = (util.getRandDouble() - 0.5) * 2;
+                Vector3d randDir = new Vector3d(randx, randy, randz);
+                Double leng = randDir.Length;
+                Double factor = _cur_speed / leng;
+                orientation = Vector3d.Multiply(factor, randDir);
+                return;
+            }
+            else if (env.env_type == 2) 
+            {
+                double randx = (util.getRandDouble() - 0.5) * 2;
+                double randy = (util.getRandDouble() - 0.5) * 2;
+                Vector3d randDir = new Vector3d(randx, randy, 0);
+                Double leng = randDir.Length;
+                Double factor = _cur_speed / leng;
+                uv_orientation = Vector3d.Multiply(factor, randDir);
+                orientation = env.getOrientationFromUv(Location, uv_orientation);
+                return;
+            }
         }
-        public void selectRandomDirection(Libutility util, Vector3d preDir)
+        public void selectRandomDirection(AbstractEnvironmentType env, Libutility util, Vector3d preDir)
         {
-            double randx = (util.getRandDouble() - 0.5) * 2;
-            double randy = (util.getRandDouble() - 0.5) * 2;
-            double randz = (util.getRandDouble() - 0.5) * 2;
-            Vector3d randDir = new Vector3d(randx, randy, randz);
-            randDir = Vector3d.Add(randDir, preDir);
-            Double leng = randDir.Length;
-            Double factor = _cur_speed / leng;
-            orientation = Vector3d.Multiply(factor, randDir);
-            return;
+            if (env.env_type == 1)
+            {
+                double randx = (util.getRandDouble() - 0.5) * 2;
+                double randy = (util.getRandDouble() - 0.5) * 2;
+                double randz = (util.getRandDouble() - 0.5) * 2;
+                Vector3d randDir = new Vector3d(randx, randy, randz);
+                randDir = Vector3d.Add(randDir, preDir);
+                Double leng = randDir.Length;
+                Double factor = _cur_speed / leng;
+                orientation = Vector3d.Multiply(factor, randDir);
+                return;
+            }
+            else if (env.env_type == 2)
+            {
+                double randx = (util.getRandDouble() - 0.5) * 2;
+                double randy = (util.getRandDouble() - 0.5) * 2;
+                Vector3d randDir = new Vector3d(randx, randy, 0);
+                randDir = Vector3d.Add(randDir, preDir);
+                Double leng = randDir.Length;
+                Double factor = _cur_speed / leng;
+                uv_orientation = Vector3d.Multiply(factor, randDir);
+                orientation = env.getOrientationFromUv(Location, uv_orientation);
+                return;
+            }
         }
         public void resetFloatingPointPosition(AbstractEnvironmentType env)
         {
@@ -233,10 +268,10 @@ namespace Physarealm
             //Location = new Point3d(curx, cury, curz);
             return;
         }
-        public void doSensorBehaviors(AbstractEnvironmentType env, Libutility util)
+        public void doSensorBehaviorsInBoxenv(AbstractEnvironmentType env, Libutility util)
         {
             this.doDeathTest(env);
-            orientation = env.projectOrientationToEnv(Location, orientation);
+            //orientation = env.projectOrientationToEnv(Location, orientation);
             int det_count = PhysaSetting.DetectDirRSubd * PhysaSetting.DetectDirPhySubd + 1;
             int max_item = 0;
             float max_item_phy = 0;
@@ -281,6 +316,38 @@ namespace Physarealm
             rotate(max_item_phy * PhysaSetting._rotate_angle / PhysaSetting._sense_angle, max_item_theta);
             guideOrientation();
         }
+        public void doSensorBehaviorsInSrfenv(AbstractEnvironmentType env, Libutility util) 
+        {
+            this.doDeathTest(env);
+            int det_count = PhysaSetting.DetectDirPhySubd * 2 + 1;
+            int max_item = 0;
+            float max_item_phy = -PhysaSetting._sense_angle;
+            sensor_data = new float[det_count];
+            //List<trailInfo> infos = new List<trailInfo>();
+            //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, _sensor_offset, util));
+            //float maxtrail = 0;
+            //Point3d tgtPos = new Point3d();
+            //sensor_data[0] = env.getOffsetTrailValue(curx, cury, curz, orientation, 0, 0, PhysaSetting._sense_offset, util);
+            int count_cur = 0;
+            for (int j = -PhysaSetting.DetectDirPhySubd; j <= PhysaSetting.DetectDirPhySubd; j++)
+                {
+                    sensor_data[count_cur] = env.getOffsetTrailValue(curx, cury, curz, uv_orientation, j * PhysaSetting._sensor_phy_step_angle,0, PhysaSetting._sense_offset, util);
+                    //infos.Add(env.getOffsetTrailValue(curx, cury, curz, orientation, j * _sensor_phy_step_angle, i * _sensor_theta_step_angle, _sensor_offset, util));
+                    if (sensor_data[count_cur] > sensor_data[max_item])
+                    {
+                        max_item = count_cur;
+                        max_item_phy = j * PhysaSetting._sensor_phy_step_angle;
+                    }
+                    count_cur++;
+                }
+            //this.tempValue = env.getOffsetTrailValue(curx, cury, curz, uv_orientation, 0, 0, PhysaSetting._sense_offset, util);
+            this.tempValue = 1;
+            //max_item_phy = 90;
+            rotate2D(max_item_phy * PhysaSetting._rotate_angle / PhysaSetting._sense_angle);
+            orientation = env.getOrientationFromUv(Location, uv_orientation);
+            guideOrientation();
+        
+        }
         public void rotate(float rotate_phy, float rotate_theta)
         {
             Vector3d orienOri = orientation;
@@ -300,6 +367,17 @@ namespace Physarealm
             //moveangle = rotate_theta;
             //moved = toOri - orienOri;
             orientation = toOri;
+        }
+        public void rotate2D(float rotate_phy) 
+        {
+            Point3d intLoc = new Point3d(curx, cury, 0);
+            float phyrad = rotate_phy * 3.1416F / 180;
+            Vector3d toOri = uv_orientation;
+            toOri.Transform(Transform.Rotation(phyrad, Plane.WorldXY.ZAxis, intLoc));
+            double curLength = toOri.Length;
+            double scaleFactor = _cur_speed / curLength;
+            toOri = Vector3d.Multiply(scaleFactor, toOri);
+            uv_orientation = toOri;
         }
         public void doDivisionTest(AbstractEnvironmentType env)
         {

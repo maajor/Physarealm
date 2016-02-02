@@ -74,6 +74,7 @@
     <Compile Include="Analysis\PopulationPositionComponent.cs" />
     <Compile Include="Analysis\PopulationTrailComponent.cs" />
     <Compile Include="Analysis\PopulationVelocityComponent.cs" />
+    <Compile Include="Analysis\PopulationPropertyComponent.cs" />
     <Compile Include="Emitter\AbstractEmitterComponent.cs" />
     <Compile Include="Emitter\AbstractEmitterType.cs" />
     <Compile Include="Emitter\CurveEmitterComponent.cs" />

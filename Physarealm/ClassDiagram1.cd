@@ -63,11 +63,12 @@
       <FileName>Analysis\PopulationTrailComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Physarealm.Analysis.PopulationVelocityComponent">
+  <Class Name="Physarealm.Analysis.PopulationPropertyComponent">
     <Position X="31.25" Y="14.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAACAAAAEAABQAAAAAAEAAAAAAAAA=</HashCode>
-      <FileName>Analysis\PopulationVelocityComponent.cs</FileName>
+      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAABQAAAAAAEAAAQAAAAA=</HashCode>
+      <FileName>Analysis\PopulationPropertyComponent.cs</FileName>
+      <NewMemberFileName>Analysis\PopulationVelocityComponent.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Emitter.AbstractEmitterComponent">
@@ -129,7 +130,7 @@
   <Class Name="Physarealm.Environment.AbstractEnvironmentType">
     <Position X="55.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAANKBAoCAEQTAEE4QwUEQBAAAAgMBiAUBsGAAJgAAI=</HashCode>
+      <HashCode>QAAFKBAoAAEQTAEEQYwUEABAZgAgMBmAUBsHABJAAAI=</HashCode>
       <FileName>Environment\AbstractEnvironmentType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,7 +144,7 @@
   <Class Name="Physarealm.Environment.BoxEnvironmentType">
     <Position X="55.75" Y="17.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QQENIFAoiiEQTBEM4QQSNQAAAAAgMBmQdAEWABZgCII=</HashCode>
+      <HashCode>QQEFIFAogiEQTBEMQYQSNAAAZAAgMBmQdAEXABZACII=</HashCode>
       <FileName>Environment\BoxEnvironmentType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -172,7 +173,7 @@
   <Class Name="Physarealm.Environment.SurfaceEnvironmentType" Collapsed="true">
     <Position X="26.75" Y="22.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QQENIBAoyiEQTBEc4QQSEQAAAAAgMBmQVAEWAAZgCII=</HashCode>
+      <HashCode>QQEFIBAowiEQTBEcQYQSEAAAZAAgMBmQVAEXABZACII=</HashCode>
       <FileName>Environment\SurfaceEnvironmentType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -222,7 +223,7 @@
   <Class Name="Physarealm.Amoeba" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="25" Y="21.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BQ0BIkIBgKDUgmgMgAkRABXIAggigAoAgAQCAAgFPgA=</HashCode>
+      <HashCode>CQUFIgABACDAgmAKCAgQABQAAgAigAIAwAACAAgFFgA=</HashCode>
       <FileName>PhysarumLib\Amoeba.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
@@ -230,7 +231,7 @@
   <Class Name="Physarealm.Physarum" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="28.5" Y="21.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAVAKEUEgKgAEggEoAhAAAAAAFgANBsCBMQAAAFBECA=</HashCode>
+      <HashCode>AARAKAAAgCgAAAAEAAhAAAAAAAgAJBICAMAAAABAACA=</HashCode>
       <FileName>PhysarumLib\Physarum.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -252,14 +253,14 @@
   <Class Name="Physarealm.Setting.AgentSettingComponent">
     <Position X="38.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gQIAAAAAAAAAIAAAAAAAAgEIEAQAAAAAAAAAAAIAEAA=</HashCode>
+      <HashCode>gQIAAAAAAAAAIAAAAAAAAgEIAAQAAACAQAAAAAIAEAA=</HashCode>
       <FileName>Setting\AgentSettingComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Setting.AgentSettingType">
     <Position X="25.25" Y="27.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAACAAAAAAAIAAAAAAAAgEIEAAAIBAAAAAAAAIAEAA=</HashCode>
+      <HashCode>gAAACAAAAAAAIAAAAAAAAgEIAAAAIBCAQAAAAAIAEAA=</HashCode>
       <FileName>Setting\AgentSettingType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -294,14 +295,14 @@
   <Class Name="Physarealm.Setting.DetectDirectionSettingComponent">
     <Position X="27.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AQIAAAAABAAAAAAAACAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Setting\DetectDirectionSettingComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Setting.DetectDirectionSettingType">
     <Position X="52.25" Y="27.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAEAEAAAAAAEAAAAAIBAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAEAAAAAAEAAAAAIBAQAACAAAAAAAA=</HashCode>
       <FileName>Setting\DetectDirectionSettingType.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -74,7 +74,7 @@ namespace Physarealm
             shuffleOrder();
             foreach (Amoeba amo in population)
             {
-                amo.doSensorBehaviors(env, util);
+                amo.doSensorBehavior[env.env_type - 1].Invoke(env, util);
             }
              
             /*
@@ -163,7 +163,7 @@ namespace Physarealm
             newAmo.initializeAmoeba(newPos.X, newPos.Y, newPos.Z, env, util);
             newAmo.prev_loc = agent.Location;
             //newAmo.initializeAmoeba(agent.curx, agent.cury, agent.curz, 2, _grid, util);
-            newAmo.selectRandomDirection(util, agent.orientation);
+            newAmo.selectRandomDirection(env, util, agent.orientation);
             //Amoeba newAmo = new Amoeba(_current_population - 1, _sense_angle, _rotate_angle, _sense_offset, _detectDir, _death_distance, _speed, _pcd, _depT);
             //Point3d birthPlace = _grid.getRandomBirthPlace(util);
             //newAmo.initializeAmoeba((int) birthPlace.X, (int) birthPlace.Y, (int) birthPlace.Z, 3, _grid, util);

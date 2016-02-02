@@ -6,17 +6,17 @@ using Rhino.Geometry;
 
 namespace Physarealm.Analysis
 {
-    public class PopulationVelocityComponent :AbstractPopulationAnalysisComponent
+    public abstract class PopulationPropertyComponent : AbstractPopulationAnalysisComponent
     {
-        private List<Vector3d> vel;
+        private List<double> prop;
         private Physarum p;
         /// <summary>
         /// Initializes a new instance of the PopulationPositionComponent class.
         /// </summary>
-        public PopulationVelocityComponent()
-            : base("Population Velocity", "PopVel",
-                "Population Velocity",
-                null, "04895848-99AD-46AD-93D2-0B64E5382ACF")
+        public PopulationPropertyComponent()
+            : base("Population Property", "PopProp",
+                "Population Property",
+                null, "DC5CFD04-7FA2-4946-9790-FE50968085FB")
         {
         }
 
@@ -33,7 +33,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddVectorParameter("Velocity", "Vel", "Velocity", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Property", "Prop", "Property", GH_ParamAccess.list);
         }
 
         protected override bool GetInputs(IGH_DataAccess da)
@@ -43,14 +43,14 @@ namespace Physarealm.Analysis
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            da.SetDataList(0, vel);
+            da.SetDataList(0, prop);
         }
         protected override void SolveInstance(IGH_DataAccess da)
         {
             if (!GetInputs(da)) return;
-            vel = new List<Vector3d>();
+            prop = new List<double>();
             foreach (Amoeba amo in p.population)
-                vel.Add(amo.uv_orientation);
+                prop.Add(amo.tempValue);
 
             SetOutputs(da);
         }
