@@ -60,6 +60,7 @@ namespace Physarealm.Environment
         public abstract List<Point3d> getNeighbourTrailClosePos(int u, int v, int w, int radius, double near_level);
         public abstract bool isOutsideBorderRangeByIndex(int u, int v, int w);
         public abstract Vector3d projectOrientationToEnv(Point3d pos, Vector3d vel);
+        public abstract Point3d projectLocationToEnv(Point3d pos);
         public abstract Vector3d bounceOrientation(Point3d pos, Vector3d vel);
         public abstract Vector3d getOrientationFromUv(Point3d pos, Vector3d uv_orit);
 

@@ -877,7 +877,10 @@ namespace Physarealm.Environment
         {
             return vel;
         }
-
+        public override Point3d projectLocationToEnv(Point3d pos)
+        {
+            return pos;
+        }
         public void Dispose()
         {
             Clear();

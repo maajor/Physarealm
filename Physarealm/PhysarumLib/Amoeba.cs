@@ -45,6 +45,9 @@ namespace Physarealm
             _ca_torealease = 3;
             doSensorBehavior.Add(new sensorBehavior(doSensorBehaviorsInBoxenv));
             doSensorBehavior.Add(new sensorBehavior(doSensorBehaviorsInSrfenv));
+            _divide = false;
+            _die = false;
+            _cur_speed = PhysaSetting._speed;
         }
         public bool initializeAmoeba(AbstractEnvironmentType env, Libutility util)
         {
@@ -188,7 +191,7 @@ namespace Physarealm
             else
             {
                 _moved_successfully = true;
-                Location = new Point3d(tempfloatx, tempfloaty, tempfloatz);
+                Location = env.projectLocationToEnv(new Point3d(tempfloatx, tempfloaty, tempfloatz));
                 env.clearGridCellByIndex(curx, cury, curz);
                 //env.agedata[curx, cury, curz]++;
                 env.occupyGridCellByIndex(tempx, tempy, tempz, ID);
@@ -225,9 +228,8 @@ namespace Physarealm
                 double randx = (util.getRandDouble() - 0.5) * 2;
                 double randy = (util.getRandDouble() - 0.5) * 2;
                 Vector3d randDir = new Vector3d(randx, randy, 0);
-                Double leng = randDir.Length;
-                Double factor = _cur_speed / leng;
-                uv_orientation = Vector3d.Multiply(factor, randDir);
+                randDir.Unitize();
+                uv_orientation = Vector3d.Multiply(_cur_speed, randDir);
                 orientation = env.getOrientationFromUv(Location, uv_orientation);
                 return;
             }
@@ -252,9 +254,8 @@ namespace Physarealm
                 double randy = (util.getRandDouble() - 0.5) * 2;
                 Vector3d randDir = new Vector3d(randx, randy, 0);
                 randDir = Vector3d.Add(randDir, preDir);
-                Double leng = randDir.Length;
-                Double factor = _cur_speed / leng;
-                uv_orientation = Vector3d.Multiply(factor, randDir);
+                randDir.Unitize();
+                uv_orientation = Vector3d.Multiply(_cur_speed, randDir);
                 orientation = env.getOrientationFromUv(Location, uv_orientation);
                 return;
             }
@@ -341,7 +342,6 @@ namespace Physarealm
                     count_cur++;
                 }
             //this.tempValue = env.getOffsetTrailValue(curx, cury, curz, uv_orientation, 0, 0, PhysaSetting._sense_offset, util);
-            this.tempValue = 1;
             //max_item_phy = 90;
             rotate2D(max_item_phy * PhysaSetting._rotate_angle / PhysaSetting._sense_angle);
             orientation = env.getOrientationFromUv(Location, uv_orientation);
@@ -374,9 +374,8 @@ namespace Physarealm
             float phyrad = rotate_phy * 3.1416F / 180;
             Vector3d toOri = uv_orientation;
             toOri.Transform(Transform.Rotation(phyrad, Plane.WorldXY.ZAxis, intLoc));
-            double curLength = toOri.Length;
-            double scaleFactor = _cur_speed / curLength;
-            toOri = Vector3d.Multiply(scaleFactor, toOri);
+            toOri.Unitize();
+            toOri = Vector3d.Multiply(_cur_speed, toOri);
             uv_orientation = toOri;
         }
         public void doDivisionTest(AbstractEnvironmentType env)
@@ -384,7 +383,7 @@ namespace Physarealm
             _divide = false;
             if (env.isOutsideBorderRangeByIndex(curx, cury, curz))
                 return;
-            if (isWithinThresholdRange(curx, cury, curz, env))
+            if (isWithinBirthRange(curx, cury, curz, env))
             {
                 _divide = true;
             }
@@ -402,13 +401,15 @@ namespace Physarealm
             if (isOutsideSurvivalRange(curx, cury, curz, env))
                 _die = true;
         }
-        public bool isWithinThresholdRange(int x, int y, int z, AbstractEnvironmentType env)
+        public bool isWithinBirthRange(int x, int y, int z, AbstractEnvironmentType env)
         {
             int d = env.countNumberOfParticlesPresentByIndex(x, y, z, PhysaSetting.gw);
             //_around = d;
-            if (d >= PhysaSetting.gmin && d <= PhysaSetting.gmax)
+            tempValue = d;
+            if (d >= PhysaSetting.gmin && d < PhysaSetting.gmax)
                 return true;
-            else return false;
+            else
+                return false;
         }
         public bool isOutsideSurvivalRange(int x, int y, int z, AbstractEnvironmentType env)
         {

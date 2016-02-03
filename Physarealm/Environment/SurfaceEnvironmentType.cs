@@ -260,7 +260,7 @@ namespace Physarealm.Environment
                 }
             }
             int totalShouldBe = (int)Math.Pow(radius * 2 + 1, 2) - 1;
-            total += totalShouldBe - countNow;
+            total += (totalShouldBe - countNow);
             return total;
         }
 
@@ -825,6 +825,13 @@ namespace Physarealm.Environment
             frame.RemapToPlaneSpace(Point3d.Add(pos, vel), out ptframe);
             frame.PointAt(ptframe.X, ptframe.Y);
             return new Vector3d(Point3d.Subtract( frame.PointAt(ptframe.X, ptframe.Y), pos));
+        }
+        public override Point3d projectLocationToEnv(Point3d pos) 
+        {
+            double i;
+            double j;
+            _srf.ClosestPoint(pos, out i, out j);
+            return _srf.PointAt(i, j);
         }
         public void Dispose()
         {

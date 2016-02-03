@@ -25,7 +25,8 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Detect Direction", "DDir", "Detect Direction", GH_ParamAccess.item, 4);
+            pManager.AddIntegerParameter("Detect Direction R", "DDirR", "Detect Direction", GH_ParamAccess.item, 4);
+            pManager.AddIntegerParameter("Detect Direction Phy", "DDirP", "Detect Direction", GH_ParamAccess.item, 1);
         }
 
         /// <summary>

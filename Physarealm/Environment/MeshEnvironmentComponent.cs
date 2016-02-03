@@ -11,7 +11,7 @@ namespace Physarealm.Environment
         /// <summary>
         /// Initializes a new instance of the MeshEnvironmentComponent class.
         /// </summary>
-        public MeshEnvironmentComponent()
+        private MeshEnvironmentComponent()
             : base("Mesh Environment", "MeshEnv",
                 "Description",
                 null, "9DF75EEA-0064-4A3B-A242-1A3CEDC6A794")

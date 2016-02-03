@@ -104,7 +104,7 @@ namespace Physarealm
 
             foreach (Amoeba amo in population)
             {
-                if (amo._divide)
+                if (amo._divide == true)
                 {
                     birthNew(amo, env);
                     _current_id++;

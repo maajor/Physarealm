@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 namespace Physarealm.Analysis
 {
-    public abstract class PopulationPropertyComponent : AbstractPopulationAnalysisComponent
+    public class PopulationPropertyComponent : AbstractPopulationAnalysisComponent
     {
-        private List<double> prop;
+        private DataTree<double> prop;
         private Physarum p;
         /// <summary>
         /// Initializes a new instance of the PopulationPositionComponent class.
@@ -43,14 +46,20 @@ namespace Physarealm.Analysis
         }
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            da.SetDataList(0, prop);
+            da.SetDataTree(0, prop);
         }
         protected override void SolveInstance(IGH_DataAccess da)
         {
             if (!GetInputs(da)) return;
-            prop = new List<double>();
-            foreach (Amoeba amo in p.population)
-                prop.Add(amo.tempValue);
+            prop = new DataTree<double>();
+            int index = 0;
+            foreach (Amoeba amo in p.population) 
+            { 
+                prop.Add(amo.tempValue,new GH_Path(index));
+                prop.Add(PhysaSetting.gmin, new GH_Path(index));
+                prop.Add(PhysaSetting.gmax, new GH_Path(index));
+                index++;
+            }
 
             SetOutputs(da);
         }
