@@ -15,7 +15,7 @@ namespace Physarealm.Emitter
         /// </summary>
         public PointEmitterComponent()
             : base("Point Emitter", "PtEmi",
-                "Description",
+                "This component represent a point emitter. This shoud be connected into Core component",
                 null, "05CBA783-3A74-4253-B8C3-B894D9715A01")
         {
         }
@@ -25,7 +25,7 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Points", "Pts", "points emitters", GH_ParamAccess.list);
+            pManager.AddPointParameter("Points", "Pts", "A point or a list of points that emit agents.", GH_ParamAccess.list);
         }
 
         /// <summary>

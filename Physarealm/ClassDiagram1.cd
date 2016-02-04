@@ -49,11 +49,11 @@
       <FileName>Analysis\PopulationInterconnectComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Physarealm.Analysis.PopulationPositionComponent">
+  <Class Name="Physarealm.Analysis.PopulationLocationsComponent">
     <Position X="26.75" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQIAAAAAAAAAAAAAAAAAAIEAABQAAAAAAEAAAAAAAAA=</HashCode>
-      <FileName>Analysis\PopulationPositionComponent.cs</FileName>
+      <FileName>Analysis\PopulationLocationsComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Physarealm.Analysis.PopulationTrailComponent">
@@ -130,7 +130,7 @@
   <Class Name="Physarealm.Environment.AbstractEnvironmentType">
     <Position X="55.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAFKBAoAAEQTAEEQYwUEABAZgAgMBmAUBsHABJAAAI=</HashCode>
+      <HashCode>QAAFKBAoAAEQTAEEQY0UEABAZgAgMBmAUBsHABJAAAI=</HashCode>
       <FileName>Environment\AbstractEnvironmentType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -144,7 +144,7 @@
   <Class Name="Physarealm.Environment.BoxEnvironmentType">
     <Position X="55.75" Y="17.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QQEFIFAogiEQTBEMQYQSNAAAZAAgMBmQdAEXABZACII=</HashCode>
+      <HashCode>QQEFIFAogiEQTBEMQYUSNAAAZAAgMBmQdAEXABZACII=</HashCode>
       <FileName>Environment\BoxEnvironmentType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -173,7 +173,7 @@
   <Class Name="Physarealm.Environment.SurfaceEnvironmentType" Collapsed="true">
     <Position X="26.75" Y="22.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QQEFIBAowiEQTBEcQYQSEAAAZAAgMBmQVAEXABZACII=</HashCode>
+      <HashCode>QQEFIBAowiEQTBEcQYUSEAAAZAAgMBmQVAEXABZACII=</HashCode>
       <FileName>Environment\SurfaceEnvironmentType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -223,7 +223,7 @@
   <Class Name="Physarealm.Amoeba" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="25" Y="21.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CQUFIgABACDAgmAKCAgQABQAAgAigAIAwAACAAgFFgA=</HashCode>
+      <HashCode>CQUFIgABACDAgkAOGAgQABQAAgAigAIAwAACAAgFFgA=</HashCode>
       <FileName>PhysarumLib\Amoeba.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />

@@ -6,16 +6,16 @@ using Rhino.Geometry;
 
 namespace Physarealm.Analysis
 {
-    public class PopulationPositionComponent :AbstractPopulationAnalysisComponent
+    public class PopulationLocationsComponent : AbstractPopulationAnalysisComponent
     {
         private List<Point3d> pos = new List<Point3d>();
         private Physarum p;
         /// <summary>
         /// Initializes a new instance of the PopulationPositionComponent class.
         /// </summary>
-        public PopulationPositionComponent()
-            : base("Population Position", "PopPos",
-                "Population Position",
+        public PopulationLocationsComponent()
+            : base("Population Locations", "PopLoc",
+                "This component gives all agents locations in population.",
                 null, "25EBEFEA-5C51-448F-8D8B-222D424ED2BD")
         {
         }
@@ -33,7 +33,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Position", "Pos", "Position", GH_ParamAccess.list);
+            pManager.AddPointParameter("Locations", "Loc", "Agent Locations", GH_ParamAccess.list);
         }
 
         protected override bool GetInputs(IGH_DataAccess da)

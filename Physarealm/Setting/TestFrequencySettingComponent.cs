@@ -15,7 +15,7 @@ namespace Physarealm.Setting
         /// </summary>
         public TestFrequencySettingComponent()
             : base("Test Frequency Setting", "TFSet",
-                "Description",
+                "Test Frequency Setting",
                 null, "D09089B0-9926-440D-86F4-F8E4D2AC07C7")
         {
         }
@@ -25,8 +25,8 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("DivisionTestFreq", "DiTFr", "DivisionTestFreq", GH_ParamAccess.item, 3);
-            pManager.AddIntegerParameter("DeathTestFreq", "DeTFr", "DeathTestFreq", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("DivisionTestFreq", "DiTFr", "Frequency to test division, as integer.", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("DeathTestFreq", "DeTFr", "Frequency to test death, as integer", GH_ParamAccess.item, 3);
         }
 
         /// <summary>

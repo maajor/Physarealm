@@ -14,7 +14,7 @@ namespace Physarealm.Setting
         /// </summary>
         public InitialPopulationSettingComponent()
             : base("Initial Population Setting", "InPSet",
-                "Description",
+                "Initial Population Setting",
                 null, "2B7F549B-E39E-4E8F-8976-5A60EFB340AB")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Population Size", "PopS", "Initial Population Size", GH_ParamAccess.item, 200);
+            pManager.AddIntegerParameter("Population Size", "PopS", "Initial Population Size as integer.", GH_ParamAccess.item, 200);
         }
 
         /// <summary>

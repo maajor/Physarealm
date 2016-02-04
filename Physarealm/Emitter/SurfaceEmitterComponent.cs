@@ -14,7 +14,7 @@ namespace Physarealm.Emitter
         /// </summary>
         public SurfaceEmitterComponent()
             : base("Surface Emitter", "SrfEmi",
-                "Description",
+                "This component represent a surface emitter. This shoud be connected into Core component",
                 null, "47075063-D9D7-4F6E-9A0C-1173884F9376")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "srf", "Surface", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "srf", "A surface of a list of surfaces that emits agents.", GH_ParamAccess.list);
         }
 
         /// <summary>

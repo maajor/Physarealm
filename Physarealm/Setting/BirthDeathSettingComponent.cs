@@ -19,7 +19,7 @@ namespace Physarealm.Setting
         /// </summary>
         public BirthDeathSettingComponent()
             : base("Birth Death Setting", "BDSet",
-                "Description",
+                "Birth and death condition of agents. Program examine agents at present in a near radius. For example, for a brep environment, radius = 1 means program checks nearby 3*3*3 = 27 space with the examinied agent at center. Radius = 2 means 5*5*5 = 125. But for surface environment, radius = 1 means 3*3 = 9, etc.",
                 null, "02BFACA5-88DA-4351-9E0C-3B5EC4863CE9")
         {
         }
@@ -29,12 +29,12 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("division detect radius", "dvr", "division detect radius", GH_ParamAccess.item, 2);
-            pManager.AddIntegerParameter("division min", "dvmin", "division if neighborhood agents count above", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("division max", "dvmax", "division if neighborhood agents count below", GH_ParamAccess.item, 10);
-            pManager.AddIntegerParameter("death detect radius", "der", "death detect radius", GH_ParamAccess.item, 3);
-            pManager.AddIntegerParameter("death min", "demin", "death if neighborhood agents count below", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("death max", "demax", "death if neighborhood agents count above", GH_ParamAccess.item, 123);
+            pManager.AddIntegerParameter("Division Detect Radius", "DVR", "Division detect radius. As integer", GH_ParamAccess.item, 2);
+            pManager.AddIntegerParameter("Division Min", "DvMin", "Divide if neighborhood agents count above or equal. As integer.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Division Max", "DvMax", "Divide if neighborhood agents count below.  As integer, below (DVR*2 + 1)^3 for brep env and below (DVR*2 + 1)^2 for srf env.", GH_ParamAccess.item, 10);
+            pManager.AddIntegerParameter("Death Detect Radius", "DER", "Death detect radius", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("Death Min", "DeMin", "Die if neighborhood agents count below or equal. As integer.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Death Max", "DeMax", "Die if neighborhood agents count above. As integer, below (DVR*2 + 1)^3 for brep env and below (DVR*2 + 1)^2 for srf env.", GH_ParamAccess.item, 123);
         }
 
         /// <summary>

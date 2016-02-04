@@ -14,7 +14,7 @@ namespace Physarealm.Setting
         /// </summary>
         public EscapeSettingComponent()
             : base("Escape Setting", "EscSet",
-                "Description",
+                "Escape Setting",
                 null, "84457914-DE3F-4D5D-B435-D5950525C142")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Escape Possibility", "EscP", "Escape Possibility", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("Escape Possibility", "EscP", "Possibility agent will escape the constraints or obstacles.", GH_ParamAccess.item, 0);
         }
 
         /// <summary>

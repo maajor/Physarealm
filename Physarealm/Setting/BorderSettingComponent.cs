@@ -14,7 +14,7 @@ namespace Physarealm.Setting
         /// </summary>
         public BorderSettingComponent()
             : base("Border Setting", "BdSet",
-                "Description",
+                "Setting for border type.",
                 null, "5972853B-7C9C-4818-AFDE-DC7D5A2DD7E6")
         {
         }

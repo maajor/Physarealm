@@ -14,7 +14,7 @@ namespace Physarealm.Food
         /// </summary>
         public SurfaceFoodComponent()
             : base("Surface Food", "SrfF",
-                "Description",
+                "Agents will seek foods. This shoud be connected into Core component.",
                 null, "413990CA-FCD6-4979-8A8A-A299811EB7B4")
         {
         }

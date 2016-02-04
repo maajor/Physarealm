@@ -25,7 +25,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Population", "P", "Population", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Population", "P", "This should be connected with 'Population' output of Core component", GH_ParamAccess.item);
         }
         protected abstract override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager);
         protected abstract override void SetOutputs(IGH_DataAccess da);

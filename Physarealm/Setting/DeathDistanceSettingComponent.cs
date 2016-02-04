@@ -14,7 +14,7 @@ namespace Physarealm.Setting
         /// </summary>
         public DeathDistanceSettingComponent()
             : base("Death Distance Setting", "DDSet",
-                "Description",
+                "Death Distance Setting",
                 null, "44522DCA-970C-4693-9C99-B348533BD9F8")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Death Distance", "DDis", "Death Distance", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("Death Distance", "DDis", "An positive interger as input represent death distance. As interger.", GH_ParamAccess.item, 100);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Death Distance Setting", "DDisSet", "Death Distance Setting", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Death Distance Setting", "DDisSet", "Agents die after travel such steps", GH_ParamAccess.item);
         }
 
 

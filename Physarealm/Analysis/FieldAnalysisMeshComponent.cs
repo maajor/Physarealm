@@ -13,8 +13,8 @@ namespace Physarealm.Analysis
         /// Initializes a new instance of the FieldAnalysisMeshComponent class.
         /// </summary>
         public FieldAnalysisMeshComponent()
-            : base("Field AnalysisMesh", "FAMesh",
-                "Description",
+            : base("Field Analysis Mesh", "FAMesh",
+                "when this component applies to brep or box environment, it display a pseudo-color mesh illustrating chemoattrator(co) value field density. Higher density is reprented by red while lower density is black.",
                 null, "E1068216-44E9-4A4A-861E-E978A60378B1")
         {
         }
@@ -25,7 +25,7 @@ namespace Physarealm.Analysis
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddNumberParameter("Z", "z", "Z", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Z", "z", "Z coordinate of this analysis mesh", GH_ParamAccess.item);
         }
 
         /// <summary>

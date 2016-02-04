@@ -18,7 +18,7 @@ namespace Physarealm.Environment
         /// </summary>
         public SurfaceEnvironmentComponent()
             : base("Surface Environment", "SurfEnv",
-                "Description"
+                "A surface environment, agents run on uv-space"
                 , null, "68B8A101-5678-4406-AAE0-6D702C9930BA")
         {
         }
@@ -28,11 +28,11 @@ namespace Physarealm.Environment
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("UResolution", "ures", "subdivision on u-axis", GH_ParamAccess.item, 100);
-            pManager.AddIntegerParameter("VResolution", "vres", "subdivision on v-axis", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("UResolution", "ures", "Subdivision on u-axis", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("VResolution", "vres", "Subdivision on v-axis", GH_ParamAccess.item, 100);
             pManager.AddSurfaceParameter("Surface", "srf", "Surface", GH_ParamAccess.item);
-            pManager.AddBrepParameter("Constraint", "Cons", "Constraint for a list of breps", GH_ParamAccess.list);
-            pManager.AddBrepParameter("Obstacles", "Obs", "Obstacles for a list of breps", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Constraint", "Cons", "A list of breps represent constraints", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Obstacles", "Obs", "A list of breps represent obstavles", GH_ParamAccess.list);
             pManager[3].Optional = true;
             pManager[4].Optional = true;
         }

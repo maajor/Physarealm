@@ -18,7 +18,7 @@ namespace Physarealm.Analysis
         /// </summary>
         public FieldInterconnectComponent()
             : base("Field Interconnect", "FInter",
-                "Field Interconnect",
+                "This component output some lines which connect field points which are at a close level of chemoattractor",
                 null, "6833EB95-06B4-43B3-B53A-A59AAE2D8149")
         {
         }
@@ -29,9 +29,9 @@ namespace Physarealm.Analysis
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddIntegerParameter("radius", "r", "radius", GH_ParamAccess.item);
-            pManager.AddNumberParameter("possibility", "p", "possibility", GH_ParamAccess.item);
-            pManager.AddNumberParameter("near level", "nl", "near level", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("radius", "r", "the radius in index space, point pairs with distance below this value will be tested", GH_ParamAccess.item);
+            pManager.AddNumberParameter("possibility", "p", "the possibility of connect a pair of points ", GH_ParamAccess.item);
+            pManager.AddNumberParameter("near level", "nl", "if the chemoattractor level dffenrence between a pair of points is lower than this value, we connect them with possibility.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddLineParameter("Connect Line", "cL", "Connect Line", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Connect Weight", "cW", "Connect Weight", GH_ParamAccess.list);
+            pManager.AddLineParameter("Connect Line", "cL", "all output line to connect pairs of points", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Connect Weight", "cW", "line weight of each lines, this is calculated by average chemoattractor level of point pairs.", GH_ParamAccess.list);
         }
         protected override bool GetInputs(IGH_DataAccess da)
         {

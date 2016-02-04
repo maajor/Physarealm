@@ -18,7 +18,7 @@ namespace Physarealm.Analysis
         /// </summary>
         public PopulationInterconnectComponent()
             : base("Population Interconnect", "PopInter",
-                "Description",
+                "This componets connect pairs of agents locations below a certain distance.",
                null, "51167445-C5B7-42A4-AE33-FBA3C575C993")
         {
         }
@@ -30,8 +30,8 @@ namespace Physarealm.Analysis
         {
             base.RegisterInputParams(pManager);
             pManager.AddGenericParameter("Environment", "Env", "Environment", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("detect radius", "detr", "detect radius", GH_ParamAccess.item);
-            pManager.AddNumberParameter("select possibility", "selp", "selet possibility", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("detect radius", "detr", "Below this value, pairs of agents locations will be connected at a possibility.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("select possibility", "selp", "The possibility of a pair of agents locations are connected", GH_ParamAccess.item);
         }
 
         /// <summary>

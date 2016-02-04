@@ -19,18 +19,18 @@ namespace Physarealm.Environment
         /// </summary>
         public BrepsEnvironmentComponent()
             : base("Brep Environment", "BrepEnvir",
-                "Description",
+                "A brep environment, agents run on uv-space",
                 null, "5BA44E57-DDE9-44B9-A990-9CD35445AB3F")
         {
         }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("XResolution", "xres", "subdivision on x-axis", GH_ParamAccess.item, 100);
-            pManager.AddIntegerParameter("YResolution", "yres", "subdivision on y-axis", GH_ParamAccess.item, 100);
-            pManager.AddIntegerParameter("ZResolution", "zres", "subdivision on z-axis", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("XResolution", "xres", "Subdivision on x-axis", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("YResolution", "yres", "Subdivision on y-axis", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("ZResolution", "zres", "Subdivision on z-axis", GH_ParamAccess.item, 100);
             pManager.AddBrepParameter("Brep", "B", "Brep", GH_ParamAccess.list);
-            pManager.AddBrepParameter("Obstacles", "Obs", "Obstacles for a list of breps", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Obstacles", "Obs", "A list of breps represent obstacles", GH_ParamAccess.list);
             pManager[4].Optional = true;
         }
 

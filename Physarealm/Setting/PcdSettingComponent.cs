@@ -14,7 +14,7 @@ namespace Physarealm.Setting
         /// </summary>
         public PcdSettingComponent()
             : base("Pcd Setting", "PcdSet",
-                "Description",
+                "Pcd Setting",
                 null, "C64A5382-EFB1-4AC4-A184-C0EAA351356A")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("PCD", "pcd", "Possibility Changing Direction, range: 0~1", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("Possibility Changing Direction", "PCD", "Possibility of agents to change direction, as number, range: 0~1", GH_ParamAccess.item, 0.1);
         }
 
         /// <summary>

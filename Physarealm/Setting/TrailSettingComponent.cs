@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Agent-Food Trail Ratio", "TrRat", "Agent-Food Trail Ratio", GH_ParamAccess.item, 0.2);
+            pManager.AddNumberParameter("Agent-Food Trail Ratio", "TrRat", "Ratio of deployed chemoattractor amounts, agent to food. As number", GH_ParamAccess.item, 0.2);
         }
 
         /// <summary>

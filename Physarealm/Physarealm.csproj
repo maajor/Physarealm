@@ -71,7 +71,7 @@
     <Compile Include="Analysis\FieldPointComponent.cs" />
     <Compile Include="Analysis\FieldValueComponent.cs" />
     <Compile Include="Analysis\PopulationInterconnectComponent.cs" />
-    <Compile Include="Analysis\PopulationPositionComponent.cs" />
+    <Compile Include="Analysis\PopulationLocationsComponent.cs" />
     <Compile Include="Analysis\PopulationTrailComponent.cs" />
     <Compile Include="Analysis\PopulationVelocityComponent.cs" />
     <Compile Include="Analysis\PopulationPropertyComponent.cs" />
@@ -132,8 +132,8 @@
     <Compile Include="Setting\TestFrequencySettingType.cs" />
     <Compile Include="Setting\TrailSettingComponent.cs" />
     <Compile Include="Setting\TrailSettingType.cs" />
-    <Compile Include="Setting\InitialOrientationSettingComponent.cs" />
-    <Compile Include="Setting\InitialOrientationSettingType.cs" />
+    <Compile Include="Setting\InitialVelocitySettingComponent.cs" />
+    <Compile Include="Setting\InitialVelocitySettingType.cs" />
     <Compile Include="Setting\BorderSettingComponent.cs" />
     <Compile Include="Setting\BorderSettingType.cs" />
     <Compile Include="Util\Libutility.cs" />

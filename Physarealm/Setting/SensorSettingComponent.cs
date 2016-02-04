@@ -16,7 +16,7 @@ namespace Physarealm.Setting
         /// </summary>
         public SensorSettingComponent()
             : base("Sensor Setting", "SenSet",
-                "Description",
+                "Sensor Setting",
                 null, "9CCAE233-00BA-416D-8501-542E6B843CE4")
         {
         }
@@ -26,9 +26,9 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("sensor angle", "sa", "sensor angle", GH_ParamAccess.item, 22.5);
-            pManager.AddNumberParameter("rotate angle", "ra", "rotate angle", GH_ParamAccess.item, 45.0);
-            pManager.AddNumberParameter("sensor offset", "so", "sensor offset", GH_ParamAccess.item, 10);
+            pManager.AddNumberParameter("Sensor Angle", "SA", "Agent sense a cone space with apenture equals 2*thisvalue. As number in degree, range 0~180", GH_ParamAccess.item, 22.5);
+            pManager.AddNumberParameter("Sotate Angle", "RA", "Agent does not rotate to a sensed angle with max chemoattractor, it rotate that angle multiplies rotateangle/senseangle. As number in degree, range 0~180", GH_ParamAccess.item, 45);
+            pManager.AddNumberParameter("Sensor Offset", "SO", "Agent's sensor's max range.(height of sense cone). As number", GH_ParamAccess.item, 10);
         }
 
         /// <summary>

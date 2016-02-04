@@ -14,7 +14,7 @@ namespace Physarealm.Analysis
         /// </summary>
         public FieldPointComponent()
             : base("Field Point", "FPt",
-                "Description",
+                "This component give all points that store chemoattractor value and other properties, density of points is determined by resolution of the environment",
                 null, "8617148B-F5C6-40C7-94CD-E16A0C0FB3FD")
         {
         }
@@ -32,7 +32,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Points", "P", "Pts", GH_ParamAccess.list);
+            pManager.AddPointParameter("Points", "P", "Points of this environment", GH_ParamAccess.list);
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace Physarealm.Setting
         /// Initializes a new instance of the AgentSettingComponent class.
         /// </summary>
         public AgentSettingComponent()
-            : base("Agent Setting", "AS",
+            : base("Agent Setting", "ASet",
                 "AgentSetting",
                 null, "D70A2A74-F96A-4000-871C-9748F314500A")
         {
@@ -31,14 +31,14 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("sensor angle", "sa", "sensor angle", GH_ParamAccess.item, 22.5);
-            pManager.AddNumberParameter("rotate angle", "ra", "rotate angle", GH_ParamAccess.item, 45);
-            pManager.AddNumberParameter("sensor offset", "so", "sensor offset", GH_ParamAccess.item, 10);
-            pManager.AddIntegerParameter("detect direction r", "ddirr", "detect direction r", GH_ParamAccess.item, 4);
-            pManager.AddIntegerParameter("detect direction phy", "ddirp", "detect direction phy", GH_ParamAccess.item, 1);
-            pManager.AddIntegerParameter("death distance", "ddis", "death distance", GH_ParamAccess.item, 100);
-            pManager.AddNumberParameter("max speed", "ms", "max speed", GH_ParamAccess.item, 10);
-            pManager.AddNumberParameter("deploy trace once", "dept", "deploy trace once", GH_ParamAccess.item, 10);
+            pManager.AddNumberParameter("Sensor Angle", "SA", "Agent sense a cone space with apenture equals 2*thisvalue. As number in degree, range 0~180", GH_ParamAccess.item, 22.5);
+            pManager.AddNumberParameter("Sotate Angle", "RA", "Agent does not rotate to a sensed angle with max chemoattractor, it rotate that angle multiplies rotateangle/senseangle. As number in degree, range 0~180", GH_ParamAccess.item, 45);
+            pManager.AddNumberParameter("Sensor Offset", "SO", "Agent's sensor's max range.(height of sense cone). As number", GH_ParamAccess.item, 10);
+            pManager.AddIntegerParameter("Detect Direction R", "DDirR", "Subdivide of sense points on perimeter of sensecone's bottom circle. As integer.", GH_ParamAccess.item, 4);
+            pManager.AddIntegerParameter("Detect Direction Phy", "DDirP", "Subdivide of sense points on radius of sensecone's bottom circle. As integer.", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Death Distance", "DDis", "Agents die after travel such steps", GH_ParamAccess.item, 100);
+            pManager.AddNumberParameter("Max Speed", "MS", "Agents' speed in index space. As number.", GH_ParamAccess.item, 10);
+            pManager.AddNumberParameter("Deploy Trace Once", "DepT", "Agent deploys such amount of chemoattractor once step. As number.", GH_ParamAccess.item, 10);
         }
 
         /// <summary>

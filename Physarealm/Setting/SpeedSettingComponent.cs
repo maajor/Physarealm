@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("max speed", "ms", "max speed", GH_ParamAccess.item, 10);
+            pManager.AddNumberParameter("Max Speed", "MS", "Agents' speed in index space. As number", GH_ParamAccess.item, 10);
         }
 
         /// <summary>

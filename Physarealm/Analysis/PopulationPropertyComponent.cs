@@ -16,9 +16,9 @@ namespace Physarealm.Analysis
         /// <summary>
         /// Initializes a new instance of the PopulationPositionComponent class.
         /// </summary>
-        public PopulationPropertyComponent()
+        private PopulationPropertyComponent()//this component is purely for debug, I diable it in a release version. 
             : base("Population Property", "PopProp",
-                "Population Property",
+                "",
                 null, "DC5CFD04-7FA2-4946-9790-FE50968085FB")
         {
         }

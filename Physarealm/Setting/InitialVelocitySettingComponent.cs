@@ -6,15 +6,15 @@ using Rhino.Geometry;
 
 namespace Physarealm.Setting
 {
-    public class InitialOrientationSettingComponent :AbstractSettingComponent
+    public class InitialVelocitySettingComponent : AbstractSettingComponent
     {
         private Vector3d ori;
         /// <summary>
         /// Initializes a new instance of the SpeedSettingComponent class.
         /// </summary>
-        public InitialOrientationSettingComponent()
-            : base("Initial Orientation Setting", "IniOSet",
-                "Description",
+        public InitialVelocitySettingComponent()
+            : base("Initial Velocity Setting", "IniOSet",
+                "Initial velocity of agents.",
                 null, "727459EA-B6C2-4576-B222-21893324D2D9")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddVectorParameter("initial orientation", "iniori", "initial orientation", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Initial Velocity", "IniVel", "Initial Velocity as vector", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("InitialOrientationSetting", "IOSet", "Agent initial orientation Setting", GH_ParamAccess.item);
+            pManager.AddGenericParameter("InitialVelocitySetting", "IVSet", "Agent initial velocity Setting", GH_ParamAccess.item);
         }
 
         protected override bool GetInputs(IGH_DataAccess da)
@@ -43,7 +43,7 @@ namespace Physarealm.Setting
 
         protected override void SetOutputs(IGH_DataAccess da)
         {
-            AbstractSettingType speset = new InitialOrientationSettingType(ori);
+            AbstractSettingType speset = new InitialVelocitySettingType(ori);
             da.SetData(0, speset);
         }
     }

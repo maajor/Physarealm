@@ -15,7 +15,7 @@ namespace Physarealm.Setting
         /// </summary>
         public DetectDirectionSettingComponent()
             : base("Detect Direction Setting", "DDirSets",
-                "Description",
+                "Detect Direction Setting",
                 null, "D865B6E0-E0F3-4BB6-A00C-9DAA72A000E0")
         {
         }
@@ -25,8 +25,8 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Detect Direction R", "DDirR", "Detect Direction", GH_ParamAccess.item, 4);
-            pManager.AddIntegerParameter("Detect Direction Phy", "DDirP", "Detect Direction", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Detect Direction R", "DDirR", "Subdivide of sense points on perimeter of sensecone's bottom circle. As integer.", GH_ParamAccess.item, 4);
+            pManager.AddIntegerParameter("Detect Direction Phy", "DDirP", "Subdivide of sense points on radius of sensecone's bottom circle. As integer.", GH_ParamAccess.item, 1);
         }
 
         /// <summary>

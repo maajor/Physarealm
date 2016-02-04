@@ -14,7 +14,7 @@ namespace Physarealm.Emitter
         /// </summary>
         public CurveEmitterComponent()
             : base("Curve Emitter", "CrvEmi",
-                "Description",
+                "This component represent a curve emitter. This shoud be connected into Core component",
                 null, "63B3C8C7-B14B-4D7A-9BC3-FBF408F0D8ED")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Emitter
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curve", "Crv", "curve emitter", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Curve", "Crv", "A curve or a list of curve that emit agents.", GH_ParamAccess.list);
         }
 
         /// <summary>

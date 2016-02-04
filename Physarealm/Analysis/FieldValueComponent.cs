@@ -14,7 +14,7 @@ namespace Physarealm.Analysis
         /// </summary>
         public FieldValueComponent()
             : base("Field Value", "FV",
-                "Description",
+                "This component gives all chemoattractor values at each field points.",
                 null, "7963C564-60CC-4E2D-94F5-D48D8CBBD428")
         {
         }
@@ -32,7 +32,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("Values", "V", "Values", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Values", "V", "Chemoattractor Values", GH_ParamAccess.list);
         }
 
         /// <summary>

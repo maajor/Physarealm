@@ -14,7 +14,7 @@ namespace Physarealm.Food
         /// </summary>
         public PointFoodComponent()
             : base("Points Food", "PtsF",
-                "Description"
+                "Agents will seek foods. This shoud be connected into Core component."
                 , null, "A365E1B3-4149-4C20-B6B2-47A356D6D7D1")
         {
         }
@@ -24,7 +24,7 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Points", "Pts", "Point food", GH_ParamAccess.list);
+            pManager.AddPointParameter("Points", "Pts", "A list of points represent food locations", GH_ParamAccess.list);
         }
 
         /// <summary>

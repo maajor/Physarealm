@@ -15,7 +15,7 @@ namespace Physarealm.Analysis
         /// </summary>
         public PopulationVelocityComponent()
             : base("Population Velocity", "PopVel",
-                "Population Velocity",
+                "This component give velocity of each agents.",
                 null, "04895848-99AD-46AD-93D2-0B64E5382ACF")
         {
         }
@@ -33,7 +33,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddVectorParameter("Velocity", "Vel", "Velocity", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Velocities", "Vel", "Velocities as Vector3d", GH_ParamAccess.list);
         }
 
         protected override bool GetInputs(IGH_DataAccess da)
@@ -50,7 +50,7 @@ namespace Physarealm.Analysis
             if (!GetInputs(da)) return;
             vel = new List<Vector3d>();
             foreach (Amoeba amo in p.population)
-                vel.Add(amo.uv_orientation);
+                vel.Add(amo.orientation);
 
             SetOutputs(da);
         }

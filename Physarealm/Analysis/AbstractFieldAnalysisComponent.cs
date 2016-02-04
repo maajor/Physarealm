@@ -27,7 +27,7 @@ namespace Physarealm.Analysis
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Field", "F", "Field", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Field", "F", "This should be connected with 'ChemoAttractor Field' output of Core component", GH_ParamAccess.item);
         }
     }
 }

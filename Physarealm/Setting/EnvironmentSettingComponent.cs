@@ -20,8 +20,8 @@ namespace Physarealm.Setting
         /// Initializes a new instance of the DivAndDieSetting class.
         /// </summary>
         public EnvironmentSettingComponent()
-            : base("Environment Setting", "EnvSetting",
-                "Description",
+            : base("Environment Setting", "EnvSet",
+                "Environment Setting",
                 null, "2F3156E2-F636-43D2-B06F-00A7D495CA9D")
         {
         }
@@ -31,14 +31,14 @@ namespace Physarealm.Setting
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("possibility changing direction", "pcd", "possibility changing direction", GH_ParamAccess.item, 0.1);
-            pManager.AddNumberParameter("verticle guide factor", "vgf", "verticle guide factor", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("division detect radius", "dvr", "division detect radius", GH_ParamAccess.item, 3);
-            pManager.AddIntegerParameter("division min", "dvmin", "division if neighborhood agents count above", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("division max", "dvmax", "division if neighborhood agents count below", GH_ParamAccess.item, 10);
-            pManager.AddIntegerParameter("death detect radius", "der", "death detect radius", GH_ParamAccess.item, 2);
-            pManager.AddIntegerParameter("death min", "demin", "death if neighborhood agents count below", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("death max", "demax", "death if neighborhood agents count above", GH_ParamAccess.item, 123);
+            pManager.AddNumberParameter("Possibility Changing Direction", "PCD", "Possibility of agents to change direction. As number range: 0~1", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("Verticle Guide Factor", "VGF", "A factor to make agent move vertically than horizontally. 0 for no guide. The bigger the value, more verticelly agents will move. As number above 0.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Division Detect Radius", "DVR", "Division detect radius. As integer", GH_ParamAccess.item, 2);
+            pManager.AddIntegerParameter("Division Min", "DvMin", "Divide if neighborhood agents count above or equal. As integer.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Division Max", "DvMax", "Divide if neighborhood agents count below.  As integer, below (DVR*2 + 1)^3 for brep env and below (DVR*2 + 1)^2 for srf env.", GH_ParamAccess.item, 10);
+            pManager.AddIntegerParameter("Death Detect Radius", "DER", "Death detect radius", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("Death Min", "DeMin", "Die if neighborhood agents count below or equal. As integer.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Death Max", "DeMax", "Die if neighborhood agents count above. As integer, below (DVR*2 + 1)^3 for brep env and below (DVR*2 + 1)^2 for srf env.", GH_ParamAccess.item, 123);
         }
 
         /// <summary>

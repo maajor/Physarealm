@@ -15,7 +15,7 @@ namespace Physarealm.Setting
         /// </summary>
         public GuideSettingComponent()
             : base("Guide Setting", "GuiSet",
-                "Description",
+                "Guide Setting",
                 null, "DF4150A8-ED9A-496D-854B-9A877EF41220")
         {
         }
@@ -26,7 +26,7 @@ namespace Physarealm.Setting
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Vertical Guide Factor", "VGF", "Vertical Guide Factor", GH_ParamAccess.item, 0);
-            pManager.AddBooleanParameter("Both Direction or One?", "1or2", "guide agent to up direction or up and down direction", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("Both Direction or One?", "1or2", "Guide agent to up direction or up and down direction, false means only guide to up direction, true means guide to both up and down directions.", GH_ParamAccess.item, true);
         }
 
         /// <summary>

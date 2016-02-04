@@ -26,7 +26,7 @@ namespace Physarealm.Food
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Food", "F", "Food for agent to search", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Food", "F", "Food for agents to search", GH_ParamAccess.item);
         }
 
 
