@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Emitter
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Emitter
         public CurveEmitterComponent()
             : base("Curve Emitter", "CrvEmi",
                 "This component represent a curve emitter. This shoud be connected into Core component",
-                null, "63B3C8C7-B14B-4D7A-9BC3-FBF408F0D8ED")
+                Resources.icon_curve_emitter, "63B3C8C7-B14B-4D7A-9BC3-FBF408F0D8ED")
         {
         }
 

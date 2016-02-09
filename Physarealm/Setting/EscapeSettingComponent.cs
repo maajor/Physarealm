@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public EscapeSettingComponent()
             : base("Escape Setting", "EscSet",
                 "Escape Setting",
-                null, "84457914-DE3F-4D5D-B435-D5950525C142")
+                Resources.icon_escape_setting, "84457914-DE3F-4D5D-B435-D5950525C142")
         {
         }
 

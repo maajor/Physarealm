@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public TrailSettingComponent()
             : base("Trail Setting", "TrSet",
                 "Description",
-                null, "4F7C1186-3185-42B3-881A-82B1D9E0590E")
+                Resources.icon_trail_setting, "4F7C1186-3185-42B3-881A-82B1D9E0590E")
         {
         }
 

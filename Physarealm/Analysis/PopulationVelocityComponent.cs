@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Analysis
 {
@@ -16,7 +17,7 @@ namespace Physarealm.Analysis
         public PopulationVelocityComponent()
             : base("Population Velocity", "PopVel",
                 "This component give velocity of each agents.",
-                null, "04895848-99AD-46AD-93D2-0B64E5382ACF")
+                Resources.icon_population_velocity, "04895848-99AD-46AD-93D2-0B64E5382ACF")
         {
         }
 

@@ -4,6 +4,7 @@ using System.Drawing;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Environment
 {
@@ -19,7 +20,7 @@ namespace Physarealm.Environment
         /// </summary>
         public BoxEnvironmentComponent()
             : base("Box Environment", "BoxEnvir",
-                "A box environment, agents run on uv-space", null
+                "A box environment, agents run on uv-space", Resources.icon_box_environment
                 , "CBE2B1BA-1C6E-473E-8D4A-F724290A9BED")
         {
         }

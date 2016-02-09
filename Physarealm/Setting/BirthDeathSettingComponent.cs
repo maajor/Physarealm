@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -20,7 +21,7 @@ namespace Physarealm.Setting
         public BirthDeathSettingComponent()
             : base("Birth Death Setting", "BDSet",
                 "Birth and death condition of agents. Program examine agents at present in a near radius. For example, for a brep environment, radius = 1 means program checks nearby 3*3*3 = 27 space with the examinied agent at center. Radius = 2 means 5*5*5 = 125. But for surface environment, radius = 1 means 3*3 = 9, etc.",
-                null, "02BFACA5-88DA-4351-9E0C-3B5EC4863CE9")
+                Resources.icon_birth_death_setting, "02BFACA5-88DA-4351-9E0C-3B5EC4863CE9")
         {
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using Physarealm.Environment;
+using Physarealm.Properties;
 namespace Physarealm.Analysis
 {
     public class FieldValueComponent :AbstractFieldAnalysisComponent
@@ -15,7 +16,7 @@ namespace Physarealm.Analysis
         public FieldValueComponent()
             : base("Field Value", "FV",
                 "This component gives all chemoattractor values at each field points.",
-                null, "7963C564-60CC-4E2D-94F5-D48D8CBBD428")
+                Resources.icon_field_value, "7963C564-60CC-4E2D-94F5-D48D8CBBD428")
         {
         }
 

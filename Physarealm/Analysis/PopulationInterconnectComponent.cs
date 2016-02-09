@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using Physarealm.Environment;
+using Physarealm.Properties;
 
 namespace Physarealm.Analysis
 {
@@ -19,7 +20,7 @@ namespace Physarealm.Analysis
         public PopulationInterconnectComponent()
             : base("Population Interconnect", "PopInter",
                 "This componets connect pairs of agents locations below a certain distance.",
-               null, "51167445-C5B7-42A4-AE33-FBA3C575C993")
+               Resources.icon_population_interconnect, "51167445-C5B7-42A4-AE33-FBA3C575C993")
         {
         }
 

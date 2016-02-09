@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public PcdSettingComponent()
             : base("Pcd Setting", "PcdSet",
                 "Pcd Setting",
-                null, "C64A5382-EFB1-4AC4-A184-C0EAA351356A")
+                Resources.icon_pcd_setting, "C64A5382-EFB1-4AC4-A184-C0EAA351356A")
         {
         }
 

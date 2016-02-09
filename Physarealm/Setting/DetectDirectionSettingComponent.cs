@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -16,7 +17,7 @@ namespace Physarealm.Setting
         public DetectDirectionSettingComponent()
             : base("Detect Direction Setting", "DDirSets",
                 "Detect Direction Setting",
-                null, "D865B6E0-E0F3-4BB6-A00C-9DAA72A000E0")
+                Resources.icon_detect_direction_setting, "D865B6E0-E0F3-4BB6-A00C-9DAA72A000E0")
         {
         }
 

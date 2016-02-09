@@ -104,6 +104,11 @@
     <Compile Include="PhysarumLib\Physarum.cs" />
     <Compile Include="PhysarumLib\PhysaSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Setting\AbstractSettingComponent.cs" />
     <Compile Include="Setting\AbstractSettingType.cs" />
     <Compile Include="Setting\AgentSettingComponent.cs" />
@@ -139,10 +144,45 @@
     <Compile Include="Util\Libutility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resource\BoxEnvironmentComponent.PNG" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <Content Include="Resource\icon_birth_death_setting.png" />
+    <Content Include="Resource\icon_border_setting.png" />
+    <Content Include="Resource\icon_box_environment.png" />
+    <Content Include="Resource\icon_brep_environment.png" />
+    <Content Include="Resource\icon_core.png" />
+    <Content Include="Resource\icon_curve_emitter.png" />
+    <Content Include="Resource\icon_death_distance_setting.png" />
+    <Content Include="Resource\icon_detect_direction setting.png" />
+    <Content Include="Resource\icon_escape_setting.png" />
+    <Content Include="Resource\icon_field_analysis_mesh.png" />
+    <Content Include="Resource\icon_field_interconnect.png" />
+    <Content Include="Resource\icon_field_points.png" />
+    <Content Include="Resource\icon_field_value.png" />
+    <Content Include="Resource\icon_guide_setting.png" />
+    <Content Include="Resource\icon_initial_population_setting.png" />
+    <Content Include="Resource\icon_initial_velocity_setting.png" />
+    <Content Include="Resource\icon_pcd_setting.png" />
+    <Content Include="Resource\icon_points_emitter.png" />
+    <Content Include="Resource\icon_points_food.png" />
+    <Content Include="Resource\icon_population_interconnect.png" />
+    <Content Include="Resource\icon_population_location.png" />
+    <Content Include="Resource\icon_population_trail.png" />
+    <Content Include="Resource\icon_population_velocity.png" />
+    <Content Include="Resource\icon_sensor_setting.png" />
+    <Content Include="Resource\icon_speed_setting.png" />
+    <Content Include="Resource\icon_surface_emitter.png" />
+    <Content Include="Resource\icon_surface_environment.png" />
+    <Content Include="Resource\icon_surface_food.png" />
+    <Content Include="Resource\icon_test_frequency_setting.png" />
+    <Content Include="Resource\icon_trail_setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

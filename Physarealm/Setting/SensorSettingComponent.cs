@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -17,7 +18,7 @@ namespace Physarealm.Setting
         public SensorSettingComponent()
             : base("Sensor Setting", "SenSet",
                 "Sensor Setting",
-                null, "9CCAE233-00BA-416D-8501-542E6B843CE4")
+                Resources.icon_sensor_setting, "9CCAE233-00BA-416D-8501-542E6B843CE4")
         {
         }
 

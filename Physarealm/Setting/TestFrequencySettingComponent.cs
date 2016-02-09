@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -16,7 +17,7 @@ namespace Physarealm.Setting
         public TestFrequencySettingComponent()
             : base("Test Frequency Setting", "TFSet",
                 "Test Frequency Setting",
-                null, "D09089B0-9926-440D-86F4-F8E4D2AC07C7")
+                Resources.icon_test_frequency_setting, "D09089B0-9926-440D-86F4-F8E4D2AC07C7")
         {
         }
 

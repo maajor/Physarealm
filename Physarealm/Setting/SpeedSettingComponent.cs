@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public SpeedSettingComponent()
             : base("Speed Setting", "SpSet",
                 "Description",
-                null, "5C38034E-9302-4A39-B67D-BB7B1AE388AF")
+                Resources.icon_speed_setting, "5C38034E-9302-4A39-B67D-BB7B1AE388AF")
         {
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public DeathDistanceSettingComponent()
             : base("Death Distance Setting", "DDSet",
                 "Death Distance Setting",
-                null, "44522DCA-970C-4693-9C99-B348533BD9F8")
+                Resources.icon_death_distance_setting, "44522DCA-970C-4693-9C99-B348533BD9F8")
         {
         }
 

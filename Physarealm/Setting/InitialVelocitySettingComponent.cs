@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public InitialVelocitySettingComponent()
             : base("Initial Velocity Setting", "IniOSet",
                 "Initial velocity of agents.",
-                null, "727459EA-B6C2-4576-B222-21893324D2D9")
+                Resources.icon_initial_velocity_setting, "727459EA-B6C2-4576-B222-21893324D2D9")
         {
         }
 

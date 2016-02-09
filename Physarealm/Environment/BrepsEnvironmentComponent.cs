@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Environment
 {
@@ -20,7 +21,7 @@ namespace Physarealm.Environment
         public BrepsEnvironmentComponent()
             : base("Brep Environment", "BrepEnvir",
                 "A brep environment, agents run on uv-space",
-                null, "5BA44E57-DDE9-44B9-A990-9CD35445AB3F")
+                Resources.icon_brep_environment, "5BA44E57-DDE9-44B9-A990-9CD35445AB3F")
         {
         }
 

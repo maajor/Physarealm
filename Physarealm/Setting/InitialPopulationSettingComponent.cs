@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public InitialPopulationSettingComponent()
             : base("Initial Population Setting", "InPSet",
                 "Initial Population Setting",
-                null, "2B7F549B-E39E-4E8F-8976-5A60EFB340AB")
+                Resources.icon_initial_population_setting,"2B7F549B-E39E-4E8F-8976-5A60EFB340AB")
         {
         }
 

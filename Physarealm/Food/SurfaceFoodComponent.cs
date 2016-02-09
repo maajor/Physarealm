@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Food
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Food
         public SurfaceFoodComponent()
             : base("Surface Food", "SrfF",
                 "Agents will seek foods. This shoud be connected into Core component.",
-                null, "413990CA-FCD6-4979-8A8A-A299811EB7B4")
+                Resources.icon_surface_food, "413990CA-FCD6-4979-8A8A-A299811EB7B4")
         {
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Analysis
 {
@@ -16,7 +17,7 @@ namespace Physarealm.Analysis
         public PopulationLocationsComponent()
             : base("Population Locations", "PopLoc",
                 "This component gives all agents locations in population.",
-                null, "25EBEFEA-5C51-448F-8D8B-222D424ED2BD")
+                Resources.icon_population_location, "25EBEFEA-5C51-448F-8D8B-222D424ED2BD")
         {
         }
 

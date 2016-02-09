@@ -8,6 +8,7 @@ using Physarealm.Emitter;
 using Physarealm.Environment;
 using Physarealm.Food;
 using Physarealm.Setting;
+using Physarealm.Properties;
 
 namespace Physarealm
 {
@@ -30,7 +31,7 @@ namespace Physarealm
         public PhysarealmComponent()
             : base("Physarealm", "PRealm",
                 "agent-based modelling of physarum polycephalum",
-                "Physarealm", "Core", null, "94F0DDD9-40C6-4F07-B6A8-BB33A6B5C978")
+                "Physarealm", "Core", Resources.icon_core, "94F0DDD9-40C6-4F07-B6A8-BB33A6B5C978")
         {
         }
 

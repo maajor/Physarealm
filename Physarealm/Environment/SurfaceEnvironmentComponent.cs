@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Environment
 {
@@ -19,7 +20,7 @@ namespace Physarealm.Environment
         public SurfaceEnvironmentComponent()
             : base("Surface Environment", "SurfEnv",
                 "A surface environment, agents run on uv-space"
-                , null, "68B8A101-5678-4406-AAE0-6D702C9930BA")
+                , Resources.icon_surface_environment, "68B8A101-5678-4406-AAE0-6D702C9930BA")
         {
         }
 

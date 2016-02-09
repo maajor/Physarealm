@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Analysis
 {
@@ -19,7 +20,7 @@ namespace Physarealm.Analysis
         public FieldInterconnectComponent()
             : base("Field Interconnect", "FInter",
                 "This component output some lines which connect field points which are at a close level of chemoattractor",
-                null, "6833EB95-06B4-43B3-B53A-A59AAE2D8149")
+                Resources.icon_field_interconnect, "6833EB95-06B4-43B3-B53A-A59AAE2D8149")
         {
         }
 

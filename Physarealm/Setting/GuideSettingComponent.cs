@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -16,7 +17,7 @@ namespace Physarealm.Setting
         public GuideSettingComponent()
             : base("Guide Setting", "GuiSet",
                 "Guide Setting",
-                null, "DF4150A8-ED9A-496D-854B-9A877EF41220")
+                Resources.icon_guide_setting, "DF4150A8-ED9A-496D-854B-9A877EF41220")
         {
         }
 

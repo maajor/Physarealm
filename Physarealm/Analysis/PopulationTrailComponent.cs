@@ -5,6 +5,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Rhino.Geometry;
 using Grasshopper;
+using Physarealm.Properties;
 
 namespace Physarealm.Analysis
 {
@@ -22,7 +23,7 @@ namespace Physarealm.Analysis
         public PopulationTrailComponent()
             : base("Population Trail", "popTrail",
                 "This component gives trails of each agent.",
-                null, "5CD2F008-2787-4235-8712-6839AEA5BB6D")
+                Resources.icon_population_trail, "5CD2F008-2787-4235-8712-6839AEA5BB6D")
         {
         }
 

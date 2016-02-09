@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Analysis
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Analysis
         public FieldAnalysisMeshComponent()
             : base("Field Analysis Mesh", "FAMesh",
                 "when this component applies to brep or box environment, it display a pseudo-color mesh illustrating chemoattrator(co) value field density. Higher density is reprented by red while lower density is black.",
-                null, "E1068216-44E9-4A4A-861E-E978A60378B1")
+                Resources.icon_field_analysis_mesh, "E1068216-44E9-4A4A-861E-E978A60378B1")
         {
         }
 

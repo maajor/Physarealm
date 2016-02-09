@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Emitter
 {
@@ -16,7 +17,7 @@ namespace Physarealm.Emitter
         public PointEmitterComponent()
             : base("Point Emitter", "PtEmi",
                 "This component represent a point emitter. This shoud be connected into Core component",
-                null, "05CBA783-3A74-4253-B8C3-B894D9715A01")
+                Resources.icon_points_emitter, "05CBA783-3A74-4253-B8C3-B894D9715A01")
         {
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Emitter
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Emitter
         public SurfaceEmitterComponent()
             : base("Surface Emitter", "SrfEmi",
                 "This component represent a surface emitter. This shoud be connected into Core component",
-                null, "47075063-D9D7-4F6E-9A0C-1173884F9376")
+                Resources.icon_surface_emitter, "47075063-D9D7-4F6E-9A0C-1173884F9376")
         {
         }
 

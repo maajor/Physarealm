@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Physarealm.Properties;
 
 namespace Physarealm.Setting
 {
@@ -15,7 +16,7 @@ namespace Physarealm.Setting
         public BorderSettingComponent()
             : base("Border Setting", "BdSet",
                 "Setting for border type.",
-                null, "5972853B-7C9C-4818-AFDE-DC7D5A2DD7E6")
+                Resources.icon_border_setting, "5972853B-7C9C-4818-AFDE-DC7D5A2DD7E6")
         {
         }
 
