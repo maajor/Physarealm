@@ -195,7 +195,7 @@
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
-Copy /Y "$(TargetDir)$(ProjectName).gha" "C:\Users\walter\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+Copy /Y "$(TargetDir)$(ProjectName).gha" "C:\Users\Maajor\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">

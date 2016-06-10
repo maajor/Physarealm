@@ -534,25 +534,19 @@ namespace Physarealm.Environment
                         thisCrv.Extend(w_interval * 10, w_interval * 10);
                         Curve crv = thisCrv.ToNurbsCurve();
                         Rhino.Geometry.Intersect.Intersection.CurveBrep(crv, br, 1, out intersectCrv, out intersectPt);
-                        if (intersectPt == null)
-                            continue;
                         int len = intersectPt.Length;
-                        if (len <= 1)
+                        if (intersectPt == null || len <= 1)
                             continue;
-                        Point3d ptS = intersectPt[0];
-                        Point3d ptE = intersectPt[1];
-                        if (ptS.Z > ptE.Z)
+                        Point3d[] ptOrdered = intersectPt.OrderBy(pt => pt.Z).ToArray();
+                        for (int ptid = 0; ptid < len; ptid += 2)
                         {
-                            double swap = ptS.Z;
-                            ptS.Z = ptE.Z;
-                            ptE.Z = swap;
+                            for (int k = getWIndex(ptOrdered[ptid].Z); k < getWIndex(ptOrdered[ptid + 1].Z); k++)
+                            {
+                                particle_ids[i, j, k] = -2;
+                                griddata[i, j, k] = 2;
+                            }
                         }
-
-                        for (int k = getWIndex(ptS.Z); k < getWIndex(ptE.Z); k++)
-                        {
-                            particle_ids[i, j, k] = -2;
-                            griddata[i, j, k] = 2;
-                        }
+   
                     }
                 }
             });
@@ -600,26 +594,26 @@ namespace Physarealm.Environment
                         Line thisCrv = new Line(getPositionByIndex(i, j, 0), getPositionByIndex(i, j, w - 1));
                         thisCrv.Extend(w_interval * 10, w_interval * 10);
                         Curve crv = thisCrv.ToNurbsCurve();
-                        Rhino.Geometry.Intersect.Intersection.CurveBrep(crv, br, 1, out intersectCrv, out intersectPt);
-                        if (intersectPt == null)
-                            continue;
+                        Rhino.Geometry.Intersect.Intersection.CurveBrep(crv, br, 0.01, out intersectCrv, out intersectPt);
                         int len = intersectPt.Length;
-                        if (len <= 1)
+                        if (intersectPt == null || len <= 1)
                             continue;
-                        Point3d ptS = intersectPt[0];
-                        Point3d ptE = intersectPt[1];
-                        if (ptS.Z > ptE.Z)
+                        Point3d[] ptOrdered = intersectPt.OrderBy(pt=>pt.Z).ToArray();
+                        for (int ptid = 0; ptid < len - 1; ptid += 2)
                         {
-                            double swap = ptS.Z;
-                            ptS.Z = ptE.Z;
-                            ptE.Z = swap;
+                            for (int k = getWIndex(ptOrdered[ptid].Z); k < getWIndex(ptOrdered[ptid + 1].Z); k++)
+                            {
+                                particle_ids[i, j, k] = -1;
+                                griddata[i, j, k] = 0;
+                            }
                         }
-                        
-                        for (int k = getWIndex( ptS.Z); k < getWIndex(ptE.Z); k++)
+                        /*
+                        for (int k = getWIndex(ptS.Z); k < getWIndex(ptE.Z); k++)
                         {
                             particle_ids[i, j, k] = -1;
                             griddata[i, j, k] = 0;
                         }
+                          */
                     }
                 }
             });
@@ -687,7 +681,9 @@ namespace Physarealm.Environment
                     {
                         //ret[item] = trail[i, j, k];
                         //item++;
-                        ret.Add(trail[i, j, k]);
+                        //ret.Add(trail[i, j, k]);
+                        //debugger
+                        ret.Add(griddata[i, j, k]);
                     }
                 }
             }
